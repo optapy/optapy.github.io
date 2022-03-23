@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
+<loc>https://www.optapy.org/docs/optapy/latest/optapy-configuration/optapy-configuration.html</loc>
+<lastmod>2022-03-23T14:00:01.603Z</lastmod>
+</url>
+<url>
 <loc>https://www.optapy.org/docs/optapy/latest/optapy-introduction/optapy-introduction.html</loc>
-<lastmod>2022-03-23T13:10:59.832Z</lastmod>
+<lastmod>2022-03-23T14:00:01.603Z</lastmod>
 </url>
 <url>
 <loc>https://www.optapy.org/docs/optapy/latest/quickstart/quickstart.html</loc>
-<lastmod>2022-03-23T13:10:59.832Z</lastmod>
+<lastmod>2022-03-23T14:00:01.603Z</lastmod>
 </url>
 </urlset>
