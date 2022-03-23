@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Quickstart :: Documentation</title>
+    <link rel="canonical" href="https://www.optapy.org/docs/optapy/latest/quickstart/quickstart.html">
+    <meta name="generator" content="Antora 3.0.1">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+<link rel="stylesheet" href="../../../_/css/search.css">
+<link rel="stylesheet" href="../../../_/css/menu.css"><!-- Adobe Analytics for Red Hat - DPAL (DTM Property Auto-Loader) - part 1/2 -->
+<script id="dpal" src="https://www.redhat.com/dtm.js" type="text/javascript"></script>
+<!-- Google Analytics for kie team: Global site tag (gtag.js) -->
+<script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <div class="navbar-item">
+        <a href="../../../_/../../">
+          <img src="../../../_/img/optaPyLogoDarkBackground200px.png" alt="OptaPy logo"/>
+        </a>
+        <a class="navbar-item" href="https://www.optapy.org/docs">Documentation</a>
+      </div>
+      <div class="navbar-item hide-for-print">
+        <input id="search-input" type="text" placeholder="Search docs">
+      </div>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://www.optapy.org">Archive</a>
+        <div class="navbar-item">
+          <a class="navbar-item small-item" href="https://github.com/optapy/optapy" title="Follow OptaPy on GitHub"><div class="github-icon"></div></a>
+          <a class="navbar-item small-item" href="https://twitter.com/OptaPlanner" target="_blank" title="Follow OptaPlanner on Twitter"><img alt="T" src="../../../_/img/twitterLogo.png"></a>
+          <a class="navbar-item small-item" href="https://www.linkedin.com/showcase/optaplanner" target="_blank" title="Follow OptaPlanner on LinkedIn"><img alt="L" src="../../../_/img/linkedInLogo.png"></a>
+          <a class="navbar-item small-item" href="https://www.facebook.com/OptaPlanner" target="_blank" title="Follow OptaPlanner on Facebook"><img alt="F" src="../../../_/img/facebookLogo.png"></a>
+          <a class="navbar-item small-item" href="https://www.youtube.com/channel/UCcpkOKpujFlM67D2h0RdaeQ" target="_blank" title="OptaPlanner YouTube channel"><img alt="YT" src="../../../_/img/youtubeLogo.png" style="height: 16px"></a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="optapy" data-version="latest">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">OptaPy User Guide 8.17.0a0</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../optapy-introduction/optapy-introduction.html">OptaPy Introduction</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="quickstart.html">Quickstart</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">OptaPy User Guide 8.17.0a0</span>
+    <span class="version">latest</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">OptaPy User Guide 8.17.0a0</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">latest</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../optapy-introduction/optapy-introduction.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">OptaPy User Guide 8.17.0a0</a></li>
+    <li><a href="quickstart.html">Quickstart</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/optapy/optapy/edit/main/optapy-docs/src/modules/ROOT/pages/quickstart/quickstart.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Quickstart</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This guide walks you through the process of creating a simple Python application with OptaPy&#8217;s constraint solving Artificial Intelligence (AI).
+<strong>Feel free to follow along in the <a href="https://mybinder.org/v2/gh/optapy/optapy/main?filepath=index.ipynb">OptaPy Jupyter notebook</a>.</strong></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_what_you_will_build"><a class="anchor" href="#_what_you_will_build"></a>1. What you will build</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You will build a command-line application that optimizes a school timetable for students and teachers:</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../_images/quickstart/schoolTimetablingInputOutput.png" alt="Assign rooms and timeslots to lessons using OptaPy"></span></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_setup"><a class="anchor" href="#_setup"></a>2. Setup</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create a new Python virtual environment.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">python3 -m venv optapy-env</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Activate the Python virtual environment.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">source optapy-env/bin/activate</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Use pip to install OptaPy.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">python3 -m pip install optapy</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_school_timetabling"><a class="anchor" href="#_school_timetabling"></a>3. School timetabling</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In school timetabling, we need to assign a list of lessons to timeslots and rooms.
+Additionally, there are some constraints:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A room can have at most one lesson at the same time.</p>
+</li>
+<li>
+<p>A teacher can teach at most one lesson at the same time.</p>
+</li>
+<li>
+<p>A student can attend at most one lesson at the same time.</p>
+</li>
+<li>
+<p>A teacher prefers to teach all lessons in the same room.</p>
+</li>
+<li>
+<p>A teacher prefers to teach sequential lessons and dislikes gaps between lessons.</p>
+</li>
+<li>
+<p>A student dislikes sequential lessons on the same subject.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_modelling_the_domain"><a class="anchor" href="#_modelling_the_domain"></a>4. Modelling the domain</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Objects used in constraints are known as the domain of the problem. In school timetabling, the domain consist of lessons, rooms and timeslots.</p>
+</div>
+<div class="sect2">
+<h3 id="_problem_facts"><a class="anchor" href="#_problem_facts"></a>4.1. Problem Facts</h3>
+<div class="paragraph">
+<p>Problem facts do not change throughout solving. Rooms and timeslots are examples of problem facts. Create a <code>domain.py</code> file with the following code to create the <code>Room</code> class:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">from optapy import problem_fact, planning_id
+
+@problem_fact
+class Room:
+    def __init__(self, id, name):
+        self.id = id
+        self.name = name
+
+    @planning_id
+    def get_id(self):
+        return self.id
+
+    def __str__(self):
+        return f"Room(id={self.id}, name={self.name})"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>@problem_fact</code> decorator registers the class as a problem fact, which allows it to be used in constraints.
+The <code>@planning_id</code> decorator registers <code>getId</code> as the planning ID for <code>Room</code>. OptaPy requires a planning ID for some functionality, such as generating unique pairs. The planning ID should be unique for instances of the same class.</p>
+</div>
+<div class="paragraph">
+<p>Now, in <code>domain.py</code>, let&#8217;s add the following code to create the <code>Timeslot</code> class:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">@problem_fact
+class Timeslot:
+    def __init__(self, id, day_of_week, start_time, end_time):
+        self.id = id
+        self.day_of_week = day_of_week
+        self.start_time = start_time
+        self.end_time = end_time
+
+    @planning_id
+    def get_id(self):
+        return self.id
+
+    def __str__(self):
+        return (
+                f"Timeslot("
+                f"id={self.id}, "
+                f"day_of_week={self.day_of_week}, "
+                f"start_time={self.start_time}, "
+                f"end_time={self.end_time})"
+        )</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_planning_entities"><a class="anchor" href="#_planning_entities"></a>4.2. Planning Entities</h3>
+<div class="paragraph">
+<p>Planning entities change throughout solving. Lesson is a planning entity, since its <code>room</code> and
+<code>timeslot</code> properties change throughout solving. Since the <code>room</code> and <code>timeslot</code> properties change throughout solving, they are known as planning variables. Let&#8217;s add the following code to <code>domain.py</code> to create the <code>Lesson</code> class.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">from optapy import planning_entity, planning_variable
+
+@planning_entity
+class Lesson:
+    def __init__(self, id, subject, teacher, student_group, timeslot=None, room=None):
+        self.id = id
+        self.subject = subject
+        self.teacher = teacher
+        self.student_group = student_group
+        self.timeslot = timeslot
+        self.room = room
+
+    @planning_id
+    def get_id(self):
+        return self.id
+
+    @planning_variable(Timeslot, ["timeslotRange"])
+    def get_timeslot(self):
+        return self.timeslot
+
+    def set_timeslot(self, new_timeslot):
+        self.timeslot = new_timeslot
+
+    @planning_variable(Room, ["roomRange"])
+    def get_room(self):
+        return self.room
+
+    def set_room(self, new_room):
+        self.room = new_room
+
+    def __str__(self):
+        return (
+            f"Lesson("
+            f"id={self.id}, "
+            f"timeslot={self.timeslot}, "
+            f"room={self.room}, "
+            f"teacher={self.teacher}, "
+            f"subject={self.subject}, "
+            f"student_group={self.student_group}"
+            f")"
+        )</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>@planning_entity</code> decorator registers the class as a planning entity, which allows OptaPy to assign its planning variables and for it to be used in constraints.
+The <code>@planning_variable(variable_type, [value_range_provider_refs&#8230;&#8203;])</code> decorator registers a method as the getter of a planning variable.
+The getter must be named <code>get&lt;X&gt;</code> and the setter must be named <code>set&lt;X&gt;</code>.
+The first argument, <code>variable_type</code>, tells OptaPy what type of values OptaPy can assign to this planning variable.
+The second argument, <code>value_range_provider_refs</code>, tells OptaPy what value ranges it takes its values from. We will explain value ranges later in this example.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_constraints"><a class="anchor" href="#_constraints"></a>5. Constraints</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Constraints define the score calculation, or the fitness function, of a planning problem. Each solution of a planning problem is graded with a score. A score represents the quality of a specific solution. The higher the score the better. OptaPy looks for the best solution, which is the solution with the highest score found in the available time. It might or might not be the optimal solution.</p>
+</div>
+<div class="paragraph">
+<p>Because this use case has hard and soft constraints, use the HardSoftScore class to represent the score:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Hard constraints must not be broken. For example: <em>A room can have at most one lesson at the same time</em>.</p>
+</li>
+<li>
+<p>Soft constraints should not be broken. For example: <em>A teacher prefers to teach in a single room</em>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Hard constraints are weighted against other hard constraints. Soft constraints are weighted too, against other soft constraints. Hard constraints always outweigh soft constraints, regardless of their respective weights.</p>
+</div>
+<div class="paragraph">
+<p>To calculate the score, create a constraint provider function in the file <code>constraints.py</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">from domain import Lesson, Room
+from optapy import constraint_provider, get_class
+from optapy.constraint import Joiners, ConstraintFactory
+from optapy.score import HardSoftScore
+
+# Constraint Factory takes Java Classes, not Python Classes
+LessonClass = get_class(Lesson)
+RoomClass = get_class(Room)
+
+@constraint_provider
+def define_constraints(constraint_factory: ConstraintFactory):
+    return [
+        # Hard constraints
+        room_conflict(constraint_factory),
+        teacher_conflict(constraint_factory),
+        student_group_conflict(constraint_factory),
+        # Soft constraints are only implemented in the optapy-quickstarts code
+    ]
+
+def room_conflict(constraint_factory: ConstraintFactory):
+    # A room can accommodate at most one lesson at the same time.
+    return constraint_factory \
+            .forEach(LessonClass) \
+            .join(LessonClass,
+                [
+                    # ... in the same timeslot ...
+                    Joiners.equal(lambda lesson: lesson.timeslot),
+                    # ... in the same room ...
+                    Joiners.equal(lambda lesson: lesson.room),
+                    # ... and the pair is unique (different id, no reverse pairs) ...
+                    Joiners.lessThan(lambda lesson: lesson.id)
+                ]) \
+            .penalize("Room conflict", HardSoftScore.ONE_HARD)
+
+
+def teacher_conflict(constraint_factory: ConstraintFactory):
+    # A teacher can teach at most one lesson at the same time.
+    return constraint_factory \
+                .forEach(LessonClass)\
+                .join(LessonClass,
+                        [
+                            Joiners.equal(lambda lesson: lesson.timeslot),
+                            Joiners.equal(lambda lesson: lesson.teacher),
+                    Joiners.lessThan(lambda lesson: lesson.id)
+                        ]) \
+                .penalize("Teacher conflict", HardSoftScore.ONE_HARD)
+
+def student_group_conflict(constraint_factory: ConstraintFactory):
+    # A student can attend at most one lesson at the same time.
+    return constraint_factory \
+            .forEach(LessonClass) \
+            .join(LessonClass,
+                [
+                    Joiners.equal(lambda lesson: lesson.timeslot),
+                    Joiners.equal(lambda lesson: lesson.student_group),
+                    Joiners.lessThan(lambda lesson: lesson.id)
+                ]) \
+            .penalize("Student group conflict", HardSoftScore.ONE_HARD)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>@constraint_provider</code> decorator allows OptaPy to use a function as a constraint provider.
+The function must take exactly one argument; the passed argument is a <code>ConstraintFactory</code> used for creating constraints.
+For more information, see <a href="https://docs.optaplanner.org/latest/optaplanner-docs/html_single/index.html#constraintStreams">Constraint Streams</a> in the OptaPy documentation.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_gather_the_domain_objects_in_a_planning_solution"><a class="anchor" href="#_gather_the_domain_objects_in_a_planning_solution"></a>6. Gather the domain objects in a planning solution</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A TimeTable class wraps all Timeslot, Room, and Lesson instances of a single data set.
+Furthermore, because it contains all lessons, each with a specific planning variable state, the TimeTable class is a planning solution and has a score:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>If lessons are still unassigned, then it is an <em>uninitialized</em> solution, for example, a solution with the score -4init/0hard/0soft.</p>
+</li>
+<li>
+<p>If it breaks hard constraints, then it is an <em>infeasible</em> solution, for example, a solution with the score -2hard/-3soft.</p>
+</li>
+<li>
+<p>If it adheres to all hard constraints, then it is a <em>feasible</em> solution, for example, a solution with the score 0hard/-7soft.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>In <code>domain.py</code>, add the following code to create the <code>TimeTable</code> class:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">from optapy import planning_solution, planning_entity_collection_property, \
+                   problem_fact_collection_property, \
+                   value_range_provider, planning_score
+from optapy.score import HardSoftScore
+
+def format_list(a_list):
+    return ',\n'.join(map(str, a_list))
+
+@planning_solution
+class TimeTable:
+    def __init__(self, timeslot_list, room_list, lesson_list, score=None):
+        self.timeslot_list = timeslot_list
+        self.room_list = room_list
+        self.lesson_list = lesson_list
+        self.score = score
+
+    @problem_fact_collection_property(Timeslot)
+    @value_range_provider("timeslotRange")
+    def get_timeslot_list(self):
+        return self.timeslot_list
+
+    @problem_fact_collection_property(Room)
+    @value_range_provider("roomRange")
+    def get_room_list(self):
+        return self.room_list
+
+    @planning_entity_collection_property(Lesson)
+    def get_lesson_list(self):
+        return self.lesson_list
+
+    @planning_score(HardSoftScore)
+    def get_score(self):
+        return self.score
+
+    def set_score(self, score):
+        self.score = score
+
+    def __str__(self):
+        return (
+            f"TimeTable("
+            f"timeslot_list={format_list(self.timeslot_list)},\n"
+            f"room_list={format_list(self.room_list)},\n"
+            f"lesson_list={format_list(self.lesson_list)},\n"
+            f"score={str(self.score.toString()) if self.score is not None else 'None'}"
+            f")"
+        )</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>@planning_solution</code> decorator tells OptaPy that the class <code>TimeTable</code> holds the input and output data.
+The <code>@problem_fact_collection_property(fact_type)</code> decorator tells OptaPy the function that provides problem facts.
+The <code>fact_type</code> argument tells OptaPy what type of fact it provides (for instance, Rooms).</p>
+</div>
+<div class="paragraph">
+<p>The <code>@value_range_provider(range_id)</code> decorator tells OptaPy the function that provides a value range, which is used to get possible values of planning variables.
+Its argument, <code>range_id</code> is a string which is used in <code>@planning_variable</code> decorators to link the two (for example, <code>@planning_variable(Room, ['roomRange'])</code> is linked to <code>@value_range_provider('roomRange')</code>.</p>
+</div>
+<div class="paragraph">
+<p>The <code>@planning_entity_collection_property(entity_type)</code> decorator tells OptaPy the function that provides planning entities.
+The <code>entity_type</code> argument tells OptaPy what type of entities it provides (for instance, Lessons).</p>
+</div>
+<div class="paragraph">
+<p>The <code>@planning_score(score_type)</code> decorator tells OptaPy the function that returns the score.
+It must be named <code>get&lt;X&gt;</code> and have a corresponding a setter <code>set&lt;X&gt;</code>.
+The <code>score_type</code> argument tells OptaPy what type of score to use (for instance, <code>HardSoftScore</code>).
+The type should be taken from the <code>optapy.score</code> module.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_solving"><a class="anchor" href="#_solving"></a>7. Solving</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To solve, we first need to create an instance of our problem. Add the following code to <code>domain.py</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">from datetime import time
+
+def generate_problem():
+    timeslot_list = [
+        Timeslot(1, "MONDAY", time(hour=8, minute=30), time(hour=9, minute=30)),
+        Timeslot(2, "MONDAY", time(hour=9, minute=30), time(hour=10, minute=30)),
+        Timeslot(3, "MONDAY", time(hour=10, minute=30), time(hour=11, minute=30)),
+        Timeslot(4, "MONDAY", time(hour=13, minute=30), time(hour=14, minute=30)),
+        Timeslot(5, "MONDAY", time(hour=14, minute=30), time(hour=15, minute=30)),
+        Timeslot(6, "TUESDAY", time(hour=8, minute=30), time(hour=9, minute=30)),
+        Timeslot(7, "TUESDAY", time(hour=9, minute=30), time(hour=10, minute=30)),
+        Timeslot(8, "TUESDAY", time(hour=10, minute=30), time(hour=11, minute=30)),
+        Timeslot(9, "TUESDAY", time(hour=13, minute=30), time(hour=14, minute=30)),
+        Timeslot(10, "TUESDAY", time(hour=14, minute=30), time(hour=15, minute=30)),
+    ]
+    room_list = [
+        Room(1, "Room A"),
+        Room(2, "Room B"),
+        Room(3, "Room C")
+    ]
+    lesson_list = [
+        Lesson(1, "Math", "A. Turing", "9th grade"),
+        Lesson(2, "Math", "A. Turing", "9th grade"),
+        Lesson(3, "Physics", "M. Curie", "9th grade"),
+        Lesson(4, "Chemistry", "M. Curie", "9th grade"),
+        Lesson(5, "Biology", "C. Darwin", "9th grade"),
+        Lesson(6, "History", "I. Jones", "9th grade"),
+        Lesson(7, "English", "I. Jones", "9th grade"),
+        Lesson(8, "English", "I. Jones", "9th grade"),
+        Lesson(9, "Spanish", "P. Cruz", "9th grade"),
+        Lesson(10, "Spanish", "P. Cruz", "9th grade"),
+        Lesson(11, "Math", "A. Turing", "10th grade"),
+        Lesson(12, "Math", "A. Turing", "10th grade"),
+        Lesson(13, "Math", "A. Turing", "10th grade"),
+        Lesson(14, "Physics", "M. Curie", "10th grade"),
+        Lesson(15, "Chemistry", "M. Curie", "10th grade"),
+        Lesson(16, "French", "M. Curie", "10th grade"),
+        Lesson(17, "Geography", "C. Darwin", "10th grade"),
+        Lesson(18, "History", "I. Jones", "10th grade"),
+        Lesson(19, "English", "P. Cruz", "10th grade"),
+        Lesson(20, "Spanish", "P. Cruz", "10th grade"),
+    ]
+    lesson = lesson_list[0]
+    lesson.set_timeslot(timeslot_list[0])
+    lesson.set_room(room_list[0])
+
+    return TimeTable(timeslot_list, room_list, lesson_list)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Next, we need to create a <code>SolverConfig</code>, which tells OptaPy about the problem and what strategies to employ. In <code>main.py</code>, add the following code:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">from domain import Lesson, TimeTable, generate_problem
+from constraints import define_constraints
+from optapy import get_class
+import optapy.config
+from optapy.types import Duration
+
+solver_config = optapy.config.solver.SolverConfig() \
+    .withEntityClasses(get_class(Lesson)) \
+    .withSolutionClass(get_class(TimeTable)) \
+    .withConstraintProviderClass(get_class(define_constraints)) \
+    .withTerminationSpentLimit(Duration.ofSeconds(30))</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For the <code>SolverConfig</code> above, we use the default strategies, use the model we defined above, and set it terminate after 30 seconds.</p>
+</div>
+<div class="paragraph">
+<p>Finally, we pass the <code>SolverConfig</code> and the problem instance to the <code>solve</code> function, which returns the last best solution found. Add the following code to <code>main.py</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">from optapy import solver_factory_create
+
+solution = solver_factory_create(solver_config)\
+    .buildSolver()\
+    .solve(generate_problem())
+print(solution)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The solution returned is a <code>TimeTable</code> instance
+of the best solution found.
+When the solution is formatted into a table, it should look similar to this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">|------------|------------|------------|------------|
+|            | Room A     | Room B     | Room C     |
+|------------|------------|------------|------------|
+| MON 08:30: |            | Math       | History    |
+|            |            | A. Turing  | I. Jones   |
+|            |            | 9th grade  | 10th grade |
+|------------|------------|------------|------------|
+| MON 09:30: |            | Math       | History    |
+|            |            | A. Turing  | I. Jones   |
+|            |            | 10th grade | 9th grade  |
+|------------|------------|------------|------------|
+| MON 10:30: |            | Math       | English    |
+|            |            | A. Turing  | I. Jones   |
+|            |            | 10th grade | 9th grade  |
+|------------|------------|------------|------------|
+| MON 13:30: | Math       | Spanish    |            |
+|            | A. Turing  | P. Cruz    |            |
+|            | 10th grade | 9th grade  |            |
+|------------|------------|------------|------------|
+| MON 14:30: | Math       | English    |            |
+|            | A. Turing  | P. Cruz    |            |
+|            | 9th grade  | 10th grade |            |
+|------------|------------|------------|------------|
+| TUE 08:30: | Physics    | Spanish    |            |
+|            | M. Curie   | P. Cruz    |            |
+|            | 9th grade  | 10th grade |            |
+|------------|------------|------------|------------|
+| TUE 09:30: | Chemistry  |            | English    |
+|            | M. Curie   |            | I. Jones   |
+|            | 10th grade |            | 9th grade  |
+|------------|------------|------------|------------|
+| TUE 10:30: | Physics    | Spanish    |            |
+|            | M. Curie   | P. Cruz    |            |
+|            | 10th grade | 9th grade  |            |
+|------------|------------|------------|------------|
+| TUE 13:30: | French     |            | Biology    |
+|            | M. Curie   |            | C. Darwin  |
+|            | 10th grade |            | 9th grade  |
+|------------|------------|------------|------------|
+| TUE 14:30: | Chemistry  | Geography  |            |
+|            | M. Curie   | C. Darwin  |            |
+|            | 9th grade  | 10th grade |            |
+|------------|------------|------------|------------|</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_run_the_application"><a class="anchor" href="#_run_the_application"></a>8. Run the application</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To run the application, execute the main file.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">python3 main.py</code></pre>
+</div>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script src="../../../_/js/site.js"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+
+<!-- Adobe Analytics for Red Hat - DPAL (DTM Property Auto-Loader) - part 2/2 -->
+<script type="text/javascript">
+    if (("undefined" !== typeof _satellite) && ("function" === typeof _satellite.pageBottom)) {
+        _satellite.pageBottom();
+    }
+</script>  </body>
+</html>
