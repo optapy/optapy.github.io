@@ -65,6 +65,12 @@
   <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="optapy-configuration.html">OptaPy configuration</a>
   </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../score-calculation/score-calculation.html">Score calculation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../constraint-streams/constraint-streams.html">Constraint streams score calculation</a>
+  </li>
 </ul>
   </li>
 </ul>
@@ -598,7 +604,7 @@ For example: in task assignment with too many tasks for the workforce, we would 
 <td class="content">
 <div class="paragraph">
 <p>Constraint Streams filter out planning entities with a <code>None</code> planning variable by default.
-Use <a href="#constraint-streams/constraint-streams.adoc#constraintStreamsForEach" class="xref unresolved">forEachIncludingNullVars()</a> to avoid such unwanted behaviour.</p>
+Use <a href="../constraint-streams/constraint-streams.html#constraintStreamsForEach" class="xref page">forEachIncludingNullVars()</a> to avoid such unwanted behaviour.</p>
 </div>
 </td>
 </tr>
@@ -1296,7 +1302,7 @@ It is ignored on parent classes or subclasses without that decorator.</p>
 <p>A <code>@planning_solution</code> class requires a score property (or field), which is annotated with a <code>@planning_score</code> annotation.
 The score property is <code>None</code> if the score hasn&#8217;t been calculated yet.
 The <code>score</code> property is typed to the specific <code>Score</code> implementation of your use case.
-For example, <code>NQueens</code> uses a <a href="#score-calculation/score-calculation.adoc#simpleScore" class="xref unresolved">SimpleScore</a>:</p>
+For example, <code>NQueens</code> uses a <a href="../score-calculation/score-calculation.html#simpleScore" class="xref page">SimpleScore</a>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1317,7 +1323,7 @@ class NQueens:
 </div>
 </div>
 <div class="paragraph">
-<p>Most use cases use a <a href="#score-calculation/score-calculation.adoc#hardSoftScore" class="xref unresolved">HardSoftScore</a> instead:</p>
+<p>Most use cases use a <a href="../score-calculation/score-calculation.html#hardSoftScore" class="xref page">HardSoftScore</a> instead:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1335,13 +1341,13 @@ class CloudBalance:
 </div>
 </div>
 <div class="paragraph">
-<p>Some use cases use <a href="#score-calculation/score-calculation.adoc#scoreType" class="xref unresolved">other score types</a>.</p>
+<p>Some use cases use <a href="../score-calculation/score-calculation.html#scoreType" class="xref page">other score types</a>.</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="problemFacts"><a class="anchor" href="#problemFacts"></a>3.5.5. Problem facts of a solution (<code>@problem_fact_collection_property</code>)</h4>
 <div class="paragraph">
-<p>For <a href="#constraint-streams/constraint-streams.adoc#constraintStreams" class="xref unresolved">Constraint Streams score calculation</a>,
+<p>For <a href="../constraint-streams/constraint-streams.html#constraintStreams" class="xref page">Constraint Streams score calculation</a>,
 OptaPlanner needs to extract the problem fact instances from the solution instance.
 It gets those collection(s) by calling every method (or field) that is annotated with <code>@problem_fact_collection_property</code>.
 All objects returned by those methods are available to use by Constraint Streams.
@@ -1882,38 +1888,17 @@ INFO  Solving ended: time spent (24), best score (0), score calculation speed (7
 <p>All time spent values are in milliseconds.</p>
 </div>
 <div class="paragraph">
-<p>Configure the logging level by explicitly calling <code>optapy.init</code>:</p>
+<p>Configure the logging level by explicitly calling <code>logging.getLogger('optapy').setLevel(logging.LEVEL)</code>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-python hljs" data-lang="python">from optapy import init as optapy_init
+<pre class="highlightjs highlight nowrap"><code class="language-python hljs" data-lang="python">import logging
 
-optapy_init(log_level='TRACE')</code></pre>
+logging.getLogger('optapy').setLevel(logging.DEBUG)</code></pre>
 </div>
 </div>
-<div class="admonitionblock important">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-important" title="Important"></i>
-</td>
-<td class="content">
 <div class="paragraph">
-<p>The call to <code>optapy.init</code> must happen BEFORE any imports from
-<code>optapy.types</code>, <code>optapy.score</code>, <code>optapy.config</code>, <code>optapy.constraint</code>, and before any decorators from <code>optapy</code> are used.
-Importing from <code>optapy.types</code>, <code>optapy.score</code>, <code>optapy.config</code>, <code>optapy.constraint</code> or using a decorator automatically starts the JVM that OptaPlanner runs on. For example, this will not work:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-python hljs" data-lang="python">from optapy import init as optapy_init
-import optapy.config
-
-optapy_init(log_level='TRACE')</code></pre>
-</div>
-</div>
-</td>
-</tr>
-</table>
+<p>By default, <code>INFO</code> logging is used.</p>
 </div>
 </div>
 <div class="sect2">

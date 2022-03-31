@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
+<loc>https://www.optapy.org/docs/optapy/latest/constraint-streams/constraint-streams.html</loc>
+<lastmod>2022-03-31T17:49:58.902Z</lastmod>
+</url>
+<url>
 <loc>https://www.optapy.org/docs/optapy/latest/optapy-configuration/optapy-configuration.html</loc>
-<lastmod>2022-03-29T13:14:04.797Z</lastmod>
+<lastmod>2022-03-31T17:49:58.902Z</lastmod>
 </url>
 <url>
 <loc>https://www.optapy.org/docs/optapy/latest/optapy-introduction/optapy-introduction.html</loc>
-<lastmod>2022-03-29T13:14:04.797Z</lastmod>
+<lastmod>2022-03-31T17:49:58.902Z</lastmod>
 </url>
 <url>
 <loc>https://www.optapy.org/docs/optapy/latest/quickstart/quickstart.html</loc>
-<lastmod>2022-03-29T13:14:04.797Z</lastmod>
+<lastmod>2022-03-31T17:49:58.902Z</lastmod>
+</url>
+<url>
+<loc>https://www.optapy.org/docs/optapy/latest/score-calculation/score-calculation.html</loc>
+<lastmod>2022-03-31T17:49:58.902Z</lastmod>
 </url>
 </urlset>

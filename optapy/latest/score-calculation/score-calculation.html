@@ -1,0 +1,1527 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Score calculation :: Documentation</title>
+    <link rel="canonical" href="https://www.optapy.org/docs/optapy/latest/score-calculation/score-calculation.html">
+    <meta name="generator" content="Antora 3.0.1">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+<link rel="stylesheet" href="../../../_/css/search.css">
+<link rel="stylesheet" href="../../../_/css/menu.css"><!-- Adobe Analytics for Red Hat - DPAL (DTM Property Auto-Loader) - part 1/2 -->
+<script id="dpal" src="https://www.redhat.com/dtm.js" type="text/javascript"></script>
+<!-- Google Analytics for kie team: Global site tag (gtag.js) -->
+<script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <div class="navbar-item">
+        <a href="../../../_/../../">
+          <img src="../../../_/img/optaPyLogoDarkBackground200px.png" alt="OptaPy logo"/>
+        </a>
+        <a class="navbar-item" href="https://www.optapy.org/docs">Documentation</a>
+      </div>
+      <div class="navbar-item hide-for-print">
+        <input id="search-input" type="text" placeholder="Search docs">
+      </div>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://www.optapy.org">Archive</a>
+        <div class="navbar-item">
+          <a class="navbar-item small-item" href="https://github.com/optapy/optapy" title="Follow OptaPy on GitHub"><div class="github-icon"></div></a>
+          <a class="navbar-item small-item" href="https://twitter.com/OptaPlanner" target="_blank" title="Follow OptaPlanner on Twitter"><img alt="T" src="../../../_/img/twitterLogo.png"></a>
+          <a class="navbar-item small-item" href="https://www.linkedin.com/showcase/optaplanner" target="_blank" title="Follow OptaPlanner on LinkedIn"><img alt="L" src="../../../_/img/linkedInLogo.png"></a>
+          <a class="navbar-item small-item" href="https://www.facebook.com/OptaPlanner" target="_blank" title="Follow OptaPlanner on Facebook"><img alt="F" src="../../../_/img/facebookLogo.png"></a>
+          <a class="navbar-item small-item" href="https://www.youtube.com/channel/UCcpkOKpujFlM67D2h0RdaeQ" target="_blank" title="OptaPlanner YouTube channel"><img alt="YT" src="../../../_/img/youtubeLogo.png" style="height: 16px"></a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="optapy" data-version="latest">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">OptaPy User Guide 8.19.0a0</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../optapy-introduction/optapy-introduction.html">OptaPy Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../quickstart/quickstart.html">Quickstart</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../optapy-configuration/optapy-configuration.html">OptaPy configuration</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="score-calculation.html">Score calculation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../constraint-streams/constraint-streams.html">Constraint streams score calculation</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">OptaPy User Guide 8.19.0a0</span>
+    <span class="version">latest</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">OptaPy User Guide 8.19.0a0</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">latest</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../optapy-introduction/optapy-introduction.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">OptaPy User Guide 8.19.0a0</a></li>
+    <li><a href="score-calculation.html">Score calculation</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/optapy/optapy/edit/main/optapy-docs/src/modules/ROOT/pages/score-calculation/score-calculation.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Score calculation</h1>
+<div class="sect1">
+<h2 id="scoreTerminology"><a class="anchor" href="#scoreTerminology"></a>1. Score terminology</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="whatIsAScore"><a class="anchor" href="#whatIsAScore"></a>1.1. What is a score?</h3>
+<div class="paragraph">
+<p>Every <code>@planning_solution</code> class has a score.
+The score is an objective way to compare two solutions.
+The solution with the higher score is better.
+The <code>Solver</code> aims to find the solution with the highest <code>Score</code> of all possible solutions.
+The <em>best solution</em> is the solution with the highest <code>Score</code> that <code>Solver</code> has encountered during solving,
+which might be the <em>optimal solution</em>.</p>
+</div>
+<div class="paragraph">
+<p>OptaPy cannot automatically know which solution is best for your business,
+so you need to tell it how to calculate the score of a given <code>@planning_solution</code> instance according to your business needs.
+If you forget or are unable to implement an important business constraint, the solution is probably useless:</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="../_images/score-calculation/optimalWithIncompleteConstraints.png" alt="optimalWithIncompleteConstraints">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="formalizeTheBusinessConstraints"><a class="anchor" href="#formalizeTheBusinessConstraints"></a>1.2. Formalize the business constraints</h3>
+<div class="paragraph">
+<p>To implement a verbal business constraint, it needs to be formalized as a score constraint.
+Luckily, defining constraints in OptaPy is very flexible through the following score techniques:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Score signum (positive or negative)</strong>: maximize or minimize a constraint type</p>
+</li>
+<li>
+<p><strong>Score weight</strong>: put a cost/profit on a constraint type</p>
+</li>
+<li>
+<p><strong>Score level (hard, soft, &#8230;&#8203;)</strong>: prioritize a group of constraint types</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Take the time to acquaint yourself with the first three techniques.
+Once you understand them, formalizing most business constraints becomes straightforward.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Do not presume that your business knows all its score constraints in advance.
+Expect score constraints to be added, changed or removed after the first releases.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="scoreConstraintSignum"><a class="anchor" href="#scoreConstraintSignum"></a>1.3. Score constraint signum (positive or negative)</h3>
+<div class="paragraph">
+<p>All score techniques are based on constraints.
+A constraint can be a simple pattern (such as <em>Maximize the apple harvest in the solution</em>) or a more complex pattern.
+A positive constraint is a constraint you want to maximize.
+A negative constraint is a constraint you want to minimize</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="../_images/score-calculation/positiveAndNegativeConstraints.png" alt="positiveAndNegativeConstraints">
+</div>
+</div>
+<div class="paragraph">
+<p>The image above illustrates that <strong>the optimal solution always has the highest score</strong>,
+regardless if the constraints are positive or negative.</p>
+</div>
+<div class="paragraph">
+<p>Most planning problems have only negative constraints and therefore have a negative score.
+In that case, the score is the sum of the weight of the negative constraints being broken, with a perfect score of 0.
+For example in n queens, the score is the negative of the number of queen pairs which can attack each other.</p>
+</div>
+<div class="paragraph">
+<p>Negative and positive constraints can be combined, even in the same score level.</p>
+</div>
+<div class="paragraph">
+<p>When a constraint activates (because the negative constraint is broken or the positive constraint is fulfilled)
+on a certain planning entity set, it is called a <em>constraint match</em>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="scoreConstraintWeight"><a class="anchor" href="#scoreConstraintWeight"></a>1.4. Score constraint weight</h3>
+<div class="paragraph">
+<p>Not all score constraints are equally important.
+If breaking one constraint is equally bad as breaking another constraint x times,
+then those two constraints have a different weight (but they are in the same score level).
+For example in vehicle routing, you can make one <em>unhappy driver</em> constraint match count
+as much as two <em>fuel tank usage</em> constraint matches:</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="../_images/score-calculation/scoreWeighting.png" alt="scoreWeighting">
+</div>
+</div>
+<div class="paragraph">
+<p>Score weighting is easy in use cases where you can <em>put a price tag on everything</em>.
+In that case, the positive constraints maximize revenue and the negative constraints minimize expenses, so together they maximize profit.
+Alternatively, score weighting is also often used to create social <a href="#fairnessScoreConstraints">fairness</a>.
+For example, a nurse, who requests a free day, pays a higher weight on New Years eve than on a normal day.</p>
+</div>
+<div class="paragraph">
+<p>The weight of a constraint match can depend on the planning entities involved.
+For example in cloud balancing, the weight of the soft constraint match for an active <code>Computer</code>
+is the maintenance <code>cost</code> of that <code>Computer</code> (which differs per computer).</p>
+</div>
+<div class="paragraph">
+<p>Putting a good weight on a constraint is often a difficult analytical decision,
+because it is about making choices and trade-offs against other constraints.
+Different stakeholders have different priorities.
+A non-accurate weight is less damaging than mediocre algorithms:</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="../_images/score-calculation/scoreTradeoffInPerspective.png" alt="scoreTradeoffInPerspective">
+</div>
+</div>
+<div class="paragraph">
+<p>Most use cases use a <code>Score</code> with <code>int</code> weights, such as <a href="#hardSoftScore">HardSoftScore</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="scoreLevel"><a class="anchor" href="#scoreLevel"></a>1.5. Score constraint level (hard, soft, &#8230;&#8203;)</h3>
+<div class="paragraph">
+<p>Sometimes a score constraint outranks another score constraint, no matter how many times the latter is broken.
+In that case, those score constraints are in different levels.
+For example, a nurse cannot do two shifts at the same time (due to the constraints of physical reality),
+so this outranks all nurse happiness constraints.</p>
+</div>
+<div class="paragraph">
+<p>Most use cases have only two score levels, hard and soft.
+The levels of two scores are compared lexicographically.
+The first score level gets compared first.
+If those differ, the remaining score levels are ignored.
+For example, a score that breaks <code>0</code> hard constraints and <code>1000000</code> soft constraints is better
+than a score that breaks <code>1</code> hard constraint and <code>0</code> soft constraints.</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="../_images/score-calculation/scoreLevels.png" alt="scoreLevels">
+</div>
+</div>
+<div class="paragraph">
+<p>If there are two (or more) score levels, for example <a href="#hardSoftScore">HardSoftScore</a>,
+then a score is <em>feasible</em> if no hard constraints are broken.</p>
+</div>
+<div class="paragraph">
+<p>For each constraint, you need to pick a score level, a score weight and a score signum.
+For example: <code>-1soft</code> which has score level of <code>soft</code>, a weight of <code>1</code> and a negative signum.
+Do not use a big constraint weight when your business actually wants different score levels.
+That hack, known as <em>score folding</em>, is broken:</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="../_images/score-calculation/scoreFoldingIsBroken.png" alt="scoreFoldingIsBroken">
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Your business might tell you that your hard constraints all have the same weight, because they cannot be broken (so the weight does not matter). This is not true because if no feasible solution exists for a specific dataset, the least infeasible solution allows the business to estimate how many business resources they are lacking.
+For example in cloud balancing, how many new computers to buy.</p>
+</div>
+<div class="paragraph">
+<p>Furthermore, it will likely create a <a href="#scoreTrap">score trap</a>.
+For example in cloud balance if a <code>Computer</code> has seven CPU too little for its <code>Process</code>es, then it must be weighted seven times as much as if it had only one CPU too little.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Three or more score levels are also supported.
+For example: a company might decide that profit outranks employee satisfaction (or vice versa),
+while both are outranked by the constraints of physical reality.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>To model <a href="#fairnessScoreConstraints">fairness or load balancing</a>, there is no need to use lots of score levels
+(even though OptaPy can handle many score levels).</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Most use cases use a <code>Score</code> with two or three weights,
+such as <a href="#hardSoftScore">HardSoftScore</a> and <a href="#hardMediumSoftScore">HardMediumSoftScore</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="combiningScoreTechniques"><a class="anchor" href="#combiningScoreTechniques"></a>1.6. Combining score techniques</h3>
+<div class="paragraph">
+<p>All the score techniques mentioned above, can be combined seamlessly:</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="../_images/score-calculation/scoreComposition.png" alt="scoreComposition">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="scoreInterface"><a class="anchor" href="#scoreInterface"></a>1.7. <code>Score</code> interface</h3>
+<div class="paragraph">
+<p>A score is represented by the <code>Score</code> interface, which naturally extends <code>Comparable</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-python hljs" data-lang="python">class Score:
+    def compareTo(self, other):
+        ...
+    ...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>Score</code> implementation to use depends on your use case.
+Your score might not efficiently fit in a single <code>long</code> value.
+OptaPy has several built-in <code>Score</code> implementations, but you can implement a custom <code>Score</code> too.
+Most use cases tend to use the built-in <code>HardSoftScore</code>.</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="../_images/score-calculation/scoreClassDiagram.png" alt="scoreClassDiagram">
+</div>
+</div>
+<div class="paragraph">
+<p>All Score implementations also have an <code>initScore</code> (which is an <code>int</code>). It is mostly intended for internal use in OptaPy: it is the negative number of uninitialized planning variables.
+From a user&#8217;s perspective this is <code>0</code>, unless a Construction Heuristic is terminated before it could initialize all planning variables (in which case <code>Score.isSolutionInitialized()</code> returns <code>false</code>).</p>
+</div>
+<div class="paragraph">
+<p>The <code>Score</code> implementation (for example <code>HardSoftScore</code>) must be the same throughout a <code>Solver</code> runtime.
+The <code>Score</code> implementation is configured in the solution domain class:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-python hljs" data-lang="python">@planning_solution
+class CloudBalance:
+    ...
+    @planning_score(HardSoftScore)
+    def get_score(self):
+        return self.score
+
+    def set_score(self, score):
+        self.score = score</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="avoidFloatingPointNumbersInScoreCalculation"><a class="anchor" href="#avoidFloatingPointNumbersInScoreCalculation"></a>1.8. Avoid floating point numbers in score calculation</h3>
+<div class="paragraph">
+<p>Avoid the use of <code>float</code> in score calculation.
+Use <code>BigDecimal</code> or scaled <code>long</code> instead.</p>
+</div>
+<div class="paragraph">
+<p>Floating point numbers cannot represent a decimal number correctly.
+For example: a <code>float</code> cannot hold the value <code>0.05</code> correctly.
+Instead, it holds the nearest representable value.
+Arithmetic (including addition and subtraction) with floating point numbers, especially for planning problems, leads to incorrect decisions:</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="../_images/score-calculation/scoreWeightType.png" alt="scoreWeightType">
+</div>
+</div>
+<div class="paragraph">
+<p>Additionally, floating point number addition is not associative:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-python hljs" data-lang="python"># prints False
+print(f'{((0.01 + 0.02) + 0.03) == (0.01 + (0.02 + 0.03))}')</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This leads to <em>score corruption</em>.</p>
+</div>
+<div class="paragraph">
+<p>Decimal numbers (<code>BigDecimal</code>) have none of these problems.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>BigDecimal arithmetic is considerably slower than <code>int</code>, <code>long</code> or <code>double</code> arithmetic.
+In experiments we have seen the score calculation take five times longer.</p>
+</div>
+<div class="paragraph">
+<p>Therefore, in many cases, it can be worthwhile to multiply <em>all</em> numbers for a single score weight by a plural of ten, so the score weight fits in a scaled <code>int</code> or <code>long</code>.
+For example, if we multiply all weights by <code>1000</code>, a fuel_cost of <code>0.07</code> becomes a fuel_cost_millis of <code>70</code> and no longer uses a decimal score weight.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="scoreType"><a class="anchor" href="#scoreType"></a>2. Choose a score type</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Depending on the number of score levels and type of score weights you need, choose a <code>Score</code> type.
+Most use cases use a <code>HardSoftScore</code>.
+All score types are available in the <code>optapy.score</code> package:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-python hljs" data-lang="python">from optapy.score import HardSoftScore</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="simpleScore"><a class="anchor" href="#simpleScore"></a>2.1. <code>SimpleScore</code></h3>
+<div class="paragraph">
+<p>A <code>SimpleScore</code> has a single <code>int</code> value, for example <code>-123</code>.
+It has a single score level.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-python hljs" data-lang="python">    @planning_score(SimpleScore)
+    def get_score(self):
+        ...</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="hardSoftScore"><a class="anchor" href="#hardSoftScore"></a>2.2. <code>HardSoftScore</code> (Recommended)</h3>
+<div class="paragraph">
+<p>A <code>HardSoftScore</code> has a hard <code>int</code> value and a soft <code>int</code> value, for example <code>-123hard/-456soft</code>.
+It has two score levels (hard and soft).</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-python hljs" data-lang="python">    @planning_score(HardSoftScore)
+    def get_score(self):
+        ...</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="hardMediumSoftScore"><a class="anchor" href="#hardMediumSoftScore"></a>2.3. <code>HardMediumSoftScore</code></h3>
+<div class="paragraph">
+<p>A <code>HardMediumSoftScore</code> which has a hard <code>int</code> value, a medium <code>int</code> value and a soft <code>int</code> value, for example <code>-123hard/-456medium/-789soft</code>.
+It has three score levels (hard, medium and soft).
+The hard level determines if the solution is feasible,
+and the medium level and soft level score values determine
+how well the solution meets business goals.
+Higher medium values take precedence over soft values irrespective of the soft value.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-python hljs" data-lang="python">    @planning_score(HardMediumSoftScore)
+    def get_score(self):
+        ...</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="bendableScore"><a class="anchor" href="#bendableScore"></a>2.4. <code>BendableScore</code></h3>
+<div class="paragraph">
+<p>A <code>BendableScore</code> has a configurable number of score levels.
+It has an array of hard <code>int</code> values and an array of soft <code>int</code> values,
+for example with two hard levels and three soft levels, the score can be <code>[-123/-456]hard/[-789/-012/-345]soft</code>.
+In that case, it has five score levels.
+A solution is feasible if all hard levels are at least zero.</p>
+</div>
+<div class="paragraph">
+<p>A BendableScore with one hard level and one soft level is equivalent to a HardSoftScore,
+while a BendableScore with one hard level and two soft levels is equivalent to a HardMediumSoftScore.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-python hljs" data-lang="python">    @planning_score(BendableScore, bendable_hard_levels_size=2, bendable_soft_levels_size=3)
+    def get_score(self):
+        ...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The number of hard and soft score levels need to be set at compilation time.
+It is not flexible to change during solving.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Do not use a <code>BendableScore</code> with seven levels just because you have seven constraints.
+It is extremely rare to use a different score level for each constraint, because that means one constraint match on soft 0 outweighs even a million constraint matches of soft 1.</p>
+</div>
+<div class="paragraph">
+<p>Usually, multiple constraints share the same level and are weighted against each other.
+Use <a href="#explainingTheScore">explaining the score</a> to get the weight of individual constraints in the same level.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="calculateTheScore"><a class="anchor" href="#calculateTheScore"></a>3. Calculate the <code>Score</code></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="scoreCalculationTypes"><a class="anchor" href="#scoreCalculationTypes"></a>3.1. Score calculation types</h3>
+<div class="paragraph">
+<p>There are several ways to calculate the <code>Score</code> of a solution:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong><a href="#easyPythonScoreCalculation">Easy Python score calculation</a></strong>: Implement all constraints together in a single function in Python. Does not scale.</p>
+</li>
+<li>
+<p><strong><a href="../constraint-streams/constraint-streams.html#constraintStreams" class="xref page">Constraint streams score calculation</a></strong>: Implement each constraint as a separate Constraint Stream in Python. Fast and scalable.</p>
+</li>
+<li>
+<p><strong><a href="#incrementalPythonScoreCalculation">Incremental Python score calculation</a></strong> (not recommended): Implement multiple low-level methods in Python. Fast and scalable. Very difficult to implement and maintain.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Every score calculation type can work with any Score definition (such as <code>HardSoftScore</code> or <code>HardMediumSoftScore</code>).
+All score calculation types are Object Oriented and can reuse existing Python code.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The score calculation must be read-only.
+It must not change the planning entities or the problem facts in any way.
+For example, it must not call a setter method on a planning entity in the score calculation.</p>
+</div>
+<div class="paragraph">
+<p>OptaPy does not recalculate the score of a solution if it can predict it (unless an <a href="#planner-configuration/planner-configuration.adoc#environmentMode" class="xref unresolved">environmentMode assertion</a> is enabled).
+For example, after a winning step is done, there is no need to calculate the score because that move was done and undone earlier.
+As a result, there is no guarantee that changes applied during score calculation actually happen.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="easyPythonScoreCalculation"><a class="anchor" href="#easyPythonScoreCalculation"></a>3.2. Easy Python score calculation</h3>
+<div class="paragraph">
+<p>An easy way to implement your score calculation in Python.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Advantages:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Plain old Python: no learning curve</p>
+</li>
+<li>
+<p>Opportunity to delegate score calculation to an existing code base or legacy system</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Disadvantages:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Slower</p>
+</li>
+<li>
+<p>Does not scale because there is no <a href="#incrementalScoreCalculation">incremental score calculation</a></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Create a function that takes a solution and return a score, and decorate it with <code>@easy_score_calculator</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-python hljs" data-lang="python">from optapy import easy_score_calculator
+
+@easy_score_calculator
+def fun(solution: SolutionType) -&gt; Score:
+    ...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For example in n queens:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-python hljs" data-lang="python">from optapy import easy_score_calculator
+from optapy.score import SimpleScore
+
+@easy_score_calculator
+def n_queens_easy_score_calculator(n_queens: NQueens) -&gt; SimpleScore:
+    n = n_queens.get_n()
+    queen_list = n_queens.get_queen_list()
+
+    score = 0
+    for i in range(n):
+        for j in range(i + 1, n):
+            left_queen = queen_list[i]
+            right_queen = queen_list[j]
+            if left_queen.row is not None and right_queen.row is not None:
+                if left_queen.row_index == right_queen.row_index:
+                    score -= 1
+                if left_queen.get_ascending_diagonal_index() == right_queen.get_ascending_diagonal_index():
+                    score -= 1
+                if left_queen.get_descending_diagonal_index() == right_queen.get_descending_diagonal_index():
+                    score -= 1
+    return SimpleScore.valueOf(score)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Configure it in the solver configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-xml hljs" data-lang="xml">  &lt;scoreDirectorFactory&gt;
+    &lt;easyScoreCalculatorClass&gt;n_queens_easy_score_calculator&lt;/easyScoreCalculatorClass&gt;
+  &lt;/scoreDirectorFactory&gt;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="incrementalPythonScoreCalculation"><a class="anchor" href="#incrementalPythonScoreCalculation"></a>3.3. Incremental Python score calculation</h3>
+<div class="paragraph">
+<p>A way to implement your score calculation incrementally in Java.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Advantages:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Very fast and scalable</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Currently the fastest if implemented correctly</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Disadvantages:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Hard to write</p>
+<div class="ulist">
+<ul>
+<li>
+<p>A scalable implementation heavily uses maps, indexes, &#8230;&#8203; (things Constraint Streams can do for you)</p>
+</li>
+<li>
+<p>You have to learn, design, write and improve all these performance optimizations yourself</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Hard to read</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Regular score constraint changes can lead to a high maintenance cost</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Implement all the methods of the interface <code>IncrementalScoreCalculator</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-python hljs" data-lang="python">class IncrementalScoreCalculator:
+    def resetWorkingSolution(self, working_solution: SolutionType) -&gt; None:
+        ...
+
+    def beforeEntityAdded(self, entity) -&gt; None:
+        ...
+
+    def afterEntityAdded(self, entity) -&gt; None:
+        ...
+
+    def beforeVariableChanged(self, entity, variable_name: str) -&gt; None:
+        ...
+
+    def afterVariableChanged(self, entity, variable_name: str) -&gt; None:
+        ...
+
+    def beforeEntityRemoved(self, entity) -&gt; None:
+        ...
+
+    def afterEntityRemoved(self, entity) -&gt; None:
+        ...
+
+    def calculateScore(self) -&gt; Score:
+        ...
+
+}</code></pre>
+</div>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="../_images/score-calculation/incrementalScoreCalculatorSequenceDiagram.png" alt="incrementalScoreCalculatorSequenceDiagram">
+</div>
+</div>
+<div class="paragraph">
+<p>For example in n queens:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-python hljs" data-lang="python">from optapy import incremental_score_calculator
+from optapy.score import SimpleScore
+
+@incremental_score_calculator
+class NQueensIncrementalScoreCalculator:
+    score: int
+    row_index_map: dict
+    ascending_diagonal_index_map: dict
+    descending_diagonal_index_map: dict
+
+    def resetWorkingSolution(self, working_solution: Solution):
+        n = working_solution.n
+        self.row_index_map = dict()
+        self.ascending_diagonal_index_map = dict()
+        self.descending_diagonal_index_map = dict()
+        for i in range(n):
+            self.row_index_map[i] = list()
+            self.ascending_diagonal_index_map[i] = list()
+            self.descending_diagonal_index_map[i] = list()
+            if i != 0:
+                self.ascending_diagonal_index_map[n - 1 + i] = list()
+                self.descending_diagonal_index_map[-i] = list()
+        self.score = 0
+        for queen in working_solution.queen_list:
+            self.insert(queen)
+
+    def beforeEntityAdded(self, entity: any):
+        pass
+
+    def afterEntityAdded(self, entity: any):
+        self.insert(entity)
+
+    def beforeVariableChanged(self, entity: any, variable_name: str):
+        self.retract(entity)
+
+    def afterVariableChanged(self, entity: any, variable_name: str):
+        self.insert(entity)
+
+    def beforeEntityRemoved(self, entity: any):
+        self.retract(entity)
+
+    def afterEntityRemoved(self, entity: any):
+        pass
+
+    def insert(self, queen: Queen):
+        row = queen.row
+        if row is not None:
+            row_index = queen.row
+            row_index_list = self.row_index_map[row_index]
+            self.score -= len(row_index_list)
+            row_index_list.append(queen)
+            ascending_diagonal_index_list = self.ascending_diagonal_index_map[queen.getAscendingDiagonalIndex()]
+            self.score -= len(ascending_diagonal_index_list)
+            ascending_diagonal_index_list.append(queen)
+            descending_diagonal_index_list = self.descending_diagonal_index_map[queen.getDescendingDiagonalIndex()]
+            self.score -= len(descending_diagonal_index_list)
+            descending_diagonal_index_list.append(queen)
+
+    def retract(self, queen: Queen):
+        row = queen.row
+        if row is not None:
+            row_index = queen.row
+            row_index_list = self.row_index_map[row_index]
+            row_index_list.remove(queen)
+            self.score += len(row_index_list)
+            ascending_diagonal_index_list = self.ascending_diagonal_index_map[queen.getAscendingDiagonalIndex()]
+            ascending_diagonal_index_list.remove(queen)
+            self.score += len(ascending_diagonal_index_list)
+            descending_diagonal_index_list = self.descending_diagonal_index_map[queen.getDescendingDiagonalIndex()]
+            descending_diagonal_index_list.remove(queen)
+            self.score += len(descending_diagonal_index_list)
+
+    def calculateScore(self) -&gt; SimpleScore:
+        return SimpleScore.of(self.score)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Configure it in the solver configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-xml hljs" data-lang="xml">  &lt;scoreDirectorFactory&gt;
+    &lt;incrementalScoreCalculatorClass&gt;NQueensIncrementalScoreCalculator&lt;/incrementalScoreCalculatorClass&gt;
+  &lt;/scoreDirectorFactory&gt;</code></pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>A piece of incremental score calculator code can be difficult to write and to review.
+<a href="#invalidScoreDetection">Assert its correctness</a> by using an <code>EasyScoreCalculator</code> to fulfill
+the assertions triggered by the <code>environmentMode</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="constraintMatchAwareIncrementalScoreCalculator"><a class="anchor" href="#constraintMatchAwareIncrementalScoreCalculator"></a>3.3.1. <code>ConstraintMatchAwareIncrementalScoreCalculator</code></h4>
+<div class="paragraph">
+<p>Optionally, also implement the <code>ConstraintMatchAwareIncrementalScoreCalculator</code> interface to:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Explain a score by splitting it up per score constraint with <code>ScoreExplanation.getConstraintMatchTotalMap()</code>.</p>
+</li>
+<li>
+<p>Visualize or sort planning entities by how many constraints each one breaks with <code>ScoreExplanation.getIndictmentMap()</code>.</p>
+</li>
+<li>
+<p>Receive a detailed analysis if the <code>IncrementalScoreCalculator</code> is corrupted in <code>FAST_ASSERT</code> or <code>FULL_ASSERT</code> <code>environmentMode</code>,</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-python hljs" data-lang="python">from optapy.constraint import DefaultConstraintMatchTotal
+
+class ConstraintMatchAwareIncrementalScoreCalculator:
+
+    def resetWorkingSolution(self, working_solution: SolutionType, constraintMatchEnabled: bool) -&gt; None:
+        ...
+
+    def getConstraintMatchTotals(self) -&gt; list[DefaultConstraintMatchTotal]:
+        ...
+
+    def getIndictmentMap(self) -&gt; dict | None:
+        return None # Calculate it non-incrementally from getConstraintMatchTotals()</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For example in machine reassignment, create one <code>ConstraintMatchTotal</code> per constraint type and call <code>addConstraintMatch()</code> for each constraint match:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-python hljs" data-lang="python">from optapy import incremental_score_calculator
+from optapy.score import HardSoftScore
+from optapy.constraint import DefaultConstraintMatchTotal
+
+@incremental_score_calculator
+class MachineReassignmentIncrementalScoreCalculator:
+    ...
+    def resetWorkingSolution(self, working_solution: MachineReassignment, constraint_match_enabled: bool) {
+        # code to reset working solution
+        ...
+        # ignore constraintMatchEnabled, it is always presumed enabled
+
+    def getConstraintMatchTotals(self):
+        maximum_capacity_match_total = DefaultConstraintMatchTotal('MachineReassignment',
+            "maximumCapacity", HardSoftScore.ZERO)
+        ...
+        for (machine, machine_score_part) in self.machine_score_part_map.items():
+            for machine_capacity_score_part in machine_score_part.machine_capacity_score_part_list:
+                if (machine_capacity_score_part.maximum_available &lt; 0) {
+                    maximum_capacity_match_total.addConstraintMatch(
+                            [machine_capacity_score_part.machine_capacity),
+                            HardSoftScore.valueOf(machine_capacity_score_part.maximum_available, 0))
+                }
+            }
+        }
+        ...
+        return [
+            maximum_capacity_match_total,
+            ...
+        ]
+
+    def get_indictment_map(self):
+        # Calculate it non-incrementally from getConstraintMatchTotals()
+        return None</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>That <code>getConstraintMatchTotals()</code> code often duplicates some of the logic of the normal <code>IncrementalScoreCalculator</code> methods.
+Constraint Streams don&#8217;t have this disadvantage, because they are constraint match aware automatically when needed,
+without any extra domain-specific code.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="initializingScoreTrend"><a class="anchor" href="#initializingScoreTrend"></a>3.4. <code>InitializingScoreTrend</code></h3>
+<div class="paragraph">
+<p>The <code>InitializingScoreTrend</code> specifies how the Score will change as more and more variables are initialized (while the already initialized variables do not change). Some optimization algorithms (such Construction Heuristics and Exhaustive Search) run faster if they have such information.</p>
+</div>
+<div class="paragraph">
+<p>For the Score (or each <a href="#scoreLevel">score level</a> separately), specify a trend:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>ANY</code> (default): Initializing an extra variable can change the score positively or negatively. Gives no performance gain.</p>
+</li>
+<li>
+<p><code>ONLY_UP</code> (rare): Initializing an extra variable can only change the score positively. Implies that:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>There are only positive constraints</p>
+</li>
+<li>
+<p>And initializing the next variable cannot unmatch a positive constraint that was matched by a previous initialized variable.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>ONLY_DOWN</code>: Initializing an extra variable can only change the score negatively. Implies that:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>There are only negative constraints</p>
+</li>
+<li>
+<p>And initializing the next variable cannot unmatch a negative constraint that was matched by a previous initialized variable.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Most use cases only have negative constraints.
+Many of those have an <code>InitializingScoreTrend</code> that only goes down:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-xml hljs" data-lang="xml">  &lt;scoreDirectorFactory&gt;
+    &lt;constraintProviderClass&gt;optapy.examples.cloudbalancing.score.CloudBalancingConstraintProvider&lt;/constraintProviderClass&gt;
+    &lt;initializingScoreTrend&gt;ONLY_DOWN&lt;/initializingScoreTrend&gt;
+  &lt;/scoreDirectorFactory&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Alternatively, you can also specify the trend for each score level separately:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-xml hljs" data-lang="xml">  &lt;scoreDirectorFactory&gt;
+    &lt;constraintProviderClass&gt;optapy.examples.cloudbalancing.score.CloudBalancingConstraintProvider&lt;/constraintProviderClass&gt;
+    &lt;initializingScoreTrend&gt;ONLY_DOWN/ONLY_DOWN&lt;/initializingScoreTrend&gt;
+  &lt;/scoreDirectorFactory&gt;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="invalidScoreDetection"><a class="anchor" href="#invalidScoreDetection"></a>3.5. Invalid score detection</h3>
+<div class="paragraph">
+<p>When you put the <a href="../optapy-configuration/optapy-configuration.html#environmentMode" class="xref page"><code>environmentMode</code></a> in <code>FULL_ASSERT</code> (or <code>FAST_ASSERT</code>),
+it will detect score corruption in the <a href="#incrementalScoreCalculation">incremental score calculation</a>.
+However, that will not verify that your score calculator actually implements your score constraints as your business desires.
+For example, one constraint might consistently match the wrong pattern.
+To verify the constraints against an independent implementation, configure a <code>assertionScoreDirectorFactory</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-xml hljs" data-lang="xml">  &lt;environmentMode&gt;FAST_ASSERT&lt;/environmentMode&gt;
+  ...
+  &lt;scoreDirectorFactory&gt;
+    &lt;constraintProviderClass&gt;optapy.examples.nqueens.score.n_queens_constraint_provider&lt;/constraintProviderClass&gt;
+    &lt;assertionScoreDirectorFactory&gt;
+      &lt;easyScoreCalculatorClass&gt;optapy.examples.nqueens.score.n_queens_easy_score_calculator&lt;/easyScoreCalculatorClass&gt;
+    &lt;/assertionScoreDirectorFactory&gt;
+  &lt;/scoreDirectorFactory&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This way, the <code>n_queens_constraint_provider</code> implementation is validated by the <code>EasyScoreCalculator</code>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="scoreCalculationPerformanceTricks"><a class="anchor" href="#scoreCalculationPerformanceTricks"></a>4. Score calculation performance tricks</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="scoreCalculationPerformanceTricksOverview"><a class="anchor" href="#scoreCalculationPerformanceTricksOverview"></a>4.1. Overview</h3>
+<div class="paragraph">
+<p>The <code>Solver</code> will normally spend most of its execution time running the score calculation
+(which is called in its deepest loops).
+Faster score calculation will return the same solution in less time with the same algorithm,
+which normally means a better solution in equal time.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="scoreCalculationSpeed"><a class="anchor" href="#scoreCalculationSpeed"></a>4.2. Score calculation speed</h3>
+<div class="paragraph">
+<p>After solving a problem, the <code>Solver</code> will log the <em>score calculation speed per second</em>.
+This is a good measurement of Score calculation performance,
+despite that it is affected by non score calculation execution time.
+It depends on the problem scale of the problem dataset.
+Normally, even for high scale problems, it is higher than <code>1</code>, except if you are using an <code>EasyScoreCalculator</code>.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>When improving your score calculation, focus on maximizing the score calculation speed, instead of maximizing the best score.
+A big improvement in score calculation can sometimes yield little or no best score improvement, for example when the algorithm is stuck in a local or global optima.
+If you are watching the calculation speed instead, score calculation improvements are far more visible.</p>
+</div>
+<div class="paragraph">
+<p>Furthermore, watching the calculation speed allows you to remove or add score constraints,
+and still compare it with the original&#8217;s calculation speed.
+Comparing the best score with the original&#8217;s best score is pointless: it&#8217;s comparing apples and oranges.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="incrementalScoreCalculation"><a class="anchor" href="#incrementalScoreCalculation"></a>4.3. Incremental score calculation (with deltas)</h3>
+<div class="paragraph">
+<p>When a solution changes, incremental score calculation (AKA delta based score calculation)
+calculates the delta with the previous state to find the new <code>Score</code>,
+instead of recalculating the entire score on every solution evaluation.</p>
+</div>
+<div class="paragraph">
+<p>For example, when a single queen A moves from row <code>1</code> to <code>2</code>,
+it will not bother to check if queen B and C can attack each other, since neither of them changed:</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="../_images/score-calculation/incrementalScoreCalculationNQueens04.png" alt="incrementalScoreCalculationNQueens04">
+</div>
+</div>
+<div class="paragraph">
+<p>Similarly in employee rostering:</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="../_images/score-calculation/incrementalScoreCalculationEmployeeRostering.png" alt="incrementalScoreCalculationEmployeeRostering">
+</div>
+</div>
+<div class="paragraph">
+<p>This is a huge performance and scalability gain.
+<strong><a href="../constraint-streams/constraint-streams.html#constraintStreams" class="xref page">Constraint Streams</a> give you this huge scalability gain without forcing you to write a complicated incremental score calculation algorithm.</strong>
+Just let the rule engine do the hard work.</p>
+</div>
+<div class="paragraph">
+<p>Notice that the speedup is relative to the size of your planning problem (your <em>n</em>), making incremental score calculation far more scalable.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="avoidCallingRemoteServicesDuringScoreCalculation"><a class="anchor" href="#avoidCallingRemoteServicesDuringScoreCalculation"></a>4.4. Avoid calling remote services during score calculation</h3>
+<div class="paragraph">
+<p>Do not call remote services in your score calculation (except if you are bridging <code>EasyScoreCalculator</code> to a legacy system). The network latency will kill your score calculation performance.
+Cache the results of those remote services if possible.</p>
+</div>
+<div class="paragraph">
+<p>If some parts of a constraint can be calculated once, when the <code>Solver</code> starts, and never change during solving,
+then turn them into <a href="../optapy-configuration/optapy-configuration.html#cachedProblemFact" class="xref page">cached problem facts</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="pointlessConstraints"><a class="anchor" href="#pointlessConstraints"></a>4.5. Pointless constraints</h3>
+<div class="paragraph">
+<p>If you know a certain constraint can never be broken (or it is always broken), do not write a score constraint for it.
+For example in n queens, the score calculation does not check if multiple queens occupy the same column,
+because a <code>Queen</code>'s <code>column</code> never changes and every solution starts with each <code>Queen</code> on a different <code>column</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Do not go overboard with this.
+If some datasets do not use a specific constraint but others do, just return out of the constraint as soon as you can.
+There is no need to dynamically change your score calculation based on the dataset.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="buildInHardConstraint"><a class="anchor" href="#buildInHardConstraint"></a>4.6. Built-in hard constraint</h3>
+<div class="paragraph">
+<p>Instead of implementing a hard constraint, it can sometimes be built in.
+For example, if <code>Lecture</code> A should never be assigned to <code>Room</code> X, but it uses <code>@value_range_provider</code> on Solution,
+so the <code>Solver</code> will often try to assign it to <code>Room</code> X too (only to find out that it breaks a hard constraint).
+Use <a href="../optapy-configuration/optapy-configuration.html#valueRangeProviderOnPlanningEntity" class="xref page">a ValueRangeProvider on the planning entity</a> to define that Course A should only be assigned a <code>Room</code> different than X.</p>
+</div>
+<div class="paragraph">
+<p>This can give a good performance gain in some use cases, not just because the score calculation is faster,
+but mainly because most optimization algorithms will spend less time evaluating infeasible solutions.
+However, usually this is not a good idea because there is a real risk of trading short term benefits for long term harm:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Many optimization algorithms rely on the freedom to break hard constraints when changing planning entities,
+to get out of local optima.</p>
+</li>
+<li>
+<p>Both implementation approaches have limitations (feature compatibility, disabling automatic performance optimizations),
+as explained in their documentation.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="otherScoreCalculationPerformanceTricks"><a class="anchor" href="#otherScoreCalculationPerformanceTricks"></a>4.7. Other score calculation performance tricks</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Verify that your score calculation happens in the correct <code>Number</code> type.
+If you are making the sum of <code>int</code> values, do not sum it in a <code>float</code> which takes longer.</p>
+</li>
+<li>
+<p>For optimal performance, set the <code>JAVA_HOME</code> environment variable to the latest JDK.
+For example, in the past we have seen performance increases of 30% by switching from java 1.5 to 1.6.</p>
+</li>
+<li>
+<p>Always remember that premature optimization is the root of all evil.
+Make sure your design is flexible enough to allow configuration based tweaking.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="scoreTrap"><a class="anchor" href="#scoreTrap"></a>4.8. Score trap</h3>
+<div class="paragraph">
+<p>Make sure that none of your score constraints cause a score trap.
+A trapped score constraint uses the same weight for different constraint matches, when it could just as easily use a different weight.
+It effectively lumps its constraint matches together, which creates a flatlined score function for that constraint.
+This can cause a solution state in which several moves need to be done to resolve or lower the weight of that single constraint.
+Some examples of score traps:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>You need two doctors at each table, but you are only moving one doctor at a time. So the solver has no incentive to move a doctor to a table with no doctors. Punish a table with no doctors more than a table with only one doctor in that score constraint in the score function.</p>
+</li>
+<li>
+<p>Two exams need to be conducted at the same time, but you are only moving one exam at a time. So the solver has to move one of those exams to another timeslot without moving the other in the same move. Add a coarse-grained move that moves both exams at the same time.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For example, consider this score trap.
+If the blue item moves from an overloaded computer to an empty computer, the hard score should improve.
+The trapped score implementation fails to do that:</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="../_images/score-calculation/scoreTrap.png" alt="scoreTrap">
+</div>
+</div>
+<div class="paragraph">
+<p>The Solver should eventually get out of this trap, but it will take a lot of effort (especially if there are even more processes on the overloaded computer). Before they do that, they might actually start moving more processes into that overloaded computer, as there is no penalty for doing so.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Avoiding score traps does not mean that your score function should be smart enough to avoid local optima.
+Leave it to the optimization algorithms to deal with the local optima.</p>
+</div>
+<div class="paragraph">
+<p>Avoiding score traps means to avoid, for each score constraint individually, a flatlined score function.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Always specify the degree of infeasibility.
+The business will often say "if the solution is infeasible, it does not matter how infeasible it is." While that is true for the business, it is not true for score calculation as it benefits from knowing how infeasible it is.
+In practice, soft constraints usually do this naturally and it is just a matter of doing it for the hard constraints too.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>There are several ways to deal with a score trap:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Improve the score constraint to make a distinction in the score weight. For example, penalize <code>-1hard</code> for every missing CPU, instead of just <code>-1hard</code> if any CPU is missing.</p>
+</li>
+<li>
+<p>If changing the score constraint is not allowed from the business perspective, add a lower score level with a score constraint that makes such a distinction. For example, penalize <code>-1subsoft</code> for every missing CPU, on top of <code>-1hard</code> if any CPU is missing. The business ignores the subsoft score level.</p>
+</li>
+<li>
+<p>Add coarse-grained moves and union select them with the existing fine-grained moves. A coarse-grained move effectively does multiple moves to directly get out of a score trap with a single move. For example, move multiple items from the same container to another container.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="fairnessScoreConstraints"><a class="anchor" href="#fairnessScoreConstraints"></a>4.9. Fairness score constraints</h3>
+<div class="paragraph">
+<p>Some use cases have a business requirement to provide a fair schedule (usually as a soft score constraint), for example:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Fairly distribute the workload amongst the employees, to avoid envy.</p>
+</li>
+<li>
+<p>Evenly distribute the workload amongst assets, to improve reliability.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Implementing such a constraint can seem difficult (especially because there are different ways to formalize fairness), but usually the <em>squared workload</em> implementation behaves most desirable.
+For each employee/asset, count the workload <code>w</code> and subtract <code>w²</code> from the score.</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="../_images/score-calculation/fairnessScoreConstraint.png" alt="fairnessScoreConstraint">
+</div>
+</div>
+<div class="paragraph">
+<p>As shown above, the <em>squared workload</em> implementation guarantees that if you select two employees from a given solution and make their distribution between those two employees fairer, then the resulting new solution will have a better overall score.
+Do not just use the difference from the average workload, as that can lead to unfairness, as demonstrated below.</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="../_images/score-calculation/fairnessScoreConstraintPitfall.png" alt="fairnessScoreConstraintPitfall">
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Instead of the <em>squared workload</em>, it is also possible to use the <a href="https://en.wikipedia.org/wiki/Variance">variance</a>
+(squared difference to the average) or the <a href="http://en.wikipedia.org/wiki/Standard_deviation">standard deviation</a>
+(square root of the variance).
+This has no effect on the score comparison, because the average will not change during planning.
+It is just more work to implement (because the average needs to be known) and trivially slower (because the calculation is a bit longer).</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>When the workload is perfectly balanced, the user often likes to see a <code>0</code> score, instead of the distracting <code>-34soft</code> in the image above (for the last solution which is almost perfectly balanced).
+To nullify this, either add the average multiplied by the number of entities to the score or instead show the variance or standard deviation in the UI.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="explainingTheScore"><a class="anchor" href="#explainingTheScore"></a>5. Explaining the score: which constraints are broken?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The easiest way to explain the score during development is to print the return value of <code>explainScore()</code>, but only use that method for diagnostic purposes:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-python hljs" data-lang="python">print(score_manager.explainScore(solution))</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For example in conference scheduling, this prints that talk <code>S51</code> is responsible for breaking the hard constraint <code>Speaker required room tag</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Explanation of score (-1hard/-806soft):
+    Constraint match totals:
+        -1hard: constraint (Speaker required room tag) has 1 matches:
+            -1hard: justifications ([S51])
+        -340soft: constraint (Theme track conflict) has 32 matches:
+            -20soft: justifications ([S68, S66])
+            -20soft: justifications ([S61, S44])
+            ...
+        ...
+    Indictments (top 5 of 72):
+        -1hard/-22soft: justification (S51) has 12 matches:
+            -1hard: constraint (Speaker required room tag)
+            -10soft: constraint (Theme track conflict)
+            ...
+        ...</pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Do not attempt to parse this string or use it in your UI or exposed services.
+Instead use the ConstraintMatch API below and do it properly.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="usingScoreCalculationOutsideTheSolver"><a class="anchor" href="#usingScoreCalculationOutsideTheSolver"></a>5.1. Using score calculation outside the <code>Solver</code></h3>
+<div class="paragraph">
+<p>If other parts of your application, for example your web UI, need to calculate the score of a solution, use the <code>ScoreManager</code> API:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-python hljs" data-lang="python">from optapy import score_manager_create
+
+score_manager = score_manager_create(solver_factory)
+score_explanation = score_manager.explain(cloud_balance)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then use it when you need to calculate the <code>Score</code> of a solution:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-python hljs" data-lang="python">score = score_explanation.getScore();</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Furthermore, the <code>ScoreExplanation</code> can help explain the score through constraint match totals and/or indictments:</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="../_images/score-calculation/scoreVisualization.png" alt="scoreVisualization">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="constraintMatchTotal"><a class="anchor" href="#constraintMatchTotal"></a>5.2. Constraint match total: break down the score by constraint</h3>
+<div class="paragraph">
+<p>To break down the score per constraint, get the <code>ConstraintMatchTotal</code>s from the <code>ScoreExplanation</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-python hljs" data-lang="python">constraint_match_totals = score_explanation.getConstraintMatchTotalMap().values()
+for constraint_match_total in constraint_match_totals:
+    constraint_name = constraint_match_total.getConstraintName()
+    # The score impact of that constraint
+    total_score = constraint_match_total.getScore()
+
+    for constraint_match in constraint_match_total.getConstraintMatchSet():
+        justification_list = constraint_match.getJustificationList()
+        score = constraint_match.getScore()
+        ...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Each <code>ConstraintMatchTotal</code> represents one constraint and has a part of the overall score.
+The sum of all the <code>ConstraintMatchTotal.getScore()</code> equals the overall score.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><a href="../constraint-streams/constraint-streams.html#constraintStreams" class="xref page">Constraint streams</a> supports constraint matches automatically, but <a href="#incrementalPythonScoreCalculation">incremental Python score calculation</a> requires
+<a href="#constraintMatchAwareIncrementalScoreCalculator">adding additional methods</a>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="indictmentHeatMap"><a class="anchor" href="#indictmentHeatMap"></a>5.3. Indictment heat map: visualize the hot planning entities</h3>
+<div class="paragraph">
+<p>To show a heat map in the UI that highlights the planning entities and problem facts have an impact on the <code>Score</code>, get the <code>Indictment</code> map from the <code>ScoreExplanation</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-python hljs" data-lang="python">indictment_map = score_explanation.getIndictmentMap()
+for process in cloud_balance.process_list:
+    indictment = indictment_map.get(process);
+    if indictment is None:
+        continue
+    # The score impact of that planning entity
+    total_score = indictment.getScore()
+
+    for constraint_match in indictment.getConstraintMatchSet():
+        constraint_name = constraint_match.getConstraintName()
+        score = constraint_match.getScore()
+        ...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Each <code>Indictment</code> is the sum of all constraints where that justification object is involved with.
+The sum of all the <code>Indictment.getScoreTotal()</code> differs from the overall score, because multiple <code>Indictment</code>s can share the same <code>ConstraintMatch</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><a href="../constraint-streams/constraint-streams.html#constraintStreams" class="xref page">Constraint streams</a> supports indictments automatically, but <a href="#incrementalPythonScoreCalculation">incremental Python score calculation</a> requires
+<a href="#constraintMatchAwareIncrementalScoreCalculator">adding additional methods</a>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script src="../../../_/js/site.js"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+
+<!-- Adobe Analytics for Red Hat - DPAL (DTM Property Auto-Loader) - part 2/2 -->
+<script type="text/javascript">
+    if (("undefined" !== typeof _satellite) && ("function" === typeof _satellite.pageBottom)) {
+        _satellite.pageBottom();
+    }
+</script>  </body>
+</html>
