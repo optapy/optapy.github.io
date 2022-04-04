@@ -71,6 +71,24 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../constraint-streams/constraint-streams.html">Constraint streams score calculation</a>
   </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../optimization-algorithms/optimization-algorithms.html">Optimization algorithms</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../move-and-neighboorhood-selection/move-and-neighborhood-selection.html">Move and neighborhood selection</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../exhaustive-search/exhaustive-search.html">Exhaustive search</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../construction-heuristics/construction-heuristics.html">Construction heuristics</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../local-search/local-search.html">Local search</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../evolutionary-algorithms/evolutionary-algorithms.html">Evolutionary algorithms</a>
+  </li>
 </ul>
   </li>
 </ul>
@@ -644,7 +662,7 @@ There is no need to add <code>None</code> in a collection provided by a <code>@v
 </div>
 <div class="paragraph">
 <p><a href="#repeated-planning/repeated-planning.adoc#repeatedPlanning" class="xref unresolved">Repeated planning</a> (especially <a href="#repeated-planning/repeated-planning.adoc#realTimePlanning" class="xref unresolved">real-time planning</a>) does not mix well with a nullable planning variable.
-Every time the Solver starts or a problem fact change is made, the <a href="#construction-heuristics/construction-heuristics.adoc#constructionHeuristics" class="xref unresolved">Construction Heuristics</a>
+Every time the Solver starts or a problem fact change is made, the <a href="../construction-heuristics/construction-heuristics.html#constructionHeuristics" class="xref page">Construction Heuristics</a>
 will try to initialize all the <code>None</code> variables again, which can be a huge waste of time.
 One way to deal with this is to filter the entity selector of the placer in the construction heuristic.</p>
 </div>
@@ -1649,8 +1667,8 @@ best_solution = solver.solve(problem)</code></pre>
 <div class="title">Figure 2. Best Solution for the Four Queens Puzzle in 8ms (Also an Optimal Solution)</div>
 </div>
 <div class="paragraph">
-<p>The <code>solve(Solution)</code> method can take a long time (depending on the problem size and the solver configuration). The <code>Solver</code> intelligently wades through <a href="#optimization-algorithms/optimization-algorithms.adoc#searchSpaceSize" class="xref unresolved">the search space</a> of possible solutions and remembers the best solution it encounters during solving.
-Depending on a number of factors (including problem size, how much time the <code>Solver</code> has, the solver configuration, &#8230;&#8203;), <a href="#optimization-algorithms/optimization-algorithms.adoc#doesPlannerFindTheOptimalSolution" class="xref unresolved">that best solution might or might not be an optimal solution</a>.</p>
+<p>The <code>solve(Solution)</code> method can take a long time (depending on the problem size and the solver configuration). The <code>Solver</code> intelligently wades through <a href="../optimization-algorithms/optimization-algorithms.html#searchSpaceSize" class="xref page">the search space</a> of possible solutions and remembers the best solution it encounters during solving.
+Depending on a number of factors (including problem size, how much time the <code>Solver</code> has, the solver configuration, &#8230;&#8203;), <a href="../optimization-algorithms/optimization-algorithms.html#doesPlannerFindTheOptimalSolution" class="xref page">that best solution might or might not be an optimal solution</a>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1835,13 +1853,13 @@ Meanwhile, the code is disrupted from doing further harm or obfuscating the erro
 <p><strong>warn</strong>: Log suspicious circumstances.</p>
 </li>
 <li>
-<p><strong>info</strong>: Log every phase and the solver itself. See <a href="#optimization-algorithms/optimization-algorithms.adoc#scopeOverview" class="xref unresolved">scope overview</a>.</p>
+<p><strong>info</strong>: Log every phase and the solver itself. See <a href="../optimization-algorithms/optimization-algorithms.html#scopeOverview" class="xref page">scope overview</a>.</p>
 </li>
 <li>
-<p><strong>debug</strong>: Log every step of every phase. See <a href="#optimization-algorithms/optimization-algorithms.adoc#scopeOverview" class="xref unresolved">scope overview</a>.</p>
+<p><strong>debug</strong>: Log every step of every phase. See <a href="../optimization-algorithms/optimization-algorithms.html#scopeOverview" class="xref page">scope overview</a>.</p>
 </li>
 <li>
-<p><strong>trace</strong>: Log every move of every step of every phase. See <a href="#optimization-algorithms/optimization-algorithms.adoc#scopeOverview" class="xref unresolved">scope overview</a>.</p>
+<p><strong>trace</strong>: Log every move of every step of every phase. See <a href="../optimization-algorithms/optimization-algorithms.html#scopeOverview" class="xref page">scope overview</a>.</p>
 </li>
 </ul>
 </div>
@@ -1861,7 +1879,7 @@ However, it is invaluable during development to discover a bottleneck.</p>
 but not for slow stepping algorithms (such as Tabu Search).</p>
 </div>
 <div class="paragraph">
-<p>Both cause congestion in <a href="#optimization-algorithms/optimization-algorithms.adoc#multithreadedSolving" class="xref unresolved">multithreaded solving</a> with most appenders, see below..</p>
+<p>Both cause congestion in <a href="../optimization-algorithms/optimization-algorithms.html#multithreadedSolving" class="xref page">multithreaded solving</a> with most appenders, see below..</p>
 </div>
 </td>
 </tr>

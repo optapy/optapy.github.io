@@ -1,0 +1,1517 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Move and neighborhood selection :: Documentation</title>
+    <link rel="canonical" href="https://www.optapy.org/docs/optapy/latest/move-and-neighboorhood-selection/move-and-neighborhood-selection.html">
+    <meta name="generator" content="Antora 3.0.1">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+<link rel="stylesheet" href="../../../_/css/search.css">
+<link rel="stylesheet" href="../../../_/css/menu.css"><!-- Adobe Analytics for Red Hat - DPAL (DTM Property Auto-Loader) - part 1/2 -->
+<script id="dpal" src="https://www.redhat.com/dtm.js" type="text/javascript"></script>
+<!-- Google Analytics for kie team: Global site tag (gtag.js) -->
+<script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <div class="navbar-item">
+        <a href="../../../_/../../">
+          <img src="../../../_/img/optaPyLogoDarkBackground200px.png" alt="OptaPy logo"/>
+        </a>
+        <a class="navbar-item" href="https://www.optapy.org/docs">Documentation</a>
+      </div>
+      <div class="navbar-item hide-for-print">
+        <input id="search-input" type="text" placeholder="Search docs">
+      </div>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://www.optapy.org">Archive</a>
+        <div class="navbar-item">
+          <a class="navbar-item small-item" href="https://github.com/optapy/optapy" title="Follow OptaPy on GitHub"><div class="github-icon"></div></a>
+          <a class="navbar-item small-item" href="https://twitter.com/OptaPlanner" target="_blank" title="Follow OptaPlanner on Twitter"><img alt="T" src="../../../_/img/twitterLogo.png"></a>
+          <a class="navbar-item small-item" href="https://www.linkedin.com/showcase/optaplanner" target="_blank" title="Follow OptaPlanner on LinkedIn"><img alt="L" src="../../../_/img/linkedInLogo.png"></a>
+          <a class="navbar-item small-item" href="https://www.facebook.com/OptaPlanner" target="_blank" title="Follow OptaPlanner on Facebook"><img alt="F" src="../../../_/img/facebookLogo.png"></a>
+          <a class="navbar-item small-item" href="https://www.youtube.com/channel/UCcpkOKpujFlM67D2h0RdaeQ" target="_blank" title="OptaPlanner YouTube channel"><img alt="YT" src="../../../_/img/youtubeLogo.png" style="height: 16px"></a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="optapy" data-version="latest">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">OptaPy User Guide 8.19.0a0</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../optapy-introduction/optapy-introduction.html">OptaPy Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../quickstart/quickstart.html">Quickstart</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../optapy-configuration/optapy-configuration.html">OptaPy configuration</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../score-calculation/score-calculation.html">Score calculation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../constraint-streams/constraint-streams.html">Constraint streams score calculation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../optimization-algorithms/optimization-algorithms.html">Optimization algorithms</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="move-and-neighborhood-selection.html">Move and neighborhood selection</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../exhaustive-search/exhaustive-search.html">Exhaustive search</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../construction-heuristics/construction-heuristics.html">Construction heuristics</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../local-search/local-search.html">Local search</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../evolutionary-algorithms/evolutionary-algorithms.html">Evolutionary algorithms</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">OptaPy User Guide 8.19.0a0</span>
+    <span class="version">latest</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">OptaPy User Guide 8.19.0a0</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">latest</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../optapy-introduction/optapy-introduction.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">OptaPy User Guide 8.19.0a0</a></li>
+    <li><a href="move-and-neighborhood-selection.html">Move and neighborhood selection</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/optapy/optapy/edit/main/optapy-docs/src/modules/ROOT/pages/move-and-neighboorhood-selection/move-and-neighborhood-selection.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Move and neighborhood selection</h1>
+<div class="sect1">
+<h2 id="moveAndNeighborhoodSelectionIntroduction"><a class="anchor" href="#moveAndNeighborhoodSelectionIntroduction"></a>1. Move and neighborhood introduction</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="whatIsAMove"><a class="anchor" href="#whatIsAMove"></a>1.1. What is a <code>Move</code>?</h3>
+<div class="paragraph">
+<p>A <code>Move</code> is a change (or set of changes) from a solution A to a solution B.
+For example, the move below changes queen <code>C</code> from row <code>0</code> to row <code>2</code>:</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="../_images/move-and-neighborhood-selection/singleMoveNQueens04.png" alt="singleMoveNQueens04">
+</div>
+</div>
+<div class="paragraph">
+<p>The new solution is called a <em>neighbor</em> of the original solution, because it can be reached in a single <code>Move</code>.
+Although a single move can change multiple queens, the neighbors of a solution should always be a very small subset of all possible solutions.
+For example, on that original solution, these are all possible <code>changeMove</code>s:</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="../_images/move-and-neighborhood-selection/possibleMovesNQueens04.png" alt="possibleMovesNQueens04">
+</div>
+</div>
+<div class="paragraph">
+<p>If we ignore the four <code>changeMove</code>s that have no impact and are therefore not doable, we can see that the number of moves is <code>n * (n - 1) = 12</code>.
+This is far less than the number of possible solutions, which is <code>n ^ n = 256</code>.
+As the problem scales out, the number of possible moves increases far less than the number of possible solutions.</p>
+</div>
+<div class="paragraph">
+<p>Yet, in four <code>changeMove</code>s or less we can reach any solution.
+For example we can reach a very different solution in three <code>changeMove</code>s:</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="../_images/move-and-neighborhood-selection/sequentialMovesNQueens04.png" alt="sequentialMovesNQueens04">
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>There are many other types of moves besides <code>changeMove</code>s.
+Many move types are included out-of-the-box.</p>
+</div>
+<div class="paragraph">
+<p>A <code>Move</code> can affect multiple entities or even create/delete entities.
+But it must not change the problem facts.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>All optimization algorithms use <code>Move</code>s to transition from one solution to a neighbor solution.
+Therefore, all the optimization algorithms are confronted with <code>Move</code> selection: the craft of creating and iterating moves efficiently and the art of finding the most promising subset of random moves to evaluate first.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="whatIsAMoveSelector"><a class="anchor" href="#whatIsAMoveSelector"></a>1.2. What is a <code>MoveSelector</code>?</h3>
+<div class="paragraph">
+<p>A <code>MoveSelector</code>'s main function is to create <code>Iterator[Move]</code> when needed.
+An optimization algorithm will iterate through a subset of those moves.</p>
+</div>
+<div class="paragraph">
+<p>Here&#8217;s an example how to configure a <code>changeMoveSelector</code> for the optimization algorithm Local Search:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-xml hljs" data-lang="xml">  &lt;localSearch&gt;
+    &lt;changeMoveSelector/&gt;
+    ...
+  &lt;/localSearch&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Out of the box, this works and all properties of the <code>changeMoveSelector</code> are defaulted sensibly (unless that fails fast due to ambiguity). On the other hand, the configuration can be customized significantly for specific use cases.
+For example: you might want to configure a <a href="#filteredSelection">filter</a> to discard pointless moves.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="subselectingOfEntitiesValuesAndOtherMoves"><a class="anchor" href="#subselectingOfEntitiesValuesAndOtherMoves"></a>1.3. Subselecting of entities, values, and other moves</h3>
+<div class="paragraph">
+<p>To create a <code>Move</code>, a <code>MoveSelector</code> needs to select one or more planning entities and/or planning values to move.
+Just like <code>MoveSelector</code>s, <code>EntitySelector</code>s and <code>ValueSelector</code>s need to support a similar feature set (such as scalable just-in-time selection). Therefore, they all implement a common interface <code>Selector</code> and they are configured similarly.</p>
+</div>
+<div class="paragraph">
+<p>A MoveSelector is often composed out of <code>EntitySelector</code>s, <code>ValueSelector</code>s or even other <code>MoveSelector</code>s, which can be configured individually if desired:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-xml hljs" data-lang="xml">    &lt;unionMoveSelector&gt;
+      &lt;changeMoveSelector&gt;
+        &lt;entitySelector&gt;
+          ...
+        &lt;/entitySelector&gt;
+        &lt;valueSelector&gt;
+          ...
+        &lt;/valueSelector&gt;
+        ...
+      &lt;/changeMoveSelector&gt;
+      &lt;swapMoveSelector&gt;
+        ...
+      &lt;/swapMoveSelector&gt;
+    &lt;/unionMoveSelector&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Together, this structure forms a <code>Selector</code> tree:</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="../_images/move-and-neighborhood-selection/selectorTree.png" alt="selectorTree">
+</div>
+</div>
+<div class="paragraph">
+<p>The root of this tree is a <code>MoveSelector</code> which is injected into the optimization algorithm implementation to be (partially) iterated in every step.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="genericMoveSelectors"><a class="anchor" href="#genericMoveSelectors"></a>2. Generic <code>MoveSelectors</code></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="genericMoveSelectorsOverview"><a class="anchor" href="#genericMoveSelectorsOverview"></a>2.1. Generic <code>MoveSelectors</code> overview</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 40%;">
+<col style="width: 40%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top"><code>__str__</code> example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#changeMoveSelector">Change move</a></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Change 1 entity&#8217;s variable</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><code>Process-A {Computer-1 -&gt; Computer-2}</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#swapMoveSelector">Swap move</a></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Swap all variables of 2 entities</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><code>Process-A {Computer-1} &lt;-&gt; Process-B {Computer-2}</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#pillarChangeMoveSelector">Pillar change move</a></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Change a set of entities with the same value</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><code>[Process-A, Process-B, Process-C] {Computer-1 -&gt; Computer-2}</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#pillarSwapMoveSelector">Pillar swap move</a></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Swap 2 sets of entities with the same values</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><code>[Process-A, Process-B, Process-C] {Computer-1} &lt;-&gt; [Process-E, Process-F] {Computer-2}</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#tailChainSwapMoveSelector">Tail chain swap move</a></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Swap 2 tails chains</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><code>Visit-A5 {Visit-A4} &lt;-tailChainSwap-&gt; Visit-B3 {Visit-B2}</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#subChainChangeMoveSelector">Sub chain change move</a></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Cut a subchain and paste it into another chain</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><code>[Visit-A5..Visit-A8] {Visit-A4 -&gt; Visit-B2}</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#subChainSwapMoveSelector">Sub chain swap move</a></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Swap 2 subchains</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><code>[Visit-A5..Visit-A8] {Visit-A4} &lt;-&gt; [Visit-B3..Visit-B9] {Visit-B2}</code></p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="changeMoveSelector"><a class="anchor" href="#changeMoveSelector"></a>2.2. <code>ChangeMoveSelector</code></h3>
+<div class="paragraph">
+<p>For one planning variable, the <code>ChangeMove</code> selects one planning entity and one planning value and assigns the entity&#8217;s variable to that value.</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="../_images/move-and-neighborhood-selection/changeMove.png" alt="changeMove">
+</div>
+</div>
+<div class="paragraph">
+<p>Simplest configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-xml hljs" data-lang="xml">    &lt;changeMoveSelector/&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If there are multiple entity classes or multiple planning variables for one entity class, a simple configuration will automatically unfold into a <a href="#unionMoveSelector">union</a> of <code>ChangeMove</code> selectors for every planning variable.</p>
+</div>
+<div class="paragraph">
+<p>Advanced configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-xml hljs" data-lang="xml">    &lt;changeMoveSelector&gt;
+      ... &lt;!-- Normal selector properties --&gt;
+      &lt;entitySelector&gt;
+        &lt;entityClass&gt;...Lecture&lt;/entityClass&gt;
+        ...
+      &lt;/entitySelector&gt;
+      &lt;valueSelector variableName="room"&gt;
+        ...
+        &lt;nearbySelection&gt;...&lt;/nearbySelection&gt;
+      &lt;/valueSelector&gt;
+    &lt;/changeMoveSelector&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A <code>ChangeMove</code> is the finest grained move.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Almost every <code>moveSelector</code> configuration injected into a metaheuristic algorithm should include a <code>changeMoveSelector</code>.
+This guarantees that every possible solution can be reached in theory through applying a number of moves in sequence.
+Of course, normally it is unioned with other, more coarse grained move selectors.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This move selector only supports <a href="#cacheType">phase or solver caching</a> if it doesn&#8217;t apply on a <a href="../optapy-configuration/optapy-configuration.html#chainedPlanningVariable" class="xref page">chained</a> variable.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="swapMoveSelector"><a class="anchor" href="#swapMoveSelector"></a>2.3. <code>SwapMoveSelector</code></h3>
+<div class="paragraph">
+<p>The <code>SwapMove</code> selects two different planning entities and swaps the planning values of all their planning variables.</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="../_images/move-and-neighborhood-selection/swapMove.png" alt="swapMove">
+</div>
+</div>
+<div class="paragraph">
+<p>Although a <code>SwapMove</code> on a single variable is essentially just two <code>ChangeMove</code>s,
+it&#8217;s often the winning step in cases that the first of the two <code>ChangeMove</code>s would not win
+because it leaves the solution in a state with broken hard constraints.
+For example: swapping the room of two lectures doesn&#8217;t bring the solution in an intermediate state where both lectures are in the same room which breaks a hard constraint.</p>
+</div>
+<div class="paragraph">
+<p>Simplest configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-xml hljs" data-lang="xml">    &lt;swapMoveSelector/&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If there are multiple entity classes, a simple configuration will automatically unfold into a <a href="#unionMoveSelector">union</a> of <code>SwapMove</code> selectors for every entity class.</p>
+</div>
+<div class="paragraph">
+<p>Advanced configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-xml hljs" data-lang="xml">    &lt;swapMoveSelector&gt;
+      ... &lt;!-- Normal selector properties --&gt;
+      &lt;entitySelector&gt;
+        &lt;entityClass&gt;...Lecture&lt;/entityClass&gt;
+        ...
+      &lt;/entitySelector&gt;
+      &lt;secondaryEntitySelector&gt;
+        &lt;entityClass&gt;...Lecture&lt;/entityClass&gt;
+        ...
+        &lt;nearbySelection&gt;...&lt;/nearbySelection&gt;
+      &lt;/secondaryEntitySelector&gt;
+      &lt;variableNameIncludes&gt;
+        &lt;variableNameInclude&gt;room&lt;/variableNameInclude&gt;
+        &lt;variableNameInclude&gt;...&lt;/variableNameInclude&gt;
+      &lt;/variableNameIncludes&gt;
+    &lt;/swapMoveSelector&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>secondaryEntitySelector</code> is rarely needed: if it is not specified, entities from the same <code>entitySelector</code> are swapped.</p>
+</div>
+<div class="paragraph">
+<p>If one or more <code>variableNameInclude</code> properties are specified, not all planning variables will be swapped, but only those specified.
+For example for course scheduling, specifying only <code>variableNameInclude</code> room will make it only swap room, not period.</p>
+</div>
+<div class="paragraph">
+<p>This move selector only supports <a href="#cacheType">phase or solver caching</a> if it doesn&#8217;t apply on any <a href="#chainedPlanningVariable">chained</a> variables.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="pillarMoveSelectors"><a class="anchor" href="#pillarMoveSelectors"></a>2.4. Pillar-based move selectors</h3>
+<div class="paragraph">
+<p>A <em>pillar</em> is a set of planning entities which have the same planning value(s) for their planning variable(s).</p>
+</div>
+<div class="sect3">
+<h4 id="pillarChangeMoveSelector"><a class="anchor" href="#pillarChangeMoveSelector"></a>2.4.1. <code>PillarChangeMoveSelector</code></h4>
+<div class="paragraph">
+<p>The <code>PillarChangeMove</code> selects one entity pillar (or subset of those) and changes the value of one variable (which is the same for all entities) to another value.</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="../_images/move-and-neighborhood-selection/pillarChangeMove.png" alt="pillarChangeMove">
+</div>
+</div>
+<div class="paragraph">
+<p>In the example above, queen A and C have the same value (row 0) and are moved to row 2.
+Also the yellow and blue process have the same value (computer Y) and are moved to computer X.</p>
+</div>
+<div class="paragraph">
+<p>Simplest configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-xml hljs" data-lang="xml">    &lt;pillarChangeMoveSelector/&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Advanced configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-xml hljs" data-lang="xml">    &lt;pillarChangeMoveSelector&gt;
+      &lt;subPillarType&gt;SEQUENCE&lt;/subPillarType&gt;
+      ... &lt;!-- Normal selector properties --&gt;
+      &lt;pillarSelector&gt;
+        &lt;entitySelector&gt;
+          &lt;entityClass&gt;...ShiftAssignment&lt;/entityClass&gt;
+          ...
+        &lt;/entitySelector&gt;
+        &lt;minimumSubPillarSize&gt;1&lt;/minimumSubPillarSize&gt;
+        &lt;maximumSubPillarSize&gt;1000&lt;/maximumSubPillarSize&gt;
+      &lt;/pillarSelector&gt;
+      &lt;valueSelector variableName="room"&gt;
+        ...
+      &lt;/valueSelector&gt;
+    &lt;/pillarChangeMoveSelector&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For a description of <code>subPillarType</code> and related properties, please refer to <a href="#subPillars">Subpillars</a>.</p>
+</div>
+<div class="paragraph">
+<p>The other properties are explained in <a href="#changeMoveSelector">changeMoveSelector</a>.
+This move selector does not support <a href="#cacheType">phase or solver caching</a>
+and step caching scales badly memory wise.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="pillarSwapMoveSelector"><a class="anchor" href="#pillarSwapMoveSelector"></a>2.4.2. <code>PillarSwapMoveSelector</code></h4>
+<div class="paragraph">
+<p>The <code>PillarSwapMove</code> selects two different entity pillars and swaps the values of all their variables for all their entities.</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="../_images/move-and-neighborhood-selection/pillarSwapMove.png" alt="pillarSwapMove">
+</div>
+</div>
+<div class="paragraph">
+<p>Simplest configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-xml hljs" data-lang="xml">    &lt;pillarSwapMoveSelector/&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Advanced configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-xml hljs" data-lang="xml">    &lt;pillarSwapMoveSelector&gt;
+      &lt;subPillarType&gt;SEQUENCE&lt;/subPillarType&gt;
+      ... &lt;!-- Normal selector properties --&gt;
+      &lt;pillarSelector&gt;
+        &lt;entitySelector&gt;
+          &lt;entityClass&gt;...ShiftAssignment&lt;/entityClass&gt;
+          ...
+        &lt;/entitySelector&gt;
+        &lt;minimumSubPillarSize&gt;1&lt;/minimumSubPillarSize&gt;
+        &lt;maximumSubPillarSize&gt;1000&lt;/maximumSubPillarSize&gt;
+      &lt;/pillarSelector&gt;
+      &lt;secondaryPillarSelector&gt;
+        &lt;entitySelector&gt;
+          ...
+        &lt;/entitySelector&gt;
+        ...
+      &lt;/secondaryPillarSelector&gt;
+      &lt;variableNameIncludes&gt;
+        &lt;variableNameInclude&gt;employee&lt;/variableNameInclude&gt;
+        &lt;variableNameInclude&gt;...&lt;/variableNameInclude&gt;
+      &lt;/variableNameIncludes&gt;
+    &lt;/pillarSwapMoveSelector&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For a description of <code>subPillarType</code> and related properties, please refer to <a href="#subPillars">sub pillars</a>.</p>
+</div>
+<div class="paragraph">
+<p>The <code>secondaryPillarSelector</code> is rarely needed: if it is not specified, entities from the same <code>pillarSelector</code> are swapped.</p>
+</div>
+<div class="paragraph">
+<p>The other properties are explained in <a href="#swapMoveSelector">swapMoveSelector</a> and <a href="#pillarChangeMoveSelector">pillarChangeMoveSelector</a>.
+This move selector does not support <a href="#cacheType">phase or solver caching</a>
+and step caching scales badly memory wise.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="subPillars"><a class="anchor" href="#subPillars"></a>2.4.3. Sub pillars</h4>
+<div class="paragraph">
+<p>A sub pillar is a subset of entities that share the same value(s) for their variable(s). For example if queen A, B, C and D are all located on row 0, they are a pillar and <code>[A, D]</code> is one of the many sub pillars.</p>
+</div>
+<div class="paragraph">
+<p>There are several ways how sub pillars can be selected by the <code>subPillarType</code> property:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>ALL</code> (default) selects all possible sub pillars.</p>
+</li>
+<li>
+<p><code>SEQUENCE</code> limits selection of sub pillars to <a href="#sequentialSubPillars">Sequential sub pillars</a>.</p>
+</li>
+<li>
+<p><code>NONE</code> never selects any sub pillars.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If sub pillars are enabled, the pillar itself is also included and the properties <code>minimumSubPillarSize</code> (defaults to <code>1</code>) and <code>maximumSubPillarSize</code> (defaults to <code>infinity</code>) limit the size of the selected (sub) pillar.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The number of sub pillars of a pillar is exponential to the size of the pillar.
+For example a pillar of size 32 has <code>(2^32 - 1)</code> subpillars.
+Therefore a <code>pillarSelector</code> only supports <a href="#justInTimeRandomSelection">JIT random selection</a> (which is the default).</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect4">
+<h5 id="sequentialSubPillars"><a class="anchor" href="#sequentialSubPillars"></a>Sequential sub pillars</h5>
+<div class="paragraph">
+<p>Sub pillars can be sorted with a <code>Comparator</code>. A sequential sub pillar is a continuous subset of its sorted base pillar.</p>
+</div>
+<div class="paragraph">
+<p>For example if a nurse has shifts on Monday (<code>M</code>), Tuesday (<code>T</code>), and Wednesday (<code>W</code>), they are a pillar and only the following are its sequential sub pillars: <code>[M], [T], [W], [M, T], [T, W], [M, T, W]</code>.
+But <code>[M, W]</code> is not a sub pillar in this case, as there is a gap on Tuesday.</p>
+</div>
+<div class="paragraph">
+<p>Sequential sub pillars apply to both <a href="#pillarChangeMoveSelector">Pillar change move</a> and
+<a href="#pillarSwapMoveSelector">Pillar swap move</a>. A minimal configuration looks like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-xml hljs" data-lang="xml">    &lt;pillar...MoveSelector&gt;
+      &lt;subPillarType&gt;SEQUENCE&lt;/subPillarType&gt;
+    &lt;/pillar...MoveSelector&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In this case, the entity being operated on must implement the comparisons methods (<code>__lt__</code>, <code>__gt__</code>, etc). The size of sub pillars will not be limited in any way.</p>
+</div>
+<div class="paragraph">
+<p>An advanced configuration looks like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-xml hljs" data-lang="xml">    &lt;pillar...MoveSelector&gt;
+      ...
+      &lt;subPillarType&gt;SEQUENCE&lt;/subPillarType&gt;
+      &lt;pillarSelector&gt;
+        ...
+        &lt;minimumSubPillarSize&gt;1&lt;/minimumSubPillarSize&gt;
+        &lt;maximumSubPillarSize&gt;1000&lt;/maximumSubPillarSize&gt;
+      &lt;/pillarSelector&gt;
+      ...
+    &lt;/pillar...MoveSelector&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The size of the sub pillars is limited in length of up to 1000 entities.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="chainMoveSelectors"><a class="anchor" href="#chainMoveSelectors"></a>2.5. Move selectors for chained variables</h3>
+<div class="sect3">
+<h4 id="tailChainSwapMoveSelector"><a class="anchor" href="#tailChainSwapMoveSelector"></a>2.5.1. <code>TailChainSwapMoveSelector</code> or 2-opt</h4>
+<div class="paragraph">
+<p>A <em>tailChain</em> is a set of planning entities with a chained planning variable which form the last part of a chain.
+The <code>tailChainSwapMove</code> selects a tail chain and swaps it with the tail chain of another planning value (in a different or the same anchor chain). If the targeted planning value, doesn&#8217;t have a tail chain, it swaps with nothing (resulting in a change like move). If it occurs within the same anchor chain, a partial chain reverse occurs.
+In academic papers, this is often called a 2-opt move.</p>
+</div>
+<div class="paragraph">
+<p>Simplest configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-xml hljs" data-lang="xml">    &lt;tailChainSwapMoveSelector/&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Advanced configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-xml hljs" data-lang="xml">    &lt;tailChainSwapMoveSelector&gt;
+      ... &lt;!-- Normal selector properties --&gt;
+      &lt;entitySelector&gt;
+        &lt;entityClass&gt;...Customer&lt;/entityClass&gt;
+        ...
+      &lt;/entitySelector&gt;
+      &lt;valueSelector variableName="previousStandstill"&gt;
+        ...
+        &lt;nearbySelection&gt;...&lt;/nearbySelection&gt;
+      &lt;/valueSelector&gt;
+    &lt;/tailChainSwapMoveSelector&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>entitySelector</code> selects the start of the tail chain that is being moved.
+The <code>valueSelector</code> selects to where that tail chain is moved.
+If it has a tail chain itself, that is moved to the location of the original tail chain.
+It uses a <code>valueSelector</code> instead of a <code>secondaryEntitySelector</code> to be able to include all possible 2opt moves (such as moving to the end of a tail) and to work correctly with <a href="#nearbySelection">nearby selection</a> (because of asymmetric distances and also swapped entity distance gives an incorrect selection probability).</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Although <code>subChainChangeMoveSelector</code> and <code>subChainSwapMoveSelector</code> include almost every possible <code>tailChainSwapMove</code>, experiments have shown that focusing on <code>tailChainSwapMove</code>s increases efficiency.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This move selector does not support <a href="#cacheType">phase or solver caching</a>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="subChainChangeMoveSelector"><a class="anchor" href="#subChainChangeMoveSelector"></a>2.5.2. <code>SubChainChangeMoveSelector</code></h4>
+<div class="paragraph">
+<p>A <em>subChain</em> is a set of planning entities with a chained planning variable which form part of a chain.
+The <code>subChainChangeMoveSelector</code> selects a subChain and moves it to another place (in a different or the same anchor chain).</p>
+</div>
+<div class="paragraph">
+<p>Simplest configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-xml hljs" data-lang="xml">    &lt;subChainChangeMoveSelector/&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Advanced configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-xml hljs" data-lang="xml">    &lt;subChainChangeMoveSelector&gt;
+      ... &lt;!-- Normal selector properties --&gt;
+      &lt;entityClass&gt;...Customer&lt;/entityClass&gt;
+      &lt;subChainSelector&gt;
+        &lt;valueSelector variableName="previousStandstill"&gt;
+          ...
+        &lt;/valueSelector&gt;
+        &lt;minimumSubChainSize&gt;2&lt;/minimumSubChainSize&gt;
+        &lt;maximumSubChainSize&gt;40&lt;/maximumSubChainSize&gt;
+      &lt;/subChainSelector&gt;
+      &lt;valueSelector variableName="previousStandstill"&gt;
+        ...
+      &lt;/valueSelector&gt;
+      &lt;selectReversingMoveToo&gt;true&lt;/selectReversingMoveToo&gt;
+    &lt;/subChainChangeMoveSelector&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>subChainSelector</code> selects a number of entities, no less than <code>minimumSubChainSize</code> (defaults to <code>1</code>) and no more than <code>maximumSubChainSize</code> (defaults to <code>infinity</code>).</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If <code>minimumSubChainSize</code> is <code>1</code> (which is the default), this selector might select the same move as a <code>ChangeMoveSelector</code>, at a far lower selection probability (because each move <em>type</em> has the same selection chance by default (not every move instance) and there are far more <code>SubChainChangeMove</code> instances than <code>ChangeMove</code> instances). However, don&#8217;t just remove the <code>ChangeMoveSelector</code>, because experiments show that it&#8217;s good to focus on <code>ChangeMove</code>s.</p>
+</div>
+<div class="paragraph">
+<p>Furthermore, in a <code>SubChainSwapMoveSelector</code>, setting <code>minimumSubChainSize</code> prevents swapping a subchain of size <code>1</code> with a subchain of size <code>2</code> or more.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The <code>selectReversingMoveToo</code> property (defaults to true) enables selecting the reverse of every subchain too.</p>
+</div>
+<div class="paragraph">
+<p>This move selector does not support <a href="#cacheType">phase or solver caching</a>
+and step caching scales badly memory wise.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="subChainSwapMoveSelector"><a class="anchor" href="#subChainSwapMoveSelector"></a>2.5.3. <code>SubChainSwapMoveSelector</code></h4>
+<div class="paragraph">
+<p>The <code>subChainSwapMoveSelector</code> selects two different subChains and moves them to another place in a different or the same anchor chain.</p>
+</div>
+<div class="paragraph">
+<p>Simplest configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-xml hljs" data-lang="xml">    &lt;subChainSwapMoveSelector/&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Advanced configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-xml hljs" data-lang="xml">    &lt;subChainSwapMoveSelector&gt;
+      ... &lt;!-- Normal selector properties --&gt;
+      &lt;entityClass&gt;...Customer&lt;/entityClass&gt;
+      &lt;subChainSelector&gt;
+        &lt;valueSelector variableName="previousStandstill"&gt;
+          ...
+        &lt;/valueSelector&gt;
+        &lt;minimumSubChainSize&gt;2&lt;/minimumSubChainSize&gt;
+        &lt;maximumSubChainSize&gt;40&lt;/maximumSubChainSize&gt;
+      &lt;/subChainSelector&gt;
+      &lt;secondarySubChainSelector&gt;
+        &lt;valueSelector variableName="previousStandstill"&gt;
+          ...
+        &lt;/valueSelector&gt;
+        &lt;minimumSubChainSize&gt;2&lt;/minimumSubChainSize&gt;
+        &lt;maximumSubChainSize&gt;40&lt;/maximumSubChainSize&gt;
+      &lt;/secondarySubChainSelector&gt;
+      &lt;selectReversingMoveToo&gt;true&lt;/selectReversingMoveToo&gt;
+    &lt;/subChainSwapMoveSelector&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>secondarySubChainSelector</code> is rarely needed: if it is not specified, entities from the same <code>subChainSelector</code> are swapped.</p>
+</div>
+<div class="paragraph">
+<p>The other properties are explained in <a href="#subChainChangeMoveSelector">subChainChangeMoveSelector</a>.
+This move selector does not support <a href="#cacheType">phase or solver caching</a>
+and step caching scales badly memory wise.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="combiningMultipleMoveSelectors"><a class="anchor" href="#combiningMultipleMoveSelectors"></a>3. Combining multiple <code>MoveSelector</code>s</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="unionMoveSelector"><a class="anchor" href="#unionMoveSelector"></a>3.1. <code>unionMoveSelector</code></h3>
+<div class="paragraph">
+<p>A <code>unionMoveSelector</code> selects a <code>Move</code> by selecting one of its <code>MoveSelector</code> children to supply the next <code>Move</code>.</p>
+</div>
+<div class="paragraph">
+<p>Simplest configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-xml hljs" data-lang="xml">    &lt;unionMoveSelector&gt;
+      &lt;...MoveSelector/&gt;
+      &lt;...MoveSelector/&gt;
+      &lt;...MoveSelector/&gt;
+      ...
+    &lt;/unionMoveSelector&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Advanced configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-xml hljs" data-lang="xml">    &lt;unionMoveSelector&gt;
+      ... &lt;!-- Normal selector properties --&gt;
+      &lt;changeMoveSelector&gt;
+        &lt;fixedProbabilityWeight&gt;...&lt;/fixedProbabilityWeight&gt;
+        ...
+      &lt;/changeMoveSelector&gt;
+      &lt;swapMoveSelector&gt;
+        &lt;fixedProbabilityWeight&gt;...&lt;/fixedProbabilityWeight&gt;
+        ...
+      &lt;/swapMoveSelector&gt;
+      &lt;...MoveSelector&gt;
+        &lt;fixedProbabilityWeight&gt;...&lt;/fixedProbabilityWeight&gt;
+        ...
+      &lt;/...MoveSelector&gt;
+      ...
+      &lt;selectorProbabilityWeightFactoryClass&gt;...ProbabilityWeightFactory&lt;/selectorProbabilityWeightFactoryClass&gt;
+    &lt;/unionMoveSelector&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>selectorProbabilityWeightFactory</code> determines in <code>selectionOrder</code> <code>RANDOM</code> how often a <code>MoveSelector</code> child is selected to supply the next Move.
+By default, each <code>MoveSelector</code> child has the same chance of being selected.
+Custom <code>selectorProbabilityWeightFactory</code> functions are currently not supported in OptaPy.</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="../_images/move-and-neighborhood-selection/selectorProbabilityInUnion.png" alt="selectorProbabilityInUnion">
+</div>
+</div>
+<div class="paragraph">
+<p>Change the <code>fixedProbabilityWeight</code> of such a child to select it more often.
+For example, the <code>unionMoveSelector</code> can return a <code>SwapMove</code> twice as often as a <code>ChangeMove</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-xml hljs" data-lang="xml">    &lt;unionMoveSelector&gt;
+      &lt;changeMoveSelector&gt;
+        &lt;fixedProbabilityWeight&gt;1.0&lt;/fixedProbabilityWeight&gt;
+        ...
+      &lt;/changeMoveSelector&gt;
+      &lt;swapMoveSelector&gt;
+        &lt;fixedProbabilityWeight&gt;2.0&lt;/fixedProbabilityWeight&gt;
+        ...
+      &lt;/swapMoveSelector&gt;
+    &lt;/unionMoveSelector&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The number of possible <code>ChangeMove</code>s is very different from the number of possible <code>SwapMove</code>s and furthermore it&#8217;s problem dependent.
+To give each individual <code>Move</code> the same selection chance (as opposed to each <code>MoveSelector</code>), use the <code>FairSelectorProbabilityWeightFactory</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-xml hljs" data-lang="xml">    &lt;unionMoveSelector&gt;
+      &lt;changeMoveSelector/&gt;
+      &lt;swapMoveSelector/&gt;
+      &lt;selectorProbabilityWeightFactoryClass&gt;org.optaplanner.core.impl.heuristic.selector.common.decorator.FairSelectorProbabilityWeightFactory&lt;/selectorProbabilityWeightFactoryClass&gt;
+    &lt;/unionMoveSelector&gt;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="cartesianProductMoveSelector"><a class="anchor" href="#cartesianProductMoveSelector"></a>3.2. <code>cartesianProductMoveSelector</code></h3>
+<div class="paragraph">
+<p>A <code>cartesianProductMoveSelector</code> selects a new <code>CompositeMove</code>.
+It builds that <code>CompositeMove</code> by selecting one <code>Move</code> per <code>MoveSelector</code> child and adding it to the <code>CompositeMove</code>.</p>
+</div>
+<div class="paragraph">
+<p>Simplest configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-xml hljs" data-lang="xml">    &lt;cartesianProductMoveSelector&gt;
+      &lt;...MoveSelector/&gt;
+      &lt;...MoveSelector/&gt;
+      &lt;...MoveSelector/&gt;
+      ...
+    &lt;/cartesianProductMoveSelector&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Advanced configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-xml hljs" data-lang="xml">    &lt;cartesianProductMoveSelector&gt;
+      ... &lt;!-- Normal selector properties --&gt;
+      &lt;changeMoveSelector&gt;
+        ...
+      &lt;/changeMoveSelector&gt;
+      &lt;swapMoveSelector&gt;
+        ...
+      &lt;/swapMoveSelector&gt;
+      &lt;...MoveSelector&gt;
+        ...
+      &lt;/...MoveSelector&gt;
+      ...
+      &lt;ignoreEmptyChildIterators&gt;true&lt;/ignoreEmptyChildIterators&gt;
+    &lt;/cartesianProductMoveSelector&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>ignoreEmptyChildIterators</code> property (true by default) will ignore every empty <code>childMoveSelector</code> to avoid returning no moves.
+For example: a cartesian product of <code>changeMoveSelector</code> A and B, for which B is empty (because all it&#8217;s entities are pinned) returns no move if <code>ignoreEmptyChildIterators</code> is <code>false</code> and the moves of A if <code>ignoreEmptyChildIterators</code> is <code>true</code>.</p>
+</div>
+<div class="paragraph">
+<p>To enforce that two child selectors use the same entity or value efficiently, use <a href="#mimicSelection">mimic selection</a>, not move filtering.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="entitySelector"><a class="anchor" href="#entitySelector"></a>4. <code>EntitySelector</code></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Simplest configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-xml hljs" data-lang="xml">      &lt;entitySelector/&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Advanced configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-xml hljs" data-lang="xml">      &lt;entitySelector&gt;
+        ... &lt;!-- Normal selector properties --&gt;
+        &lt;entityClass&gt;optapy.examples.curriculumcourse.domain.Lecture&lt;/entityClass&gt;
+      &lt;/entitySelector&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>entityClass</code> property is only required if it cannot be deduced automatically because there are multiple entity classes.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="valueSelector"><a class="anchor" href="#valueSelector"></a>5. <code>ValueSelector</code></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Simplest configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-xml hljs" data-lang="xml">      &lt;valueSelector/&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Advanced configuration:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-xml hljs" data-lang="xml">      &lt;valueSelector variableName="room"&gt;
+        ... &lt;!-- Normal selector properties --&gt;
+      &lt;/valueSelector&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>variableName</code> property is only required if it cannot be deduced automatically because there are multiple variables (for the related entity class).</p>
+</div>
+<div class="paragraph">
+<p>In exotic Construction Heuristic configurations, the <code>entityClass</code> from the <code>EntitySelector</code> sometimes needs to be downcasted, which can be done with the property <code>downcastEntityClass</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-xml hljs" data-lang="xml">      &lt;valueSelector variableName="period"&gt;
+        &lt;downcastEntityClass&gt;...LeadingExam&lt;/downcastEntityClass&gt;
+      &lt;/valueSelector&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If a selected entity cannot be downcasted, the <code>ValueSelector</code> is empty for that entity.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="generalSelectorFeatures"><a class="anchor" href="#generalSelectorFeatures"></a>6. General <code>Selector</code> features</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="cacheType"><a class="anchor" href="#cacheType"></a>6.1. <code>CacheType</code>: create moves ahead of time or just in time</h3>
+<div class="paragraph">
+<p>A <code>Selector</code>'s <code>cacheType</code> determines when a selection (such as a <code>Move</code>, an entity, a value, &#8230;&#8203;)
+is created and how long it lives.</p>
+</div>
+<div class="paragraph">
+<p>Almost every <code>Selector</code> supports setting a <code>cacheType</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-xml hljs" data-lang="xml">    &lt;changeMoveSelector&gt;
+      &lt;cacheType&gt;PHASE&lt;/cacheType&gt;
+      ...
+    &lt;/changeMoveSelector&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following <code>cacheType</code>s are supported:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>JUST_IN_TIME</code> (default, recommended): Not cached. Construct each selection (<code>Move</code>, &#8230;&#8203;) just before it&#8217;s used.
+This scales up well in memory footprint.</p>
+</li>
+<li>
+<p><code>STEP</code>: Cached. Create each selection (<code>Move</code>, &#8230;&#8203;) at the beginning of a step and cache them in a list for the remainder of the step.
+This scales up badly in memory footprint.</p>
+</li>
+<li>
+<p><code>PHASE</code>: Cached. Create each selection (<code>Move</code>, &#8230;&#8203;) at the beginning of a solver phase and cache them in a list for the remainder of the phase. Some selections cannot be phase cached because the list changes every step.
+This scales up badly in memory footprint, but has a slight performance gain.</p>
+</li>
+<li>
+<p><code>SOLVER</code>: Cached. Create each selection (<code>Move</code>, &#8230;&#8203;) at the beginning of a <code>Solver</code> and cache them in a list for the remainder of the <code>Solver</code>. Some selections cannot be solver cached because the list changes every step.
+This scales up badly in memory footprint, but has a slight performance gain.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>A <code>cacheType</code> can be set on composite selectors too:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-xml hljs" data-lang="xml">    &lt;unionMoveSelector&gt;
+      &lt;cacheType&gt;PHASE&lt;/cacheType&gt;
+      &lt;changeMoveSelector/&gt;
+      &lt;swapMoveSelector/&gt;
+      ...
+    &lt;/unionMoveSelector&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Nested selectors of a cached selector cannot be configured to be cached themselves, unless it&#8217;s a higher <code>cacheType</code>.
+For example: a <code>STEP</code> cached <code>unionMoveSelector</code> can contain a <code>PHASE</code> cached <code>changeMoveSelector</code>,
+but it cannot contain a <code>STEP</code> cached <code>changeMoveSelector</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="selectionOrder"><a class="anchor" href="#selectionOrder"></a>6.2. <code>SelectionOrder</code>: original, sorted, random, shuffled, or probabilistic</h3>
+<div class="paragraph">
+<p>A <code>Selector</code>'s <code>selectionOrder</code> determines the order in which the selections (such as <code>Move</code>s, entities, values, &#8230;&#8203;) are iterated.
+An optimization algorithm will usually only iterate through a subset of its <code>MoveSelector</code>'s selections, starting from the start, so the <code>selectionOrder</code> is critical to decide which <code>Move</code>s are actually evaluated.</p>
+</div>
+<div class="paragraph">
+<p>Almost every <code>Selector</code> supports setting a <code>selectionOrder</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-xml hljs" data-lang="xml">    &lt;changeMoveSelector&gt;
+      ...
+      &lt;selectionOrder&gt;RANDOM&lt;/selectionOrder&gt;
+      ...
+    &lt;/changeMoveSelector&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following <code>selectionOrder</code>s are supported:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>ORIGINAL</code>: Select the selections (<code>Move</code>s, entities, values, &#8230;&#8203;) in default order. Each selection will be selected only once.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>For example: A0, A1, A2, A3, &#8230;&#8203;, B0, B1, B2, B3, &#8230;&#8203;, C0, C1, C2, C3, &#8230;&#8203;</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>SORTED: Select the selections (<code>Move</code>s, entities, values, &#8230;&#8203;) in sorted order. Each selection will be selected only once. Requires <code>cacheType &gt;= STEP</code>. Mostly used on an <code>entitySelector</code> or <code>valueSelector</code> for construction heuristics. See <a href="#sortedSelection">sorted selection</a>.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>For example: A0, B0, C0, &#8230;&#8203;, A2, B2, C2, &#8230;&#8203;, A1, B1, C1, &#8230;&#8203;</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>RANDOM (default): Select the selections (<code>Move</code>s, entities, values, &#8230;&#8203;) in non-shuffled random order. A selection might be selected multiple times. This scales up well in performance because it does not require caching.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>For example: C2, A3, B1, C2, A0, C0, &#8230;&#8203;</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>SHUFFLED: Select the selections (<code>Move</code>s, entities, values, &#8230;&#8203;) in shuffled random order. Each selection will be selected only once. Requires <code>cacheType &gt;= STEP</code>. This scales up badly in performance, not just because it requires caching, but also because a random number is generated for each element, even if it&#8217;s not selected (which is the grand majority when scaling up).</p>
+<div class="ulist">
+<ul>
+<li>
+<p>For example: C2, A3, B1, A0, C0, &#8230;&#8203;</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>PROBABILISTIC: Select the selections (<code>Move</code>s, entities, values, &#8230;&#8203;) in random order, based on the selection probability of each element. A selection with a higher probability has a higher chance to be selected than elements with a lower probability. A selection might be selected multiple times. Requires <code>cacheType &gt;= STEP</code>. Mostly used on an <code>entitySelector</code> or <code>valueSelector</code>. See <a href="#probabilisticSelection">probabilistic selection</a>.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>For example: B1, B1, A1, B2, B1, C2, B1, B1, &#8230;&#8203;</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>A <code>selectionOrder</code> can be set on composite selectors too.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>When a <code>Selector</code> is cached, all of its nested <code>Selector</code>s will naturally default to <code>selectionOrder</code> <code>ORIGINAL</code>.
+Avoid overwriting the <code>selectionOrder</code> of those nested <code>Selector</code>s.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="recommendedCombinationsOfCacheTypeAndSelectionOrder"><a class="anchor" href="#recommendedCombinationsOfCacheTypeAndSelectionOrder"></a>6.3. Recommended combinations of <code>CacheType</code> and <code>SelectionOrder</code></h3>
+<div class="sect3">
+<h4 id="justInTimeRandomSelection"><a class="anchor" href="#justInTimeRandomSelection"></a>6.3.1. Just in time random selection (default)</h4>
+<div class="paragraph">
+<p>This combination is great for big use cases (10 000 entities or more), as it scales up well in memory footprint and performance.
+Other combinations are often not even viable on such sizes.
+It works for smaller use cases too, so it&#8217;s a good way to start out.
+It&#8217;s the default, so this explicit configuration of <code>cacheType</code> and <code>selectionOrder</code> is actually obsolete:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-xml hljs" data-lang="xml">    &lt;unionMoveSelector&gt;
+      &lt;cacheType&gt;JUST_IN_TIME&lt;/cacheType&gt;
+      &lt;selectionOrder&gt;RANDOM&lt;/selectionOrder&gt;
+
+      &lt;changeMoveSelector/&gt;
+      &lt;swapMoveSelector/&gt;
+    &lt;/unionMoveSelector&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here&#8217;s how it works.
+When the root <code>MoveSelector</code> yields a value, a child <code>MoveSelector</code> is randomly selected (1), which creates a random <code>Move</code> (2, 3, 4) and is then returned (5):</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="../_images/move-and-neighborhood-selection/jitRandomSelection.png" alt="jitRandomSelection">
+</div>
+</div>
+<div class="paragraph">
+<p>Notice that <strong>it never creates a list of <code><strong>Move</strong></code>s</strong> and it generates random numbers only for <code>Move</code>s that are actually selected.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="cachedShuffledSelection"><a class="anchor" href="#cachedShuffledSelection"></a>6.3.2. Cached shuffled selection</h4>
+<div class="paragraph">
+<p>This combination often wins for small use cases (1000 entities or less).
+Beyond that size, it scales up badly in memory footprint and performance.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-xml hljs" data-lang="xml">    &lt;unionMoveSelector&gt;
+      &lt;cacheType&gt;PHASE&lt;/cacheType&gt;
+      &lt;selectionOrder&gt;SHUFFLED&lt;/selectionOrder&gt;
+
+      &lt;changeMoveSelector/&gt;
+      &lt;swapMoveSelector/&gt;
+    &lt;/unionMoveSelector&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here&#8217;s how it works: At the start of the phase (or step depending on the <code>cacheType</code>), all moves are created (1) and cached (2). When the root <code>MoveSelector</code> is created, the moves are shuffled (3). When the root <code>MoveSelector</code> yields a value, the next element in the shuffled list is returned (4):</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="../_images/move-and-neighborhood-selection/cachedShuffledSelection.png" alt="cachedShuffledSelection">
+</div>
+</div>
+<div class="paragraph">
+<p>Notice that <strong>each <code></strong>Move<strong></code> will only be selected once</strong>, even though they are selected in random order.</p>
+</div>
+<div class="paragraph">
+<p>Use cacheType PHASE if none of the (possibly nested) Selectors require <code>STEP</code>.
+Otherwise, do something like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-xml hljs" data-lang="xml">    &lt;unionMoveSelector&gt;
+      &lt;cacheType&gt;STEP&lt;/cacheType&gt;
+      &lt;selectionOrder&gt;SHUFFLED&lt;/selectionOrder&gt;
+
+      &lt;changeMoveSelector&gt;
+        &lt;cacheType&gt;PHASE&lt;/cacheType&gt;
+      &lt;/changeMoveSelector&gt;
+      &lt;swapMoveSelector&gt;
+        &lt;cacheType&gt;PHASE&lt;/cacheType&gt;
+      &lt;/swapMoveSelector&gt;
+      &lt;pillarSwapMoveSelector/&gt;&lt;!-- Does not support cacheType PHASE --&gt;
+    &lt;/unionMoveSelector&gt;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="cachedRandomSelection"><a class="anchor" href="#cachedRandomSelection"></a>6.3.3. Cached random selection</h4>
+<div class="paragraph">
+<p>This combination is often a worthy competitor for medium use cases, especially with fast stepping optimization algorithms (such as Simulated Annealing). Unlike cached shuffled selection, it doesn&#8217;t waste time shuffling the moves list at the beginning of every step.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-xml hljs" data-lang="xml">    &lt;unionMoveSelector&gt;
+      &lt;cacheType&gt;PHASE&lt;/cacheType&gt;
+      &lt;selectionOrder&gt;RANDOM&lt;/selectionOrder&gt;
+
+      &lt;changeMoveSelector/&gt;
+      &lt;swapMoveSelector/&gt;
+    &lt;/unionMoveSelector&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="filteredSelection"><a class="anchor" href="#filteredSelection"></a>6.4. Filtered selection</h3>
+<div class="paragraph">
+<p>OptaPy currently does not support filtered selection, but will in a future version.</p>
+</div>
+<div class="sect3">
+<h4 id="filteredMoveSelection"><a class="anchor" href="#filteredMoveSelection"></a>6.4.1. Filtered move selection</h4>
+<div class="paragraph">
+<p>OptaPy currently does not support filtered move selection, but will in a future version.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="filteredEntitySelection"><a class="anchor" href="#filteredEntitySelection"></a>6.4.2. Filtered entity selection</h4>
+<div class="paragraph">
+<p>OptaPy currently does not support filtered entity selection, but will in a future version.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="filteredValueSelection"><a class="anchor" href="#filteredValueSelection"></a>6.4.3. Filtered value selection</h4>
+<div class="paragraph">
+<p>OptaPy currently does not support filtered value selection, but will in a future version.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="sortedSelection"><a class="anchor" href="#sortedSelection"></a>6.5. Sorted selection</h3>
+<div class="paragraph">
+<p>Sorted selection can happen on any Selector in the selector tree, including any <code>MoveSelector</code>, <code>EntitySelector</code> or <code>ValueSelector</code>.
+It does not work with <code>cacheType</code> <code>JUST_IN_TIME</code> and it only works with <code>selectionOrder</code> <code>SORTED</code>.</p>
+</div>
+<div class="paragraph">
+<p>It&#8217;s mostly used in construction heuristics.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If the chosen construction heuristic implies sorting, for example <code>FIRST_FIT_DECREASING</code> implies that the <code>EntitySelector</code> is sorted, there is no need to explicitly configure a <code>Selector</code> with sorting.
+If you do explicitly configure the <code>Selector</code>, it overwrites the default settings of that construction heuristic.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="sortedSelectionBySorterManner"><a class="anchor" href="#sortedSelectionBySorterManner"></a>6.5.1. Sorted selection by <code>SorterManner</code></h4>
+<div class="paragraph">
+<p>Some <code>Selector</code> types implement a <code>SorterManner</code> out of the box:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>EntitySelector</code> supports:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>DECREASING_DIFFICULTY</code>: Sorts the planning entities according to decreasing <a href="../optapy-configuration/optapy-configuration.html#planningEntityDifficulty" class="xref page">planning entity difficulty</a>. Requires that planning entity difficulty is annotated on the domain model.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-xml hljs" data-lang="xml">    &lt;entitySelector&gt;
+      &lt;cacheType&gt;PHASE&lt;/cacheType&gt;
+      &lt;selectionOrder&gt;SORTED&lt;/selectionOrder&gt;
+      &lt;sorterManner&gt;DECREASING_DIFFICULTY&lt;/sorterManner&gt;
+    &lt;/entitySelector&gt;</code></pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>ValueSelector</code> supports:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>INCREASING_STRENGTH</code>: Sorts the planning values according to increasing <a href="../optapy-configuration/optapy-configuration.html#planningValueStrength" class="xref page">planning value strength</a>. Requires that planning value strength is annotated on the domain model.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-xml hljs" data-lang="xml">    &lt;valueSelector&gt;
+      &lt;cacheType&gt;PHASE&lt;/cacheType&gt;
+      &lt;selectionOrder&gt;SORTED&lt;/selectionOrder&gt;
+      &lt;sorterManner&gt;INCREASING_STRENGTH&lt;/sorterManner&gt;
+    &lt;/valueSelector&gt;</code></pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="sortedSelectionByComparator"><a class="anchor" href="#sortedSelectionByComparator"></a>6.5.2. Sorted selection by comparison function</h4>
+<div class="paragraph">
+<p>OptaPy currently does not support sorted selection by comparison function, but will in a future version.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="sortedSelectionBySelectionSorterWeightFactory"><a class="anchor" href="#sortedSelectionBySelectionSorterWeightFactory"></a>6.5.3. Sorted selection by <code>SelectionSorterWeightFactory</code></h4>
+<div class="paragraph">
+<p>OptaPy currently does not support sorted selection by weight factory, but will in a future version.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="sortedSelectionBySelectionSorter"><a class="anchor" href="#sortedSelectionBySelectionSorter"></a>6.5.4. Sorted selection by <code>SelectionSorter</code></h4>
+<div class="paragraph">
+<p>OptaPy currently does not support sorted selection by selection sorter, but will in a future version.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="probabilisticSelection"><a class="anchor" href="#probabilisticSelection"></a>6.6. Probabilistic selection</h3>
+<div class="paragraph">
+<p>OptaPy currently does not support custom probabilistic selection, but will in a future version.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="limitedSelection"><a class="anchor" href="#limitedSelection"></a>6.7. Limited selection</h3>
+<div class="paragraph">
+<p>Selecting all possible moves sometimes does not scale well enough, especially for construction heuristics (which don&#8217;t support <a href="../local-search/local-search.html#acceptedCountLimit" class="xref page">acceptedCountLimit</a>).</p>
+</div>
+<div class="paragraph">
+<p>To limit the number of selected selection per step, apply a <code>selectedCountLimit</code> on the selector:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-xml hljs" data-lang="xml">    &lt;changeMoveSelector&gt;
+      &lt;selectedCountLimit&gt;100&lt;/selectedCountLimit&gt;
+    &lt;/changeMoveSelector&gt;</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>To scale Local Search, setting <a href="../local-search/local-search.html#acceptedCountLimit" class="xref page">acceptedCountLimit</a> is usually better than using <code>selectedCountLimit</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="mimicSelection"><a class="anchor" href="#mimicSelection"></a>6.8. Mimic selection (record/replay)</h3>
+<div class="paragraph">
+<p>During mimic selection, one normal selector records its selection and one or multiple other special selectors replay that selection.
+The recording selector acts as a normal selector and supports all other configuration properties.
+A replaying selector mimics the recording selection and supports no other configuration properties.</p>
+</div>
+<div class="paragraph">
+<p>The recording selector needs an <code>id</code>.
+A replaying selector must reference a recorder&#8217;s id with a <code>mimicSelectorRef</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-xml hljs" data-lang="xml">      &lt;cartesianProductMoveSelector&gt;
+        &lt;changeMoveSelector&gt;
+          &lt;entitySelector id="entitySelector"/&gt;
+          &lt;valueSelector variableName="period"/&gt;
+        &lt;/changeMoveSelector&gt;
+        &lt;changeMoveSelector&gt;
+          &lt;entitySelector mimicSelectorRef="entitySelector"/&gt;
+          &lt;valueSelector variableName="room"/&gt;
+        &lt;/changeMoveSelector&gt;
+      &lt;/cartesianProductMoveSelector&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Mimic selection is useful to create <a href="#cartesianProductMoveSelector">a composite move</a> from two moves that affect the same entity.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="nearbySelection"><a class="anchor" href="#nearbySelection"></a>6.9. Nearby selection</h3>
+<div class="paragraph">
+<p>OptaPy currently does not support nearby selection, but will in a future version.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="customMoves"><a class="anchor" href="#customMoves"></a>7. Custom moves</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>OptaPy currently does not support custom moves, but will in a future version.</p>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script src="../../../_/js/site.js"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+
+<!-- Adobe Analytics for Red Hat - DPAL (DTM Property Auto-Loader) - part 2/2 -->
+<script type="text/javascript">
+    if (("undefined" !== typeof _satellite) && ("function" === typeof _satellite.pageBottom)) {
+        _satellite.pageBottom();
+    }
+</script>  </body>
+</html>
