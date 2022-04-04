@@ -57,13 +57,13 @@
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../optapy-introduction/optapy-introduction.html">OptaPy Introduction</a>
+    <a class="nav-link" href="../planner-introduction/planner-introduction.html">OptaPy Introduction</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../quickstart/quickstart.html">Quickstart</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../optapy-configuration/optapy-configuration.html">OptaPy configuration</a>
+    <a class="nav-link" href="../planner-configuration/planner-configuration.html">OptaPy configuration</a>
   </li>
   <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="score-calculation.html">Score calculation</a>
@@ -116,7 +116,6 @@
 <main class="article">
 <div class="toolbar" role="navigation">
 <button class="nav-toggle"></button>
-  <a href="../optapy-introduction/optapy-introduction.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">OptaPy User Guide 8.19.0a0</a></li>
@@ -598,7 +597,7 @@ It must not change the planning entities or the problem facts in any way.
 For example, it must not call a setter method on a planning entity in the score calculation.</p>
 </div>
 <div class="paragraph">
-<p>OptaPy does not recalculate the score of a solution if it can predict it (unless an <a href="#planner-configuration/planner-configuration.adoc#environmentMode" class="xref unresolved">environmentMode assertion</a> is enabled).
+<p>OptaPy does not recalculate the score of a solution if it can predict it (unless an <a href="../planner-configuration/planner-configuration.html#environmentMode" class="xref page">environmentMode assertion</a> is enabled).
 For example, after a winning step is done, there is no need to calculate the score because that move was done and undone earlier.
 As a result, there is no guarantee that changes applied during score calculation actually happen.</p>
 </div>
@@ -1044,7 +1043,7 @@ Many of those have an <code>InitializingScoreTrend</code> that only goes down:</
 <div class="sect2">
 <h3 id="invalidScoreDetection"><a class="anchor" href="#invalidScoreDetection"></a>3.5. Invalid score detection</h3>
 <div class="paragraph">
-<p>When you put the <a href="../optapy-configuration/optapy-configuration.html#environmentMode" class="xref page"><code>environmentMode</code></a> in <code>FULL_ASSERT</code> (or <code>FAST_ASSERT</code>),
+<p>When you put the <a href="../planner-configuration/planner-configuration.html#environmentMode" class="xref page"><code>environmentMode</code></a> in <code>FULL_ASSERT</code> (or <code>FAST_ASSERT</code>),
 it will detect score corruption in the <a href="#incrementalScoreCalculation">incremental score calculation</a>.
 However, that will not verify that your score calculator actually implements your score constraints as your business desires.
 For example, one constraint might consistently match the wrong pattern.
@@ -1152,7 +1151,7 @@ Cache the results of those remote services if possible.</p>
 </div>
 <div class="paragraph">
 <p>If some parts of a constraint can be calculated once, when the <code>Solver</code> starts, and never change during solving,
-then turn them into <a href="../optapy-configuration/optapy-configuration.html#cachedProblemFact" class="xref page">cached problem facts</a>.</p>
+then turn them into <a href="../planner-configuration/planner-configuration.html#cachedProblemFact" class="xref page">cached problem facts</a>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -1185,7 +1184,7 @@ There is no need to dynamically change your score calculation based on the datas
 <p>Instead of implementing a hard constraint, it can sometimes be built in.
 For example, if <code>Lecture</code> A should never be assigned to <code>Room</code> X, but it uses <code>@value_range_provider</code> on Solution,
 so the <code>Solver</code> will often try to assign it to <code>Room</code> X too (only to find out that it breaks a hard constraint).
-Use <a href="../optapy-configuration/optapy-configuration.html#valueRangeProviderOnPlanningEntity" class="xref page">a ValueRangeProvider on the planning entity</a> to define that Course A should only be assigned a <code>Room</code> different than X.</p>
+Use <a href="../planner-configuration/planner-configuration.html#valueRangeProviderOnPlanningEntity" class="xref page">a ValueRangeProvider on the planning entity</a> to define that Course A should only be assigned a <code>Room</code> different than X.</p>
 </div>
 <div class="paragraph">
 <p>This can give a good performance gain in some use cases, not just because the score calculation is faster,

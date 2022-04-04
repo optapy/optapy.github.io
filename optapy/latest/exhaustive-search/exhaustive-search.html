@@ -57,13 +57,13 @@
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../optapy-introduction/optapy-introduction.html">OptaPy Introduction</a>
+    <a class="nav-link" href="../planner-introduction/planner-introduction.html">OptaPy Introduction</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../quickstart/quickstart.html">Quickstart</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../optapy-configuration/optapy-configuration.html">OptaPy configuration</a>
+    <a class="nav-link" href="../planner-configuration/planner-configuration.html">OptaPy configuration</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../score-calculation/score-calculation.html">Score calculation</a>
@@ -116,7 +116,6 @@
 <main class="article">
 <div class="toolbar" role="navigation">
 <button class="nav-toggle"></button>
-  <a href="../optapy-introduction/optapy-introduction.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">OptaPy User Guide 8.19.0a0</a></li>
@@ -351,10 +350,10 @@ Especially an <a href="../score-calculation/score-calculation.html#initializingS
 <ul>
 <li>
 <p><code>DECREASING_DIFFICULTY</code>: Initialize the more difficult planning entities first. This usually increases pruning (and therefore improves scalability).
-Requires the model to support <a href="../optapy-configuration/optapy-configuration.html#planningEntityDifficulty" class="xref page">planning entity difficulty comparison</a>.</p>
+Requires the model to support <a href="../planner-configuration/planner-configuration.html#planningEntityDifficulty" class="xref page">planning entity difficulty comparison</a>.</p>
 </li>
 <li>
-<p><code>DECREASING_DIFFICULTY_IF_AVAILABLE</code> (default): If the model supports <a href="../optapy-configuration/optapy-configuration.html#planningEntityDifficulty" class="xref page">planning entity difficulty comparison</a>, behave like <code>DECREASING_DIFFICULTY</code>, else like <code>NONE</code>.</p>
+<p><code>DECREASING_DIFFICULTY_IF_AVAILABLE</code> (default): If the model supports <a href="../planner-configuration/planner-configuration.html#planningEntityDifficulty" class="xref page">planning entity difficulty comparison</a>, behave like <code>DECREASING_DIFFICULTY</code>, else like <code>NONE</code>.</p>
 </li>
 <li>
 <p><code>NONE</code>: Initialize the planning entities in original order.</p>
@@ -367,16 +366,16 @@ Requires the model to support <a href="../optapy-configuration/optapy-configurat
 <div class="ulist">
 <ul>
 <li>
-<p><code>INCREASING_STRENGTH</code>: Evaluate the planning values in increasing strength. Requires the model to support <a href="#planner-configuration/planner-configuration.adoc#planningValueStrength" class="xref unresolved">planning value strength comparison</a>.</p>
+<p><code>INCREASING_STRENGTH</code>: Evaluate the planning values in increasing strength. Requires the model to support <a href="../planner-configuration/planner-configuration.html#planningValueStrength" class="xref page">planning value strength comparison</a>.</p>
 </li>
 <li>
-<p><code>INCREASING_STRENGTH_IF_AVAILABLE</code> (default): If the model supports <a href="../optapy-configuration/optapy-configuration.html#planningValueStrength" class="xref page">planning value strength comparison</a>, behave like <code>INCREASING_STRENGTH</code>, else like <code>NONE</code>.</p>
+<p><code>INCREASING_STRENGTH_IF_AVAILABLE</code> (default): If the model supports <a href="../planner-configuration/planner-configuration.html#planningValueStrength" class="xref page">planning value strength comparison</a>, behave like <code>INCREASING_STRENGTH</code>, else like <code>NONE</code>.</p>
 </li>
 <li>
-<p><code>DECREASING_STRENGTH</code>: Evaluate the planning values in decreasing strength. Requires the model to support <a href="../optapy-configuration/optapy-configuration.html#planningValueStrength" class="xref page">planning value strength comparison</a>.</p>
+<p><code>DECREASING_STRENGTH</code>: Evaluate the planning values in decreasing strength. Requires the model to support <a href="../planner-configuration/planner-configuration.html#planningValueStrength" class="xref page">planning value strength comparison</a>.</p>
 </li>
 <li>
-<p><code>DECREASING_STRENGTH_IF_AVAILABLE</code>: If the model supports <a href="../optapy-configuration/optapy-configuration.html#planningValueStrength" class="xref page">planning value strength comparison</a>, behave like <code>DECREASING_STRENGTH</code>, else like <code>NONE</code>.</p>
+<p><code>DECREASING_STRENGTH_IF_AVAILABLE</code>: If the model supports <a href="../planner-configuration/planner-configuration.html#planningValueStrength" class="xref page">planning value strength comparison</a>, behave like <code>DECREASING_STRENGTH</code>, else like <code>NONE</code>.</p>
 </li>
 <li>
 <p><code>NONE</code>: Try the planning values in original order.</p>

@@ -57,13 +57,13 @@
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../optapy-introduction/optapy-introduction.html">OptaPy Introduction</a>
+    <a class="nav-link" href="../planner-introduction/planner-introduction.html">OptaPy Introduction</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../quickstart/quickstart.html">Quickstart</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../optapy-configuration/optapy-configuration.html">OptaPy configuration</a>
+    <a class="nav-link" href="../planner-configuration/planner-configuration.html">OptaPy configuration</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../score-calculation/score-calculation.html">Score calculation</a>
@@ -116,7 +116,6 @@
 <main class="article">
 <div class="toolbar" role="navigation">
 <button class="nav-toggle"></button>
-  <a href="../optapy-introduction/optapy-introduction.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">OptaPy User Guide 8.19.0a0</a></li>
@@ -178,8 +177,8 @@ def do_not_assign_ann(factory : ConstraintFactory):
 </div>
 </div>
 <div class="paragraph">
-<p>This constraint stream iterates over all instances of class <code>Shift</code> in the <a href="../optapy-configuration/optapy-configuration.html#problemFacts" class="xref page">problem facts</a> and
-<a href="../optapy-configuration/optapy-configuration.html#planningEntity" class="xref page">planning entities</a> in the <a href="#planningProblemAndPlanningSolution">planning problem</a>.
+<p>This constraint stream iterates over all instances of class <code>Shift</code> in the <a href="../planner-configuration/planner-configuration.html#problemFacts" class="xref page">problem facts</a> and
+<a href="../planner-configuration/planner-configuration.html#planningEntity" class="xref page">planning entities</a> in the <a href="#planningProblemAndPlanningSolution">planning problem</a>.
 It finds every <code>Shift</code> which is assigned to employee "Ann" and for every such instance (also called a match), it adds a
 soft penalty of <code>1</code> to the overall <a href="../score-calculation/score-calculation.html#calculateTheScore" class="xref page">score</a>.
 The following figure illustrates this process on a problem with 4 different shifts:</p>
@@ -406,8 +405,8 @@ The following example shows the simplest possible constraint stream:</p>
 <h3 id="constraintStreamsForEach"><a class="anchor" href="#constraintStreamsForEach"></a>4.1. ForEach</h3>
 <div class="paragraph">
 <p>The <code>.forEach(T)</code> building block selects every <code>T</code> instance that
-is in a <a href="../optapy-configuration/optapy-configuration.html#problemFacts" class="xref page">problem fact collection</a>
-or a <a href="../optapy-configuration/optapy-configuration.html#planningEntitiesOfASolution" class="xref page">planning entity collection</a>
+is in a <a href="../planner-configuration/planner-configuration.html#problemFacts" class="xref page">problem fact collection</a>
+or a <a href="../planner-configuration/planner-configuration.html#planningEntitiesOfASolution" class="xref page">planning entity collection</a>
 and has no <code>None</code> genuine planning variables.</p>
 </div>
 <div class="paragraph">
@@ -432,7 +431,7 @@ replace the <code>forEach()</code> building block by <code>forEachIncludingNullV
 <p>The <code>forEach()</code> building block has a legacy counterpart, <code>from_()</code>.
 This alternative approach included instances based on the initialization status of their genuine planning variables.
 As an unwanted consequence,
-<code>from_()</code> behaves unexpectedly for <a href="../optapy-configuration/optapy-configuration.html#nullablePlanningVariable" class="xref page">nullable variables</a>.
+<code>from_()</code> behaves unexpectedly for <a href="../planner-configuration/planner-configuration.html#nullablePlanningVariable" class="xref page">nullable variables</a>.
 These are considered initialized even when <code>None</code>,
 and therefore this legacy method could still return entities with <code>None</code> variables.
 <code>from_()</code>, <code>fromUnfiltered()</code> and <code>fromUniquePair()</code> are now deprecated and will be removed in a future major version of OptaPy.</p>

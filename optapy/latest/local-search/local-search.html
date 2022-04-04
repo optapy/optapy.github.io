@@ -57,13 +57,13 @@
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../optapy-introduction/optapy-introduction.html">OptaPy Introduction</a>
+    <a class="nav-link" href="../planner-introduction/planner-introduction.html">OptaPy Introduction</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../quickstart/quickstart.html">Quickstart</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../optapy-configuration/optapy-configuration.html">OptaPy configuration</a>
+    <a class="nav-link" href="../planner-configuration/planner-configuration.html">OptaPy configuration</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../score-calculation/score-calculation.html">Score calculation</a>
@@ -116,7 +116,6 @@
 <main class="article">
 <div class="toolbar" role="navigation">
 <button class="nav-toggle"></button>
-  <a href="../optapy-introduction/optapy-introduction.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">OptaPy User Guide 8.19.0a0</a></li>
@@ -276,7 +275,7 @@ By using a <a href="../construction-heuristics/construction-heuristics.html#cons
 </div>
 </div>
 <div class="paragraph">
-<p><a href="../optapy-configuration/optapy-configuration.html#logging" class="xref page">Turn on <code>trace</code> logging</a> to show the decision making in the log:</p>
+<p><a href="../planner-configuration/planner-configuration.html#logging" class="xref page">Turn on <code>trace</code> logging</a> to show the decision making in the log:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -297,7 +296,7 @@ DEBUG     LS step (0), time spent (6), score (-3), new best score (-3), accepted
 </div>
 <div class="paragraph">
 <p>Because the last solution can degrade (for example in Tabu Search), the <code>Solver</code> remembers the best solution it has encountered through the entire search path.
-Each time the current solution is better than the last best solution, the current solution is <a href="../optapy-configuration/optapy-configuration.html#cloningASolution" class="xref page">cloned</a> and referenced as the new best solution.</p>
+Each time the current solution is better than the last best solution, the current solution is <a href="../planner-configuration/planner-configuration.html#cloningASolution" class="xref page">cloned</a> and referenced as the new best solution.</p>
 </div>
 <div class="imageblock text-center">
 <div class="content">
@@ -342,7 +341,7 @@ Breaking ties randomly leads to better results.</p>
 <p>If an earlier move is better than a later move with the same score, the score calculator should add an extra softer <a href="../score-calculation/score-calculation.html#scoreLevel" class="xref page">score level</a> to score the first move as slightly better. Don&#8217;t rely on move selection order to enforce that.</p>
 </li>
 <li>
-<p>Random tie breaking does not affect <a href="../optapy-configuration/optapy-configuration.html#environmentMode" class="xref page">reproducibility</a>.</p>
+<p>Random tie breaking does not affect <a href="../planner-configuration/planner-configuration.html#environmentMode" class="xref page">reproducibility</a>.</p>
 </li>
 </ul>
 </div>
@@ -372,7 +371,7 @@ To evaluate only a random subset of all the moves, use:</p>
 </div>
 <div class="paragraph">
 <p>Unlike the n queens problem, real world problems require the use of <code>acceptedCountLimit</code>.
-Start from an <code>acceptedCountLimit</code> that takes a step in less than two seconds. <a href="../optapy-configuration/optapy-configuration.html#logging" class="xref page">Turn on INFO logging</a> to see the step times.</p>
+Start from an <code>acceptedCountLimit</code> that takes a step in less than two seconds. <a href="../planner-configuration/planner-configuration.html#logging" class="xref page">Turn on INFO logging</a> to see the step times.</p>
 </div>
 <div class="admonitionblock important">
 <table>
