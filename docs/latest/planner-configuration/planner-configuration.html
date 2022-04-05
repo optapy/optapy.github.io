@@ -76,6 +76,9 @@
     <a class="nav-link" href="../constraint-streams/constraint-streams.html">Constraint streams score calculation</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../shadow-variable/shadow-variable.html">Shadow variable</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../optimization-algorithms/optimization-algorithms.html">Optimization algorithms</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -465,7 +468,7 @@ But there is usually only one planning entity class, for example the <code>Queen
 <p>A planning entity class needs to be decorated with the <code>@planning_entity</code> decorator.</p>
 </div>
 <div class="paragraph">
-<p>Each planning entity class has one or more <em>planning variables</em> (which can be <a href="#planningVariable">genuine</a> or <a href="#shadow-variable/shadow-variable.adoc#shadowVariable" class="xref unresolved">shadows</a>).
+<p>Each planning entity class has one or more <em>planning variables</em> (which can be <a href="#planningVariable">genuine</a> or <a href="../shadow-variable/shadow-variable.html#shadowVariable" class="xref page">shadows</a>).
 It should also have one or more <em>defining</em> properties.
 For example in n queens, a <code>Queen</code> is defined by its <code>Column</code> and has a planning variable <code>Row</code>.
 This means that a Queen&#8217;s column never changes during solving, while its row does change.</p>
@@ -534,7 +537,7 @@ Having multiple planning entity classes directly raises the implementation compl
 </div>
 <div class="paragraph">
 <p>For example, do not create a planning entity class to hold the total free time of a teacher, which needs to be kept up to date as the <code>Lecture</code> planning entities change.
-Instead, calculate the free time in the score constraints (or as a <a href="#shadow-variable/shadow-variable.adoc#shadowVariable" class="xref unresolved">shadow variable</a>) and put the result per teacher into a logically inserted score object.</p>
+Instead, calculate the free time in the score constraints (or as a <a href="../shadow-variable/shadow-variable.html#shadowVariable" class="xref page">shadow variable</a>) and put the result per teacher into a logically inserted score object.</p>
 </div>
 <div class="paragraph">
 <p>If historic data needs to be considered too, then create problem fact to hold the total of the historic assignments up to, but <em>not including</em>, the planning window (so that it does not change when a planning entity changes) and let the score constraints take it into account.</p>
@@ -574,7 +577,7 @@ Instead, calculate the free time in the score constraints (or as a <a href="#sha
 It points to a planning value, which changes during planning.
 For example, a <code>Queen</code>'s <code>row</code> property is a genuine planning variable.
 Note that even though a <code>Queen</code>'s <code>row</code> property changes to another <code>Row</code> during planning, no <code>Row</code> instance itself is changed.
-Normally planning variables are genuine, but advanced cases can also have <a href="#shadow-variable/shadow-variable.adoc#shadowVariable" class="xref unresolved">shadows</a>.</p>
+Normally planning variables are genuine, but advanced cases can also have <a href="../shadow-variable/shadow-variable.html#shadowVariable" class="xref page">shadows</a>.</p>
 </div>
 <div class="paragraph">
 <p>A genuine planning variable getter needs to be annotated with the <code>@planning_variable</code> annotation, which needs a non-empty <code>variable_type</code> and <code>value_range_provider_refs</code> property.</p>
