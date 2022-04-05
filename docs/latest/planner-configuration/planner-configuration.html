@@ -79,7 +79,7 @@
     <a class="nav-link" href="../optimization-algorithms/optimization-algorithms.html">Optimization algorithms</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../move-and-neighboorhood-selection/move-and-neighborhood-selection.html">Move and neighborhood selection</a>
+    <a class="nav-link" href="../move-and-neighborhood-selection/move-and-neighborhood-selection.html">Move and neighborhood selection</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../exhaustive-search/exhaustive-search.html">Exhaustive search</a>
@@ -92,6 +92,9 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../evolutionary-algorithms/evolutionary-algorithms.html">Evolutionary algorithms</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../repeated-planning/repeated-planning.html">Repeated planning</a>
   </li>
 </ul>
   </li>
@@ -665,7 +668,7 @@ There is no need to add <code>None</code> in a collection provided by a <code>@v
 </table>
 </div>
 <div class="paragraph">
-<p><a href="#repeated-planning/repeated-planning.adoc#repeatedPlanning" class="xref unresolved">Repeated planning</a> (especially <a href="#repeated-planning/repeated-planning.adoc#realTimePlanning" class="xref unresolved">real-time planning</a>) does not mix well with a nullable planning variable.
+<p><a href="../repeated-planning/repeated-planning.html#repeatedPlanning" class="xref page">Repeated planning</a> (especially <a href="../repeated-planning/repeated-planning.html#realTimePlanning" class="xref page">real-time planning</a>) does not mix well with a nullable planning variable.
 Every time the Solver starts or a problem fact change is made, the <a href="../construction-heuristics/construction-heuristics.html#constructionHeuristics" class="xref page">Construction Heuristics</a>
 will try to initialize all the <code>None</code> variables again, which can be a huge waste of time.
 One way to deal with this is to filter the entity selector of the placer in the construction heuristic.</p>
@@ -1701,7 +1704,7 @@ but do not mistake it for the best solution.</p>
 <td class="content">
 <div class="paragraph">
 <p>The solution instance given to the <code>solve(Solution)</code> method does not need to be uninitialized.
-It can be partially or fully initialized, which is often the case in <a href="#repeated-planning/repeated-planning.adoc#repeatedPlanning" class="xref unresolved">repeated planning</a>.</p>
+It can be partially or fully initialized, which is often the case in <a href="../repeated-planning/repeated-planning.html#repeatedPlanning" class="xref page">repeated planning</a>.</p>
 </div>
 </td>
 </tr>

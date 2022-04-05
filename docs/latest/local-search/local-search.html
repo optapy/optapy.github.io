@@ -79,7 +79,7 @@
     <a class="nav-link" href="../optimization-algorithms/optimization-algorithms.html">Optimization algorithms</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../move-and-neighboorhood-selection/move-and-neighborhood-selection.html">Move and neighborhood selection</a>
+    <a class="nav-link" href="../move-and-neighborhood-selection/move-and-neighborhood-selection.html">Move and neighborhood selection</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../exhaustive-search/exhaustive-search.html">Exhaustive search</a>
@@ -92,6 +92,9 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../evolutionary-algorithms/evolutionary-algorithms.html">Evolutionary algorithms</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../repeated-planning/repeated-planning.html">Repeated planning</a>
   </li>
 </ul>
   </li>
@@ -243,7 +246,7 @@ By using a <a href="../construction-heuristics/construction-heuristics.html#cons
 <div class="ulist">
 <ul>
 <li>
-<p>A <code>MoveSelector</code> which selects the possible moves of the current solution. See the chapter <a href="#move-and-neighborhood-selection/move-and-neighborhood-selection.adoc#moveAndNeighborhoodSelection" class="xref unresolved">move and neighborhood selection</a>.</p>
+<p>A <code>MoveSelector</code> which selects the possible moves of the current solution. See the chapter <a href="../move-and-neighborhood-selection/move-and-neighborhood-selection.html#moveAndNeighborhoodSelection" class="xref page">move and neighborhood selection</a>.</p>
 </li>
 <li>
 <p>An <code>Acceptor</code> which filters out unacceptable moves.</p>
@@ -662,7 +665,7 @@ Advanced configuration:</p>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>When using move tabu and undo move tabu with <a href="#move-and-neighborhood-selection/move-and-neighborhood-selection.adoc#customMoves" class="xref unresolved">custom moves</a>,
+<p>When using move tabu and undo move tabu with <a href="../move-and-neighborhood-selection/move-and-neighborhood-selection.html#customMoves" class="xref page">custom moves</a>,
 make sure that the planning entities do not include planning variables in their <code>__hash__</code> methods.
 Failure to do so results in runtime exceptions being thrown due to the <code>__hash__</code> not being constant,
 as the entities have their values changed by the local search algorithm.</p>
