@@ -383,6 +383,26 @@ The other properties are problem properties.</p>
 Most use cases have only one planning entity class.
 Most use cases also have only one planning variable per planning entity class.</p>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="literalblock">
+<div class="content">
+<pre>In xref:repeated-planning/repeated-planning.adoc#realTimePlanning[real-time planning], even though the problem itself changes, problem facts do not really change during planning, instead they change between planning (because the Solver temporarily stops to apply the problem fact changes).</pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>To create a good domain model, read the
+<a href="../design-patterns/design-patterns.html#domainModelingGuide" class="xref page">domain modeling guide</a>.</p>
+</div>
 <div class="paragraph">
 <p><strong>In OptaPy, all problem facts and planning entities are plain old Python Objects.</strong> Load them from a database, an XML file, a data repository, a REST service, a noSQL cloud; it doesn&#8217;t matter.</p>
 </div>
@@ -454,7 +474,8 @@ class Course:
 <div class="paragraph">
 <p>Generally, better designed domain classes lead to simpler and more efficient score constraints.
 Therefore, when dealing with a messy (denormalized) legacy system, it can sometimes be worthwhile to convert the messy domain model into a OptaPy specific model first.
-For example: if your domain model has two <code>Teacher</code> instances for the same teacher that teaches at two different departments, it is harder to write a correct score constraint that constrains a teacher&#8217;s spare time on the original model than on an adjusted model.</p>
+For example: if your domain model has two <code>Teacher</code> instances for the same teacher that teaches at two different departments, it is harder to write a correct score constraint that constrains a teacher&#8217;s spare time on the original model than on an adjusted model.
+Alternatively, you can sometimes also introduce <a href="#cachedProblemFact"><em>a cached problem fact</em></a> to enrich the domain model for planning only.</p>
 </div>
 </td>
 </tr>

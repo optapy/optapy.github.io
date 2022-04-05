@@ -305,6 +305,22 @@ than a score that breaks <code>1</code> hard constraint and <code>0</code> soft 
 <p>If there are two (or more) score levels, for example <a href="#hardSoftScore">HardSoftScore</a>,
 then a score is <em>feasible</em> if no hard constraints are broken.</p>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>By default, OptaPy will always assign all planning variables a planning value.
+If there is no feasible solution, this means the best solution will be infeasible.
+To instead leave some of the planning entities unassigned, apply <a href="../repeated-planning/repeated-planning.html#overconstrainedPlanning" class="xref page">overconstrained planning</a>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>For each constraint, you need to pick a score level, a score weight and a score signum.
 For example: <code>-1soft</code> which has score level of <code>soft</code>, a weight of <code>1</code> and a negative signum.
@@ -617,6 +633,9 @@ For example, it must not call a setter method on a planning entity in the score 
 <p>OptaPy does not recalculate the score of a solution if it can predict it (unless an <a href="../planner-configuration/planner-configuration.html#environmentMode" class="xref page">environmentMode assertion</a> is enabled).
 For example, after a winning step is done, there is no need to calculate the score because that move was done and undone earlier.
 As a result, there is no guarantee that changes applied during score calculation actually happen.</p>
+</div>
+<div class="paragraph">
+<p>To update planning entities when the planning variable change, use <a href="../shadow-variable/shadow-variable.html#shadowVariable" class="xref page">shadow variables</a> instead.</p>
 </div>
 </td>
 </tr>
@@ -1201,7 +1220,7 @@ There is no need to dynamically change your score calculation based on the datas
 <p>Instead of implementing a hard constraint, it can sometimes be built in.
 For example, if <code>Lecture</code> A should never be assigned to <code>Room</code> X, but it uses <code>@value_range_provider</code> on Solution,
 so the <code>Solver</code> will often try to assign it to <code>Room</code> X too (only to find out that it breaks a hard constraint).
-Use <a href="../planner-configuration/planner-configuration.html#valueRangeProviderOnPlanningEntity" class="xref page">a ValueRangeProvider on the planning entity</a> to define that Course A should only be assigned a <code>Room</code> different than X.</p>
+Use <a href="../planner-configuration/planner-configuration.html#valueRangeProviderOnPlanningEntity" class="xref page">a ValueRangeProvider on the planning entity</a> or <a href="../move-and-neighborhood-selection/move-and-neighborhood-selection.html#filteredSelection" class="xref page">filtered selection</a> to define that Course A should only be assigned a <code>Room</code> different than X.</p>
 </div>
 <div class="paragraph">
 <p>This can give a good performance gain in some use cases, not just because the score calculation is faster,

@@ -739,7 +739,8 @@ Finding the best solution in the available time is the most important outcome.</
 </td>
 <td class="content">
 <div class="paragraph">
-<p>If no termination is configured (and a metaheuristic algorithm is used), the <code>Solver</code> will run forever, until <a href="#asynchronousTermination">terminateEarly()</a> is called from another thread.</p>
+<p>If no termination is configured (and a metaheuristic algorithm is used), the <code>Solver</code> will run forever, until <a href="#asynchronousTermination">terminateEarly()</a> is called from another thread.
+This is especially common during <a href="../repeated-planning/repeated-planning.html#realTimePlanning" class="xref page">real-time planning</a>.</p>
 </div>
 </td>
 </tr>
@@ -1330,6 +1331,16 @@ This prevents OptaPy from utilizing multiple cores on a machine, since only one 
 </li>
 <li>
 <p>Use multithreaded incremental solving instead.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Partitioned Search</strong>: Split 1 dataset in multiple parts and solve them independently.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Configure a <a href="../partitioned-search/partitioned-search.html#partitionedSearch" class="xref page">Partitioned Search</a>.</p>
 </li>
 </ul>
 </div>
