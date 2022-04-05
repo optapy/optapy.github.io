@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Evolutionary algorithms :: Documentation</title>
-    <link rel="canonical" href="https://www.optapy.org/docs/latest/evolutionary-algorithms/evolutionary-algorithms.html">
+    <title>Partitioned search :: Documentation</title>
+    <link rel="canonical" href="https://www.optapy.org/docs/latest/partitioned-search/partitioned-search.html">
     <meta name="generator" content="Antora 3.0.1">
     <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="stylesheet" href="../../../_/css/search.css">
@@ -93,11 +93,11 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../local-search/local-search.html">Local search</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="evolutionary-algorithms.html">Evolutionary algorithms</a>
-  </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../partitioned-search/partitioned-search.html">Partitioned search</a>
+    <a class="nav-link" href="../evolutionary-algorithms/evolutionary-algorithms.html">Evolutionary algorithms</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="partitioned-search.html">Partitioned search</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../repeated-planning/repeated-planning.html">Repeated planning</a>
@@ -136,38 +136,40 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">OptaPy User Guide 8.19.0a0</a></li>
-    <li><a href="evolutionary-algorithms.html">Evolutionary algorithms</a></li>
+    <li><a href="partitioned-search.html">Partitioned search</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/optapy/optapy/edit/main/optapy-docs/src/modules/ROOT/pages/evolutionary-algorithms/evolutionary-algorithms.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/optapy/optapy/edit/main/optapy-docs/src/modules/ROOT/pages/partitioned-search/partitioned-search.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Evolutionary algorithms</h1>
+<h1 class="page">Partitioned search</h1>
 <div class="sect1">
-<h2 id="evolutionaryAlgorithmsOverview"><a class="anchor" href="#evolutionaryAlgorithmsOverview"></a>1. Overview</h2>
+<h2 id="partitionedSearchAlgorithm"><a class="anchor" href="#partitionedSearchAlgorithm"></a>1. Algorithm description</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Evolutionary Algorithms work on a population of solutions and evolve that population.</p>
+<p>It is often more efficient to partition large data sets (usually above 5000 planning entities)
+into smaller pieces and solve them separately.
+Partition Search is <a href="../optimization-algorithms/optimization-algorithms.html#multithreadedSolving" class="xref page">multithreaded</a>, so it provides a performance boost on multi-core machines
+due to higher CPU utilization.
+Additionally, even when only using one CPU, it finds an initial solution faster,
+because the search space sum of a partitioned Construction Heuristic is far less than its non-partitioned variant.</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="evolutionaryStrategies"><a class="anchor" href="#evolutionaryStrategies"></a>2. Evolutionary strategies</h2>
-<div class="sectionbody">
 <div class="paragraph">
-<p>This algorithm has not been implemented yet.</p>
+<p>However, <strong>partitioning does lead to suboptimal results</strong>, even if the pieces are solved optimally, as shown below:</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="../_images/partitioned-search/mapReduceIsTerribleForTsp.png" alt="mapReduceIsTerribleForTsp">
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="geneticAlgorithms"><a class="anchor" href="#geneticAlgorithms"></a>3. Genetic algorithms</h2>
-<div class="sectionbody">
 <div class="paragraph">
-<p>This algorithm has not been implemented yet.</p>
+<p>It effectively trades a short term gain in solution quality for long term loss.
+One way to compensate for this loss,
+is to run a non-partitioned Local Search after the Partitioned Search phase.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -177,13 +179,16 @@
 </td>
 <td class="content">
 <div class="paragraph">
-<p>A good Genetic Algorithms prototype in <a href="https://www.optaplanner.org/">OptaPlanner</a> (the engine OptaPy wraps) was written some time ago, but it wasn&#8217;t practical to merge and support it at the time.
-The results of Genetic Algorithms were consistently and seriously inferior to all the <a href="../local-search/local-search.html#localSearch" class="xref page">Local Search</a> variants (except Hill Climbing) on all use cases tried.
-Nevertheless, a future version of OptaPlanner (and thus OptaPy) will add support for Genetic Algorithms, so you can easily benchmark Genetic Algorithms on your use case too.</p>
+<p>Not all use cases can be partitioned.
+Partitioning only works for use cases where the planning entities and value ranges can be split into n partitions,
+without any of the constraints crossing boundaries between partitions.</p>
 </div>
 </td>
 </tr>
 </table>
+</div>
+<div class="paragraph">
+<p>OptaPy currently does not support partitioned search, but will support it in a future version.</p>
 </div>
 </div>
 </div>
