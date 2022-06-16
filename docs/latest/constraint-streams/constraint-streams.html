@@ -183,12 +183,11 @@ This is an example of the same code, using the Constraint Streams API:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-python hljs" data-lang="python">from optapy import get_class
-from optapy.score import HardSoftScore
+<pre class="highlightjs highlight nowrap"><code class="language-python hljs" data-lang="python">from optapy.score import HardSoftScore
 from optapy.constraint import ConstraintFactory
 
 def do_not_assign_ann(factory : ConstraintFactory):
-    return factory.forEach(get_class(Shift)) \
+    return factory.for_each(Shift) \
             .filter(lambda shift: shift.employee == 'Ann') \
             .penalize("Don't assign Ann", HardSoftScore.ONE_SOFT)</code></pre>
 </div>
@@ -233,7 +232,7 @@ The following figure illustrates this <a href="../score-calculation/score-calcul
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-python hljs" data-lang="python">from optapy import get_class, constraint_provider
+<pre class="highlightjs highlight nowrap"><code class="language-python hljs" data-lang="python">from optapy import constraint_provider
 from optapy.score import HardSoftScore
 from optapy.constraint import ConstraintFactory
 
@@ -244,7 +243,7 @@ def define_constraints(factory : ConstraintFactory):
     ]
 
 def penalize_every_shift(factory : ConstraintFactory):
-    return factory.forEach(get_class(Shift)) \
+    return factory.for_each(Shift) \
             .penalize("Penalize a shift", HardSoftScore.ONE_SOFT)</code></pre>
 </div>
 </div>
@@ -290,23 +289,23 @@ Therefore, it is called a <code>UniConstraintStream</code>:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-python hljs" data-lang="python">def do_not_assign_ann(factory : ConstraintFactory):
-    return factory.forEach(get_class(Shift)) \
+    return factory.for_each(Shift) \
     # // Returns UniStream[Shift]
     ...</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>Some constraint stream <a href="#constraintStreamsBuildingBlocks">building blocks</a> can increase stream cardinality, such as
-<a href="#constraintStreamsJoin">join</a> or <a href="#constraintStreamsGroupingAndCollectors">groupBy</a>:</p>
+<a href="#constraintStreamsJoin">join</a> or <a href="#constraintStreamsGroupingAndCollectors">group_by</a>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-python hljs" data-lang="python">def do_not_assign_ann(factory: ConstraintFactory):
 
-    return (factory.forEach(get_class(Shift)) # Returns Uni[Shift].
-            .join(get_class(Employee)) # Returns Bi[Shift, Employee].
-            .join(get_class(DayOff)) # Returns Tri[Shift, Employee, DayOff].
-            .join(get_class(Country)) # Returns Quad[Shift, Employee, DayOff, Country].
+    return (factory.for_each(Shift) # Returns Uni[Shift].
+            .join(Employee) # Returns Bi[Shift, Employee].
+            .join(DayOff) # Returns Tri[Shift, Employee, DayOff].
+            .join(Country) # Returns Quad[Shift, Employee, DayOff, Country].
             )
             ...</code></pre>
 </div>
@@ -317,9 +316,9 @@ Therefore, it is called a <code>UniConstraintStream</code>:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-python hljs" data-lang="python">def do_not_assign_ann(factory: ConstraintFactory):
-    return (factory.forEach(get_class(Shift)) # Returns UniStream[Shift].
-            .join(get_class(Employee)) # Returns BiStream[Shift, Employee].
-            .groupBy((shift, employee) -&gt; employee) # Returns UniStream[Employee].
+    return (factory.for_each(Shift) # Returns UniStream[Shift].
+            .join(Employee) # Returns BiStream[Shift, Employee].
+            .group_by(lambda shift, employee: employee) # Returns UniStream[Employee].
             )
             ...</code></pre>
 </div>
@@ -370,12 +369,12 @@ However, with <a href="#constraintStreamsMappingTuples">tuple mapping</a> effect
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-python hljs" data-lang="python">def penta_stream_example(factory: ConstraintFactory):
-    return (factory.forEach(get_class(Shift)) # UniConstraintStream[Shift]
-            .join(get_class(Shift)) # BiConstraintStream[Shift, Shift]
-            .join(get_class(Shift)) # TriConstraintStream[Shift, Shift, Shift]
-            .join(get_class(Shift)) # QuadConstraintStream[Shift, Shift, Shift, Shift]
+    return (factory.for_each(Shift) # UniConstraintStream[Shift]
+            .join(Shift) # BiConstraintStream[Shift, Shift]
+            .join(Shift) # TriConstraintStream[Shift, Shift, Shift]
+            .join(Shift) # QuadConstraintStream[Shift, Shift, Shift, Shift]
             .map(tuple) # UniConstraintStream[Tuple[Shift, Shift, Shift, Shift]]
-            .join(get_class(Shift) # BiConstraintStream[Tuple[Shift, Shift, Shift, Shift], Shift]
+            .join(Shift) # BiConstraintStream[Tuple[Shift, Shift, Shift, Shift], Shift]
             # This BiConstraintStream carries 5 Shift elements.
             )
             ...</code></pre>
@@ -405,13 +404,13 @@ Should a custom implementation be necessary, see <a href="#constraintStreamsDesi
 <div class="sectionbody">
 <div class="paragraph">
 <p>Constraint streams are chains of different operations, called building blocks.
-Each constraint stream starts with a <code>forEach(&#8230;&#8203;)</code> building block and is terminated by either a penalty or a reward.
+Each constraint stream starts with a <code>for_each(&#8230;&#8203;)</code> building block and is terminated by either a penalty or a reward.
 The following example shows the simplest possible constraint stream:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-python hljs" data-lang="python">def penalize_initialized_shifts(factory: ConstraintFactory):
-    return factory.forEach(get_class(Shift)) \
+    return factory.for_each(Shift) \
             .penalize("Initialized shift", HardSoftScore.ONE_SOFT)</code></pre>
 </div>
 </div>
@@ -421,19 +420,19 @@ The following example shows the simplest possible constraint stream:</p>
 <div class="sect2">
 <h3 id="constraintStreamsForEach"><a class="anchor" href="#constraintStreamsForEach"></a>4.1. ForEach</h3>
 <div class="paragraph">
-<p>The <code>.forEach(T)</code> building block selects every <code>T</code> instance that
+<p>The <code>.for_each(T)</code> building block selects every <code>T</code> instance that
 is in a <a href="../planner-configuration/planner-configuration.html#problemFacts" class="xref page">problem fact collection</a>
 or a <a href="../planner-configuration/planner-configuration.html#planningEntitiesOfASolution" class="xref page">planning entity collection</a>
 and has no <code>None</code> genuine planning variables.</p>
 </div>
 <div class="paragraph">
 <p>To include instances with a <code>None</code> genuine planning variable,
-replace the <code>forEach()</code> building block by <code>forEachIncludingNullVars()</code>:</p>
+replace the <code>for_each()</code> building block by <code>for_each_including_null_vars()</code>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-python hljs" data-lang="python">def penalize_all_shifts(factory: ConstraintFactory):
-    return factory.forEachIncludingNullVars(get_class(Shift)) \
+    return factory.for_each_including_null_vars(Shift) \
             .penalize("A shift", HardSoftScore.ONE_SOFT)</code></pre>
 </div>
 </div>
@@ -445,13 +444,13 @@ replace the <code>forEach()</code> building block by <code>forEachIncludingNullV
 </td>
 <td class="content">
 <div class="paragraph">
-<p>The <code>forEach()</code> building block has a legacy counterpart, <code>from_()</code>.
+<p>The <code>for_each()</code> building block has a legacy counterpart, <code>from_()</code>.
 This alternative approach included instances based on the initialization status of their genuine planning variables.
 As an unwanted consequence,
 <code>from_()</code> behaves unexpectedly for <a href="../planner-configuration/planner-configuration.html#nullablePlanningVariable" class="xref page">nullable variables</a>.
 These are considered initialized even when <code>None</code>,
 and therefore this legacy method could still return entities with <code>None</code> variables.
-<code>from_()</code>, <code>fromUnfiltered()</code> and <code>fromUniquePair()</code> are now deprecated and will be removed in a future major version of OptaPy.</p>
+<code>from_()</code>, <code>from_unfiltered()</code> and <code>from_unique_pair()</code> are now deprecated and will be removed in a future major version of OptaPy.</p>
 </div>
 </td>
 </tr>
@@ -524,7 +523,7 @@ The following constraint stream removes all of Beth&#8217;s shifts from all <cod
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-python hljs" data-lang="python">def penalize_ann_shifts(factory: ConstraintFactory):
-    return factory.forEach(get_class(Shift)) \
+    return factory.for_each(Shift) \
             .filter(lambda shift: shift.employee.name == "Ann") \
             .penalize("Ann's shift", SimpleScore.ONE)</code></pre>
 </div>
@@ -536,8 +535,8 @@ of <code>Shift</code> and <code>DayOff</code>:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-python hljs" data-lang="python">def penalize_shifts_on_off_days(factory: ConstraintFactory):
-    return factory.forEach(get_class(Shift)) \
-            .join(get_class(DayOff)) \
+    return factory.for_each(Shift) \
+            .join(DayOff) \
             .filter(lambda shift, day_off: shift.date == day_off.date and shift.employee == day_off.employee) \
             .penalize("Shift on an off-day", SimpleScore.ONE)</code></pre>
 </div>
@@ -630,9 +629,9 @@ that need to be filtered out immediately.</p>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-python hljs" data-lang="python">from optapy.constraint import Joiners
 
-def shift_on_day_off(constraintFactory: ConstraintFactory):
-    return constraintFactory.forEach(get_class(Shift)) \
-            .join(get_class(DayOff),
+def shift_on_day_off(constraint_factory: ConstraintFactory):
+    return constraint_factory.for_each(Shift) \
+            .join(DayOff,
                 Joiners.equal(lambda shift: shift.date,
                               lambda day_off: day_off.date),
                 Joiners.equal(lambda shift: shift.employee,
@@ -686,7 +685,7 @@ It does not create cartesian products and therefore generally performs better.</
 <div class="paragraph">
 <p>Grouping collects items in a stream according to user-provider criteria (also called "group key"), similar to what a
 <code>GROUP BY</code> SQL clause does. Additionally, some grouping operations also accept one or more <code>Collector</code> instances, which
-provide various aggregation functions. The following figure illustrates a simple <code>groupBy()</code> operation:</p>
+provide various aggregation functions. The following figure illustrates a simple <code>group_by()</code> operation:</p>
 </div>
 <div class="imageblock text-center">
 <div class="content">
@@ -704,13 +703,13 @@ every computer whose processes consume more power than is available.</p>
 
 
 def required_cpu_power_total(constraint_factory: ConstraintFactory):
-    return constraint_factory.forEach(get_class(CloudProcess)) \
-            .groupBy(lambda process: process.computer,
-                     ConstraintCollectors.sum(lambda process: process.required_cpu_power)) \
+    return constraint_factory.for_each(CloudProcess) \
+            .group_by(lambda process: process.computer,
+                      ConstraintCollectors.sum(lambda process: process.required_cpu_power)) \
             .filter(lambda computer, required_cpu_power: required_cpu_power &gt; computer.cpu_power) \
             .penalize("required_cpu_power_total",
-                    HardSoftScore.ONE_HARD,
-                    lambda computer, required_cpu_power: required_cpu_power - computer.cpu_power)</code></pre>
+                      HardSoftScore.ONE_HARD,
+                      lambda computer, required_cpu_power: required_cpu_power - computer.cpu_power)</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -743,7 +742,7 @@ In the previous example, <code>filter()</code> and all subsequent operations no 
 <p><a href="#collectorsCount"><code>count()</code></a></p>
 </li>
 <li>
-<p><a href="#collectorsCountDistinct"><code>countDistinct()</code></a></p>
+<p><a href="#collectorsCountDistinct"><code>count_distinct()</code></a></p>
 </li>
 <li>
 <p><a href="#collectorsSum"><code>sum()</code></a></p>
@@ -755,7 +754,7 @@ In the previous example, <code>filter()</code> and all subsequent operations no 
 <p><a href="#collectorsMinMax"><code>min()</code> and <code>max()</code></a></p>
 </li>
 <li>
-<p><a href="#collectorsCollection"><code>toList()</code>, <code>toSet()</code> and <code>toMap()</code></a></p>
+<p><a href="#collectorsCollection"><code>to_list()</code>, <code>to_set()</code> and <code>to_map()</code></a></p>
 </li>
 </ul>
 </div>
@@ -769,12 +768,12 @@ don&#8217;t.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-python hljs" data-lang="python">def speaker_availability(factory: ConstraintFactory):
-    return factory.forEach(get_class(Talk)) \
-            .groupBy(lambda talk: talk.has_any_unavailable_speaker(),
-                     ConstraintCollectors.count()) \
+    return factory.for_each(Talk) \
+            .group_by(lambda talk: talk.has_any_unavailable_speaker(),
+                      ConstraintCollectors.count()) \
             .penalize("Speaker Availability",
-                    HardSoftScore.ONE_HARD,
-                    lambda has_unavailable_speaker, count: ...)</code></pre>
+                      HardSoftScore.ONE_HARD,
+                      lambda has_unavailable_speaker, count: ...)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -786,17 +785,17 @@ because - unlike the other built-in collectors - they aren&#8217;t overloaded me
 </div>
 </div>
 <div class="sect4">
-<h5 id="collectorsCountDistinct"><a class="anchor" href="#collectorsCountDistinct"></a><code>countDistinct()</code> collector</h5>
+<h5 id="collectorsCountDistinct"><a class="anchor" href="#collectorsCountDistinct"></a><code>count_distinct()</code> collector</h5>
 <div class="paragraph">
-<p>The <code>ConstraintCollectors.countDistinct(&#8230;&#8203;)</code> counts any element per group once, regardless of how many times it
+<p>The <code>ConstraintCollectors.count_distinct(&#8230;&#8203;)</code> counts any element per group once, regardless of how many times it
 occurs. For example, the following use of the collector gives a number of talks in each unique room.</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-python hljs" data-lang="python">def room_count(factory: ConstraintFactory):
-    return factory.forEach(get_class(Talk)) \
-            .groupBy(lambda talk: talk.room,
-                     ConstraintCollectors.countDistinct()) \
+    return factory.for_each(Talk) \
+            .group_by(lambda talk: talk.room,
+                      ConstraintCollectors.count_distinct()) \
             .penalize("room_count",
                       HardSoftScore.ONE_SOFT,
                       lambda room, count: ...)</code></pre>
@@ -816,12 +815,12 @@ required by the processes on that computer using the <code>ConstraintCollectors.
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-python hljs" data-lang="python">def required_cpu_power_total(constraint_factory: ConstraintFactory):
-    return constraint_factory.forEach(get_class(CloudProcess)) \
-            .groupBy(lambda process: process.computer,
-                     ConstraintCollectors.sum(lambda process: process.required_cpu_power)) \
+    return constraint_factory.for_each(CloudProcess) \
+            .group_by(lambda process: process.computer,
+                      ConstraintCollectors.sum(lambda process: process.required_cpu_power)) \
             .penalize("required_cpu_power_total",
-                    HardSoftScore.ONE_SOFT,
-                    lambda computer, required_cpu_power: required_cpu_power)</code></pre>
+                      HardSoftScore.ONE_SOFT,
+                      lambda computer, required_cpu_power: required_cpu_power)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -839,12 +838,12 @@ required by the processes on that computer using the <code>ConstraintCollectors.
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-python hljs" data-lang="python">def average_cpu_power(constraint_factory: ConstraintFactory):
-    return constraint_factory.forEach(get_class(CloudProcess)) \
-            .groupBy(lambda process: process.computer,
-                     ConstraintCollectors.average(lambda process: process.required_cpu_power)) \
+    return constraint_factory.for_each(CloudProcess) \
+            .group_by(lambda process: process.computer,
+                      ConstraintCollectors.average(lambda process: process.required_cpu_power)) \
             .penalize("average_cpu_power",
-                    HardSoftScore.ONE_SOFT,
-                    lambda computer, average_cpu_power: average_cpu_power)</code></pre>
+                      HardSoftScore.ONE_SOFT,
+                      lambda computer, average_cpu_power: average_cpu_power)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -867,12 +866,12 @@ although there are also variants of these collectors which allow you to provide 
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-python hljs" data-lang="python">def computer_with_biggest_process(constraint_factory: ConstraintFactory):
-    return constraint_factory.forEach(get_class(CloudProcess)) \
-            .groupBy(lambda process: process.computer,
-                     ConstraintCollectors.max(lambda process: process.required_cpu_power)) \
-            .penalize("computerWithBiggestProcess",
-                    HardSoftScore.ONE_HARD,
-                    lambda computer, biggest_process: ...)</code></pre>
+    return constraint_factory.for_each(CloudProcess) \
+            .group_by(lambda process: process.computer,
+                      ConstraintCollectors.max(lambda process: process.required_cpu_power)) \
+            .penalize("computer_with_biggest_process",
+                      HardSoftScore.ONE_HARD,
+                      lambda computer, biggest_process: ...)</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -893,9 +892,9 @@ Additionally, it is expected the comparison magic methods (<code>__lt__(self, ot
 </div>
 </div>
 <div class="sect4">
-<h5 id="collectorsCollection"><a class="anchor" href="#collectorsCollection"></a><code>toList()</code>, <code>toSet()</code> and <code>toMap()</code> collectors</h5>
+<h5 id="collectorsCollection"><a class="anchor" href="#collectorsCollection"></a><code>to_list()</code>, <code>to_set()</code> and <code>to_map()</code> collectors</h5>
 <div class="paragraph">
-<p>To extract all elements per group into a collection, use the <code>ConstraintCollectors.toList(&#8230;&#8203;)</code>.</p>
+<p>To extract all elements per group into a collection, use the <code>ConstraintCollectors.to_list(&#8230;&#8203;)</code>.</p>
 </div>
 <div class="paragraph">
 <p>The following example retrieves all processes running on a computer in a <code>list</code>:</p>
@@ -903,12 +902,12 @@ Additionally, it is expected the comparison magic methods (<code>__lt__(self, ot
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-python hljs" data-lang="python">def computer_and_its_processes(constraint_factory: ConstraintFactory):
-    return constraint_factory.forEach(get_class(CloudProcess)) \
-            .groupBy(lambda process: process.computer,
-                     ConstraintCollectors.toList()) \
+    return constraint_factory.for_each(CloudProcess) \
+            .group_by(lambda process: process.computer,
+                      ConstraintCollectors.to_list()) \
             .penalize("computer_and_its_processes",
-                    HardSoftScore.ONE_HARD,
-                    lambda computer, process_list: ...)</code></pre>
+                      HardSoftScore.ONE_HARD,
+                      lambda computer, process_list: ...)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -917,19 +916,19 @@ Additionally, it is expected the comparison magic methods (<code>__lt__(self, ot
 <div class="ulist">
 <ul>
 <li>
-<p><code>toList()</code> collects a <code>list</code> value.</p>
+<p><code>to_list()</code> collects a <code>list</code> value.</p>
 </li>
 <li>
-<p><code>toSet()</code> collects a <code>set</code> value.</p>
+<p><code>to_set()</code> collects a <code>set</code> value.</p>
 </li>
 <li>
-<p><code>toSortedSet()</code> collects a <code>SortedSet</code> value.</p>
+<p><code>to_sorted_set()</code> collects a <code>SortedSet</code> value.</p>
 </li>
 <li>
-<p><code>toMap()</code> collects a <code>dict</code> value.</p>
+<p><code>to_map()</code> collects a <code>dict</code> value.</p>
 </li>
 <li>
-<p><code>toSortedMap()</code> collects a <code>SortedMap</code> value.</p>
+<p><code>to_sorted_map()</code> collects a <code>SortedMap</code> value.</p>
 </li>
 </ul>
 </div>
@@ -942,7 +941,7 @@ Additionally, it is expected the comparison magic methods (<code>__lt__(self, ot
 <td class="content">
 <div class="paragraph">
 <p>The iteration order of elements in the resulting collection is not guaranteed to be stable,
-unless it is a sorted collector such as <code>toSortedSet</code> or <code>toSortedMap</code>.</p>
+unless it is a sorted collector such as <code>to_sorted_set</code> or <code>to_sorted_map</code>.</p>
 </div>
 </td>
 </tr>
@@ -964,16 +963,16 @@ excluding processes which are not long-running:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-python hljs" data-lang="python">def computer_with_long_running_processes(constraint_factory: ConstraintFactory):
-    return constraint_factory.forEach(get_class(CloudProcess)) \
-            .groupBy(lambda process: process.computer,
-                     ConstraintCollectors.conditionally(
-                         lambda process: process.is_long_running(),
-                         ConstraintCollectors.count()
-                     )
+    return constraint_factory.for_each(CloudProcess) \
+            .group_by(lambda process: process.computer,
+                      ConstraintCollectors.conditionally(
+                          lambda process: process.is_long_running(),
+                          ConstraintCollectors.count()
+                      )
             ) \
             .penalize("long_running_processes",
-                    HardSoftScore.ONE_HARD,
-                    lambda computer, longRunningProcessCount: ...)</code></pre>
+                      HardSoftScore.ONE_HARD,
+                      lambda computer, long_running_process_count: ...)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1011,7 +1010,7 @@ def calculate_average(count: int, group_sum: int):
 </div>
 <div class="paragraph">
 <p>Similarly, the <code>compose()</code> collector enables you to work around the limitation of <a href="#constraintStreamsCardinality">Constraint Stream cardinality</a>
-and use as many as 4 collectors in your <a href="#constraintStreamsGroupingAndCollectors"><code>groupBy()</code> statements</a>:</p>
+and use as many as 4 collectors in your <a href="#constraintStreamsGroupingAndCollectors"><code>group_by()</code> statements</a>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1044,31 +1043,31 @@ absence of some other object.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-python hljs" data-lang="python">def running_computer(constraint_factory: ConstraintFactory):
-    return constraint_factory.forEach(get_class(CloudComputer)) \
-            .ifExists(get_class(CloudProcess),
-                      Joiners.equal(lambda computer: computer,
-                                    lambda process: process.computer)) \
+    return constraint_factory.for_each(CloudComputer) \
+            .if_exists(CloudProcess,
+                       Joiners.equal(lambda computer: computer,
+                                     lambda process: process.computer)) \
             .penalize("running_computer",
                     HardSoftScore.ONE_SOFT,
                     lambda computer: ...)</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Note the use of the <code>ifExists()</code> building block.
-On <code>UniConstraintStream</code>, the <code>ifExistsOther()</code> building block is also available which is useful in situations where the
-<code>forEach()</code> constraint match type is the same as the <code>ifExists()</code> type.</p>
+<p>Note the use of the <code>if_exists()</code> building block.
+On <code>UniConstraintStream</code>, the <code>if_exists_other()</code> building block is also available which is useful in situations where the
+<code>for_each()</code> constraint match type is the same as the <code>if_exists()</code> type.</p>
 </div>
 <div class="paragraph">
-<p>Conversely, if the <code>ifNotExists()</code> building block is used (as well as the <code>ifNotExistsOther()</code> building block on
+<p>Conversely, if the <code>if_not_exists()</code> building block is used (as well as the <code>if_not_exists_other()</code> building block on
 <code>UniConstraintStream</code>) you can achieve the opposite effect:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-python hljs" data-lang="python">def unused_computer(constraint_factory: ConstraintFactory):
-    return constraint_factory.forEach(get_class(CloudComputer)) \
-            .ifNotExists(get_class(CloudProcess),
-                         Joiners.equal(lambda computer: computer,
-                                       lambda process: process.computer)) \
+    return constraint_factory.for_each(CloudComputer) \
+            .if_not_exists(CloudProcess,
+                           Joiners.equal(lambda computer: computer,
+                                         lambda process: process.computer)) \
             .penalize("unused_computer",
                     HardSoftScore.ONE_HARD,
                     lambda computer: ...)</code></pre>
@@ -1113,7 +1112,7 @@ The result of such mapping is <code>UniConstraintStream</code> of the mapped tup
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-python hljs" data-lang="python">def computer_with_biggest_process(constraint_factory: ConstraintFactory):
     return (
-        constraint_factory.forEach(get_class(CloudProcess)) # UniConstraintStream[CloudProcess]
+        constraint_factory.for_each(CloudProcess) # UniConstraintStream[CloudProcess]
             .map(lambda process: process.computer) # UniConstraintStream[CloudComputer]
     )
     ...</code></pre>
@@ -1178,8 +1177,8 @@ to have the duplicate copies eliminated.</p>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-python hljs" data-lang="python">def computer_with_biggest_process(constraint_factory: ConstraintFactory) {
     return (
-        constraint_factory.forEach(get_class(CloudProcess)) # UniConstraintStream&lt;CloudProcess&gt;
-            .map(lambda process: process.computer)          # UniConstraintStream&lt;CloudComputer&gt;
+        constraint_factory.for_each(CloudProcess) # UniConstraintStream[CloudProcess]
+            .map(lambda process: process.computer)          # UniConstraintStream[CloudComputer]
             .distinct()                                     # The same, each CloudComputer just once.
     )
     ...</code></pre>
@@ -1214,11 +1213,11 @@ This is done by applying a mapping function to the final element in the source t
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-python hljs" data-lang="python">def required_job_roles(constraint_factory: ConstraintFactory):
     return (
-        constraint_factory.forEach(get_class(Person))       # UniConstraintStream&lt;Person&gt;
-            .join(get_class(Job),
+        constraint_factory.for_each(Person)       # UniConstraintStream&lt;Person&gt;
+            .join(Job,
                   Joiners.equal(lambda job: job,
                                 lambda job: job.assignee))  # BiConstraintStream&lt;Person, Job&gt;
-            .flattenLast(lambda job: job.required_roles)    # BiConstraintStream&lt;Person, Role&gt;
+            .flatten_last(lambda job: job.required_roles)    # BiConstraintStream&lt;Person, Role&gt;
             .filter(lambda person, required_role: ...)
     )
     ...</code></pre>

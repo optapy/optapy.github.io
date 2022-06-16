@@ -380,13 +380,9 @@ The second argument, <code>value_range_provider_refs</code>, tells OptaPy what v
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">from domain import Lesson, Room
-from optapy import constraint_provider, get_class
+from optapy import constraint_provider
 from optapy.constraint import Joiners, ConstraintFactory
 from optapy.score import HardSoftScore
-
-# Constraint Factory takes Java Classes, not Python Classes
-LessonClass = get_class(Lesson)
-RoomClass = get_class(Room)
 
 @constraint_provider
 def define_constraints(constraint_factory: ConstraintFactory):
@@ -400,42 +396,36 @@ def define_constraints(constraint_factory: ConstraintFactory):
 
 def room_conflict(constraint_factory: ConstraintFactory):
     # A room can accommodate at most one lesson at the same time.
-    return constraint_factory \
-            .forEach(LessonClass) \
-            .join(LessonClass,
-                [
-                    # ... in the same timeslot ...
-                    Joiners.equal(lambda lesson: lesson.timeslot),
-                    # ... in the same room ...
-                    Joiners.equal(lambda lesson: lesson.room),
-                    # ... and the pair is unique (different id, no reverse pairs) ...
-                    Joiners.lessThan(lambda lesson: lesson.id)
-                ]) \
+    return constraint_factory.for_each(Lesson) \
+            .join(Lesson,
+                  # ... in the same timeslot ...
+                  Joiners.equal(lambda lesson: lesson.timeslot),
+                  # ... in the same room ...
+                  Joiners.equal(lambda lesson: lesson.room),
+                  # ... and the pair is unique (different id, no reverse pairs) ...
+                  Joiners.less_than(lambda lesson: lesson.id)
+             ) \
             .penalize("Room conflict", HardSoftScore.ONE_HARD)
 
 
 def teacher_conflict(constraint_factory: ConstraintFactory):
     # A teacher can teach at most one lesson at the same time.
-    return constraint_factory \
-                .forEach(LessonClass)\
-                .join(LessonClass,
-                        [
-                            Joiners.equal(lambda lesson: lesson.timeslot),
-                            Joiners.equal(lambda lesson: lesson.teacher),
-                    Joiners.lessThan(lambda lesson: lesson.id)
-                        ]) \
+    return constraint_factory.for_each(Lesson) \
+                .join(Lesson,
+                      Joiners.equal(lambda lesson: lesson.timeslot),
+                      Joiners.equal(lambda lesson: lesson.teacher),
+                      Joiners.less_than(lambda lesson: lesson.id)
+                ) \
                 .penalize("Teacher conflict", HardSoftScore.ONE_HARD)
 
 def student_group_conflict(constraint_factory: ConstraintFactory):
     # A student can attend at most one lesson at the same time.
-    return constraint_factory \
-            .forEach(LessonClass) \
-            .join(LessonClass,
-                [
-                    Joiners.equal(lambda lesson: lesson.timeslot),
-                    Joiners.equal(lambda lesson: lesson.student_group),
-                    Joiners.lessThan(lambda lesson: lesson.id)
-                ]) \
+    return constraint_factory.for_each(Lesson) \
+            .join(Lesson,
+                  Joiners.equal(lambda lesson: lesson.timeslot),
+                  Joiners.equal(lambda lesson: lesson.student_group),
+                  Joiners.less_than(lambda lesson: lesson.id)
+            ) \
             .penalize("Student group conflict", HardSoftScore.ONE_HARD)</code></pre>
 </div>
 </div>
@@ -604,14 +594,13 @@ def generate_problem():
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">from domain import Lesson, TimeTable, generate_problem
 from constraints import define_constraints
-from optapy import get_class
 import optapy.config
 from optapy.types import Duration
 
 solver_config = optapy.config.solver.SolverConfig() \
-    .withEntityClasses(get_class(Lesson)) \
-    .withSolutionClass(get_class(TimeTable)) \
-    .withConstraintProviderClass(get_class(define_constraints)) \
+    .withEntityClasses(Lesson) \
+    .withSolutionClass(TimeTable) \
+    .withConstraintProviderClass(define_constraints) \
     .withTerminationSpentLimit(Duration.ofSeconds(30))</code></pre>
 </div>
 </div>
@@ -625,9 +614,10 @@ solver_config = optapy.config.solver.SolverConfig() \
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">from optapy import solver_factory_create
 
-solution = solver_factory_create(solver_config)\
-    .buildSolver()\
+solution = solver_factory_create(solver_config) \
+    .buildSolver() \
     .solve(generate_problem())
+
 print(solution)</code></pre>
 </div>
 </div>
