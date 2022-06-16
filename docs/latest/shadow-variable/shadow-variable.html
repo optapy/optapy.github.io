@@ -365,7 +365,126 @@ The <code>source_variable_name</code> property is the name of the chained variab
 <h2 id="customVariableListener"><a class="anchor" href="#customVariableListener"></a>4. Custom <code>VariableListener</code></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Custom variable listeners are not supported in OptaPy, but will be in a future version.</p>
+<p>To update a shadow variable, OptaPy uses a <code>VariableListener</code>.
+To define a custom shadow variable, write a custom <code>VariableListener</code>:
+implement the interface and annotate it on the shadow variable that needs to change.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-python hljs" data-lang="python">    @planning_variable(...)
+    public Standstill getPreviousStandstill() {
+        return previousStandstill;
+    }
+
+    @custom_shadow_variable(variable_listener_class = VehicleUpdatingVariableListener,
+            sources = [planning_variable_reference(variable_name = "previous_standstill")])
+    def get_vehicle(self):
+        return self.vehicle</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="#shadowVariableIntroduction">Register this class as a planning entity</a> if it isn&#8217;t already.
+Otherwise OptaPy won&#8217;t detect it and the shadow variable won&#8217;t update.</p>
+</div>
+<div class="paragraph">
+<p>The source&#8217;s <code>variable_name</code> is the (genuine or shadow) variable that triggers changes to this shadow variable.
+If the source variable&#8217;s class is different than the shadow variable&#8217;s class,
+also specify the <code>entity_class</code> in the <code>planning_variable_reference</code> annotation
+and make sure the shadow variable&#8217;s class is <a href="#shadowVariableIntroduction">registered as a planning entity</a>.</p>
+</div>
+<div class="paragraph">
+<p>Implement the <code>VariableListener</code> interface.
+For example, the <code>VehicleUpdatingVariableListener</code> assures that every <code>Customer</code> in a chain has the same <code>Vehicle</code>, namely the chain&#8217;s anchor.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-python hljs" data-lang="python">from optapy import variable_listener
+
+@variable_listener
+class VehicleUpdatingVariableListener:
+
+    def afterEntityAdded(self, score_director: ScoreDirector[VehicleRoutingSolution], customer: Customer):
+        self.update_vehicle(scoreDirector, customer)
+
+    def afterVariableChanged(self, score_director: ScoreDirector[VehicleRoutingSolution], customer: Customer)):
+        self.update_vehicle(scoreDirector, customer)
+
+    # ...
+
+    def update_vehicle(self, score_director: ScoreDirector[VehicleRoutingSolution], source_customer: Customer)):
+        previous_standstill = source_customer.previous_standstill
+        vehicle = None if previous_standstill is None else previous_standstill.vehicle
+        shadow_customer = source_customer
+        while (shadow_customer is not None and shadow_customer.vehicle is not vehicle):
+            scoreDirector.beforeVariableChanged(shadow_customer, "vehicle")
+            shadow_customer.vehicle = vehicle
+            scoreDirector.afterVariableChanged(shadow_customer, "vehicle")
+            shadow_customer = shadow_customer.next_customer</code></pre>
+</div>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>A <code>VariableListener</code> can only change shadow variables.
+It must never change a genuine planning variable or a problem fact.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Any change of a shadow variable must be told to the <code>ScoreDirector</code> with <code>before*()</code> and <code>after*()</code> methods.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>If one <code>VariableListener</code> changes two shadow variables (because having two separate <code>VariableListener</code>s would be inefficient), then annotate only the first shadow variable with the <code>variable_listener_class</code> and let the other shadow variable(s) reference the first shadow variable:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-python hljs" data-lang="python">    @planning_variable(...)
+    def get_previous_standstill(self):
+        return self.previous_standstill
+
+    @custom_shadow_variable(variable_listener_class = TransportTimeAndCapacityUpdatingVariableListener,
+            sources = [planning_variable_reference(variable_name = "previous_standstill")])
+    def get_transport_time(self):
+        return self.transport_time
+
+    @custom_shadow_variable(variable_listener_ref = planning_variable_reference(variable_name = "transport_time"))
+    def get_capacity(self):
+        return self.capacity</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A shadow variable&#8217;s value (just like a genuine variable&#8217;s value)
+isn&#8217;t <a href="../planner-configuration/planner-configuration.html#cloningASolution" class="xref page">planning cloned</a> by the default solution cloner,
+unless it can easily prove that it must be planning cloned (for example the property type is a planning entity class).
+Specifically shadow variables of type <code>list</code>, <code>set</code>, or <code>dict</code> usually need to be planning cloned
+to avoid corrupting the best solution when the working solution changes.
+To planning clone a shadow variable, add <code>@deep_planning_clone</code> annotation:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-python hljs" data-lang="python">    @deep_planning_clone
+    @custom_shadow_variable(...)
+    def get_used_man_hours_per_day_map(self):
+        ...</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -373,7 +492,65 @@ The <code>source_variable_name</code> property is the name of the chained variab
 <h2 id="variableListenerTriggeringOrder"><a class="anchor" href="#variableListenerTriggeringOrder"></a>5. VariableListener triggering order</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This section will be added when custom variable listeners are supported in OptaPy.</p>
+<p>All shadow variables are triggered by a <code>VariableListener</code>, regardless if it&#8217;s a built-in or a custom shadow variable.
+The genuine and shadow variables form a graph, that determines the order in which the <code>afterEntityAdded()</code>, <code>afterVariableChanged()</code> and <code>afterEntityRemoved()</code> methods are called:</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="../_images/shadow-variable/shadowVariableOrder.png" alt="shadowVariableOrder">
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>In the example above, D could have also been ordered after E (or F) because there is no direct or indirect dependency between D and E (or F).</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>OptaPy guarantees that:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The first <code>VariableListener</code>'s <code>after*()</code> methods trigger <em>after</em> the last genuine variable has changed. Therefore the genuine variables (A and B in the example above) are guaranteed to be in a consistent state across all its instances (with values A1, A2 and B1 in the example above) because the entire <code>Move</code> has been applied.</p>
+</li>
+<li>
+<p>The second <code>VariableListener</code>'s <code>after*()</code> methods trigger <em>after</em> the last first shadow variable has changed. Therefore the first shadow variable (C in the example above) are guaranteed to be in a consistent state across all its instances (with values C1 and C2 in the example above). And of course the genuine variables too.</p>
+</li>
+<li>
+<p>And so forth.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>OptaPy does not guarantee the order in which the <code>after*()</code> methods are called for the <em>same</em><code>VariableListener</code> with different parameters (such as A1 and A2 in the example above), although they are likely to be in the order in which they were affected.</p>
+</div>
+<div class="paragraph">
+<p>By default, OptaPy does not guarantee that the events are unique.
+For example, if a shadow variable on an entity is changed twice in the same move (for example by two different genuine variables), then that will cause the same event twice on the <code>VariableListener</code>s that are listening to that original shadow variable.</p>
+</div>
+<div class="paragraph">
+<p>To avoid dealing with that complexity, overwrite the method <code>requiresUniqueEntityEvents()</code> to receive unique events at the cost of a small performance penalty:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-python hljs" data-lang="python">from optapy import variable_listener
+
+@variable_listener
+class StartTimeUpdatingVariableListener:
+    def requiresUniqueEntityEvents():
+        return True
+
+    ...</code></pre>
+</div>
 </div>
 </div>
 </div>
