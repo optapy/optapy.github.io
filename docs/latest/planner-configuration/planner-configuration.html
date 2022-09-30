@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>OptaPy configuration :: Documentation</title>
     <link rel="canonical" href="https://www.optapy.org/docs/latest/planner-configuration/planner-configuration.html">
-    <meta name="generator" content="Antora 3.0.2">
+    <meta name="generator" content="Antora 3.1.1">
     <link rel="stylesheet" href="../../../_/css/site.css">
 <link rel="stylesheet" href="../../../_/css/search.css">
 <link rel="stylesheet" href="../../../_/css/menu.css"><!-- Adobe Analytics for Red Hat - DPAL (DTM Property Auto-Loader) - part 1/2 -->
@@ -852,11 +852,11 @@ For example, if a teacher can <strong>never</strong> teach in a room that does n
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-python hljs" data-lang="python">    @planning_variable(value_range_provider_refs = ["department_room_range"])
+<pre class="highlightjs highlight nowrap"><code class="language-python hljs" data-lang="python">    @planning_variable(Room, value_range_provider_refs = ["department_room_range"])
     def get_room(self):
         return self.room
 
-    @value_range_provider(range_id = "department_room_range")
+    @value_range_provider(range_id = "department_room_range", value_range_type = Room)
     def get_possible_room_list(self):
         return self.course.teacher.department.room_list</code></pre>
 </div>
