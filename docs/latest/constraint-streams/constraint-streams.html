@@ -1244,6 +1244,137 @@ See <a href="#constraintStreamsDealingWithDuplicateTuplesUsingDistinct"><code>di
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="constraintStreamsTesting"><a class="anchor" href="#constraintStreamsTesting"></a>5. Testing a constraint stream</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Constraint streams include the Constraint Verifier unit testing harness.</p>
+</div>
+<div class="sect2">
+<h3 id="constraintStreamsTestingIsolatedConstraints"><a class="anchor" href="#constraintStreamsTestingIsolatedConstraints"></a>5.1. Testing constraints in isolation</h3>
+<div class="paragraph">
+<p>Consider the following constraint stream:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-python hljs" data-lang="python">def horizontal_conflict(factory: ConstraintFactory):
+    return factory \
+            .for_each_unique_pair(Queen,
+                                  Joiners.equal(lambda queen: queen.row)) \
+            .penalize("Horizontal conflict", SimpleScore.ONE)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following example uses the Constraint Verifier API to create a simple unit test for the preceding constraint stream:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-python hljs" data-lang="python">from optapy.test import constraint_verifier_build
+
+constraint_verifier
+        = constraint_verifier_build(n_queens_constraint_provider, NQueens, Queen)
+
+def test_horizontal_conflict_with_two_queens():
+    row1 = Row(0)
+    column1 = Column(0)
+    column2 = Column(1)
+    queen1 = Queen(0, row1, column1)
+    queen2 = Queen(1, row1, column2)
+    constraint_verifier.verify_that(horizontal_conflict) \
+            .given(queen1, queen2) \
+            .penalizes_by(1)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This test ensures that the horizontal conflict constraint assigns a penalty of <code>1</code> when there are two queens on the same
+row.
+The following line creates a shared <code>ConstraintVerifier</code> instance and initializes the instance with the
+<code>NQueensConstraintProvider</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-java hljs" data-lang="java">constraint_verifier
+        = constraint_verifier_build(n_queens_constraint_provider, NQueens, Queen)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>test_horizontal_conflict_with_two_queens</code> is the function that runs the unit test, and can be adapted to many test frameworks such as pytest and unittest.</p>
+</div>
+<div class="paragraph">
+<p>The first part of the test prepares the test data.
+In this case, the test data includes two instances of the <code>Queen</code> planning entity and their dependencies
+(<code>Row</code>, <code>Column</code>):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-python hljs" data-lang="python">    row1 = Row(0)
+    column1 = Column(0)
+    column2 = Column(1)
+    queen1 = Queen(0, row1, column1)
+    queen2 = Queen(1, row1, column2)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Further down, the following code tests the constraint:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-python hljs" data-lang="python">    constraint_verifier.verify_that(horizontal_conflict) \
+            .given(queen1, queen2) \
+            .penalizes_by(1)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>verify_that(&#8230;&#8203;)</code> call is used to specify a function that provides the constraint.</p>
+</div>
+<div class="paragraph">
+<p>The <code>given(&#8230;&#8203;)</code> call is used to enumerate all the facts that the constraint stream operates on.
+In this case, the <code>given(&#8230;&#8203;)</code> call takes the <code>queen1</code> and <code>queen2</code> instances previously created.
+Alternatively, you can use a <code>given_solution(&#8230;&#8203;)</code> method here and provide a planning solution instead.</p>
+</div>
+<div class="paragraph">
+<p>Finally, the <code>penalizes_by(&#8230;&#8203;)</code> call completes the test, making sure that the horizontal conflict constraint, given
+one <code>Queen</code>, results in a penalty of <code>1</code>.
+This number is a product of multiplying the match weight, as defined in the constraint stream, by the number of matches.</p>
+</div>
+<div class="paragraph">
+<p>Alternatively, you can use a <code>rewards_with(&#8230;&#8203;)</code> call to check for rewards instead of penalties.
+The method to use here depends on whether the constraint stream in question is terminated with a <code>penalize</code> or a
+<code>reward</code> building block.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="constraintStreamsTestingAllConstraints"><a class="anchor" href="#constraintStreamsTestingAllConstraints"></a>5.2. Testing all constraints together</h3>
+<div class="paragraph">
+<p>In addition to testing individual constraints, you can test the entire <code>@constraint_provider</code> instance.
+Consider the following test:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-python hljs" data-lang="python">def given_facts_multiple_constraints():
+    queen1 = Queen(0, row1, column1)
+    queen2 = Queen(1, row2, column2)
+    queen3 = Queen(2, row3, column3)
+    constraint_verifier.verify_that() \
+            .given(queen1, queen2, queen3) \
+            .scores(SimpleScore.of(-3))</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>There are only two notable differences to the previous example.
+First, the <code>verify_that()</code> call takes no argument here, signifying that the entire <code>@constraint_provider</code> function is
+being tested.
+Second, instead of either a <code>penalizes_by()</code> or <code>rewards_with()</code> call, the <code>scores(&#8230;&#8203;)</code> method is used.
+This runs the <code>ConstraintProvider</code> on the given facts and returns a sum of <code>Score</code>s of all constraint matches resulting
+from the given facts.</p>
+</div>
+<div class="paragraph">
+<p>Using this method, you ensure that the constraint provider does not miss any constraints and that the scoring function
+remains consistent as your code base evolves.</p>
+</div>
+</div>
+</div>
+</div>
 </article>
   </div>
 </main>
