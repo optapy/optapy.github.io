@@ -341,7 +341,7 @@ def user_request(..., user_input):
     solver_config = optapy.config.solver.SolverConfig(template) # Copy it
     solver_config.getTerminationConfig().setMinutesSpentLimit(user_input)
     solver_factory = solver_factory_create(solver_config)
-    solver = solver_factory.buildSolver();
+    solver = solver_factory.buildSolver()
     ...</code></pre>
 </div>
 </div>
@@ -949,7 +949,7 @@ from optapy.types import CountableValueRange, ValueRangeFactory
     @value_range_provider(range_id = "stock_amount_range", value_range_type = CountableValueRange)
     def get_stock_amount_range(self) {
         # Range: 0, 200, 400, 600, ..., 9999600, 9999800, 10000000
-        return ValueRangeFactory.createIntValueRange(0, 10000000, 200);
+        return ValueRangeFactory.createIntValueRange(0, 10000000, 200)
     }</code></pre>
 </div>
 </div>
@@ -1485,13 +1485,13 @@ The problem facts methods have the opportunity to enrich the domain model with s
         for left_topic in self.topic_list:
             for right_topic in self.topic_list:
                 if left_topic.topic_id &lt; right_topic.topic_id:
-                    student_size = 0;
+                    student_size = 0
                     for student in left_topic.student_list:
                         if student in right_topic.student_list:
                             student_size += 1
                     if student_size &gt; 0:
                         topic_conflict_list.append(TopicConflict(left_topic, right_topic, student_size))
-        return topic_conflict_list;</code></pre>
+        return topic_conflict_list</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1614,10 +1614,10 @@ For example in n queens, an <code>NQueens</code> instance is created with the re
             queen = Queen()
             queen.queen_id = id
             queen_id += 1
-            queen.column = column;
+            queen.column = column
             # Notice that we leave the PlanningVariable properties as None
-            queen_list.append(queen);
-        return queen_list;</code></pre>
+            queen_list.append(queen)
+        return queen_list</code></pre>
 </div>
 </div>
 <div class="imageblock text-left">
