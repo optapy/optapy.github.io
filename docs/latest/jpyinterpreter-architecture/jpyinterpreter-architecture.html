@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>JPyInterpreter Architecture :: Documentation</title>
+    <link rel="canonical" href="https://www.optapy.org/docs/latest/jpyinterpreter-architecture/jpyinterpreter-architecture.html">
+    <meta name="generator" content="Antora 3.1.4">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+<link rel="stylesheet" href="../../../_/css/search.css">
+<link rel="stylesheet" href="../../../_/css/menu.css"><!-- Adobe Analytics for Red Hat - DPAL (DTM Property Auto-Loader) - part 1/2 -->
+<script id="dpal" src="https://www.redhat.com/dtm.js" type="text/javascript"></script>
+<!-- Google Analytics for kie team: Global site tag (gtag.js) -->
+<script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <div class="navbar-item">
+        <a href="https://www.optapy.org">
+          <img src="../../../_/img/optaPyLogoDarkBackground200px.png" alt="OptaPy logo"/>
+        </a>
+        <a class="navbar-item" href="https://www.optapy.org">
+          Documentation
+        </a>
+      </div>
+      <div class="navbar-item search hide-for-print">
+        <div id="search-field" class="field">
+          <input id="search-input" type="text" placeholder="Search the docs">
+        </div>
+      </div>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://stackoverflow.com/questions/tagged/optapy">Get Help</a>
+        <div class="navbar-item">
+          <a class="navbar-item small-item" href="https://github.com/optapy/optapy" title="Follow OptaPy on GitHub"><img src="https://img.shields.io/github/stars/optapy/optapy?style=flat&logo=github" alt="GitHub" /></a>
+          <a class="navbar-item small-item" href="https://twitter.com/OptaPlanner" target="_blank" title="Follow OptaPlanner on Twitter"><img alt="T" src="../../../_/img/twitterLogo.png"></a>
+          <a class="navbar-item small-item" href="https://www.linkedin.com/showcase/optaplanner" target="_blank" title="Follow OptaPlanner on LinkedIn"><img alt="L" src="../../../_/img/linkedInLogo.png"></a>
+          <a class="navbar-item small-item" href="https://www.facebook.com/OptaPlanner" target="_blank" title="Follow OptaPlanner on Facebook"><img alt="F" src="../../../_/img/facebookLogo.png"></a>
+          <a class="navbar-item small-item" href="https://www.youtube.com/channel/UCcpkOKpujFlM67D2h0RdaeQ" target="_blank" title="OptaPlanner YouTube channel"><img alt="YT" src="../../../_/img/youtubeLogo.png" style="height: 16px"></a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="docs" data-version="latest">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">OptaPy User Guide 9.37.0b0</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">User Guide</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../planner-introduction/planner-introduction.html">OptaPy Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../quickstart/quickstart.html">Quickstart</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../planner-configuration/planner-configuration.html">OptaPy configuration</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../score-calculation/score-calculation.html">Score calculation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../constraint-streams/constraint-streams.html">Constraint streams score calculation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../shadow-variable/shadow-variable.html">Shadow variable</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../optimization-algorithms/optimization-algorithms.html">Optimization algorithms</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../move-and-neighborhood-selection/move-and-neighborhood-selection.html">Move and neighborhood selection</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../exhaustive-search/exhaustive-search.html">Exhaustive search</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../construction-heuristics/construction-heuristics.html">Construction heuristics</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../local-search/local-search.html">Local search</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../evolutionary-algorithms/evolutionary-algorithms.html">Evolutionary algorithms</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../partitioned-search/partitioned-search.html">Partitioned search</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../repeated-planning/repeated-planning.html">Repeated planning</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../design-patterns/design-patterns.html">Design patterns</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Developer Guide</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../jpyinterpreter-introduction/jpyinterpreter-introduction.html">JPyInterpreter Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../stack-machines/stack-machines.html">Stack Machines Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../python-function-structure/python-function-structure.html">Python Function Structure</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../opcodes/opcodes.html">CPython Opcode Instructions</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../java-bytecode/java-bytecode.html">Java Bytecode</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="jpyinterpreter-architecture.html">JPyInterpreter Architecture</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">OptaPy User Guide 9.37.0b0</span>
+    <span class="version">latest</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">OptaPy User Guide 9.37.0b0</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">latest</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../planner-introduction/planner-introduction.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">OptaPy User Guide 9.37.0b0</a></li>
+    <li>Developer Guide</li>
+    <li><a href="jpyinterpreter-architecture.html">JPyInterpreter Architecture</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/optapy/optapy/edit/main/optapy-docs/src/modules/ROOT/pages/jpyinterpreter-architecture/jpyinterpreter-architecture.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">JPyInterpreter Architecture</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>The architecture of JPyInterpreter is composed of several components spread across Python and Java.
+The Python components are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>jvm_setup.py</code>, which sets up the JVM and the hooks JPyInterpreter uses to communicate with CPython (to look up packages, call native methods, and converting CPython object to Java object and vice-versa).</p>
+</li>
+<li>
+<p><code>python_to_java_bytecode_translator.py</code>, which acts as the Python&#8217;s frontend to JPyInterpreter.
+Users supply a CPython function to translate (and an optional Java functional interface it implements) to <code>translate_python_bytecode_to_java_bytecode</code>, which firsts converts that function to a <code>PythonCompiledFunction</code>, and then passes it to <code>PythonBytecodeToJavaBytecodeTranslator</code> to translate the function.
+It also provides the <code>translate_python_class_to_java_class</code> function, which is given a user supplied CPython class, converts it to a <code>PythonCompiledClass</code>, and passes it to <code>PythonClassTranslator</code> to translate the class.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The Java components are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>PythonBytecodeToJavaBytecodeTranslator</code>, which acts as the entrypoint for function translation.
+It is responsible for:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Setting up the <code>JavaPythonClassWriter</code> and <code>MethodVisitor</code> used for bytecode generation.</p>
+</li>
+<li>
+<p>Creating and setting fields on the generated class objects (See <a href="#_pythonbytecodetojavabytecodetranslator">PythonBytecodeToJavaBytecodeTranslator</a> for details).</p>
+</li>
+<li>
+<p>Do the leg work of moving/translating Java parameters (ex: <code>int</code>) into <code>PythonLikeObject</code>.</p>
+</li>
+<li>
+<p>Setup cells variables.</p>
+</li>
+<li>
+<p>Delegating to <code>PythonGeneratorTranslator</code> when it detects the function being translated is a generator.</p>
+</li>
+<li>
+<p>Using <code>FlowGraph</code> to calculate the <code>StackMetadata</code> of each instruction.</p>
+</li>
+<li>
+<p>Calling the <code>implement</code> method on every opcode in the <code>Opcode</code> list with the <code>StackMetadata</code> for the opcode and the <code>FunctionMetadata</code> for the overall function.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>PythonGeneratorTranslator</code> is like <code>PythonBytecodeToJavaBytecodeTranslator</code> but for generators.
+It breaks a single generator function into multiple <code>advance</code> functions, and generates each <code>advance</code> function bytecode independently.</p>
+</li>
+<li>
+<p><code>FlowGraph</code>, which calculates the <code>StackMetadata</code> that corresponds to each <code>Opcode</code>.
+It is responsible for unifying the <code>StackMetadata</code> from all jump sources for each <code>Opcode</code> that is a jump target.
+For instance, if two sources with the same target have post <code>StackMetadata</code> of <code>&#8230;&#8203; int</code> and <code>&#8230;&#8203; bool</code> respectively, <code>FlowGraph</code> will unify that to <code>&#8230;&#8203; int</code> (since <code>bool</code> is a subclass of <code>int</code>, for better or worse).</p>
+</li>
+<li>
+<p><code>StackMetadata</code> stores metadata about the stack and local variables.
+Each <code>Opcode</code> get its own <code>StackMetadata</code> instance.
+It is mostly used to perform optimizations; for instance, if we detect the top two items on the stack are <code>int</code> and <code>int</code> for the <code>BINARY_ADD</code> instruction, we can change the (normally complex due to Python semantics) <code>BINARY_ADD</code> bytecode into a single method call.</p>
+</li>
+<li>
+<p><code>FunctionMetadata</code> stores metadata about the function (for instance, the <code>MethodVisitor</code> to use to generate bytecode). Each <code>Opcode</code> gets the same <code>FunctionMetadata</code> instance.</p>
+</li>
+<li>
+<p><code>Opcode</code> are the interface between CPython opcodes and the <code>Implementors</code>.
+Each describe a particular operation, and usually (but not always) correspond to a CPython opcode.
+Some CPython opcodes map to the same <code>Opcode</code> implementation.</p>
+</li>
+<li>
+<p><code>Implementors</code> are responsible for generating the Java bytecode corresponding to CPython bytecode.
+They can be found in the <code>implementors</code> package.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The overall process of compiling a function looks like this:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../_images/jpyinterpreter-architecture/jpyinterpreter-architecture.png" alt="A diagram showing how JPyInterpreter classes interact">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_types"><a class="anchor" href="#_types"></a>Types</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The builtin types for JPyInterpreter can be found in the <code>types</code> package.
+They all implement <code>PythonLikeObject</code>, the interface the bytecode uses to represent arbitrary objects.
+If type flow analysis determines a more specific type can be used (via <code>StackMetadata</code>), the more specific type is used directly instead.
+<code>PythonLikeObject</code> have several methods:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>__getAttributeOrNull</code>: returns the attribute with the given name if it exists, otherwise returns null.
+This is NOT <code>__getattribute__</code> (which is implemented by <code>$method$__getattribute__</code> instead).
+This is more akin to <code>self.__dict__[attribute]</code>.
+The default <code>$method$__getattribute__</code> uses it to get the attribute (with additional magic to handle descriptors, see <a href="https://docs.python.org/3.11/howto/descriptor.html#invocation-from-an-instance">the Python descriptor tutorial</a> for more detail).</p>
+</li>
+<li>
+<p><code>__getAttributeOrError</code>: returns the attribute with the given name if it exists, otherwise raises <code>AttributeError</code>.
+Used in bytecode generation to lookup methods on types.</p>
+</li>
+<li>
+<p><code>__setAttribute</code>: sets the attribute with the given name to the given value.
+This is NOT <code>__setattr__</code> (which is implemented by <code>$method$__setattr__</code> instead).
+This is more akin to <code>self.__dict__[attribute] = value</code>.
+The default <code>$method$__setattr__</code> uses it to set the attribute.</p>
+</li>
+<li>
+<p><code>__deleteAttribute</code>: deletes the attribute with the given name.
+This is NOT <code>__delattr__</code> (which is implemented by <code>$method$__delattr__</code> instead).
+This is more akin to <code>del self.__dict__[attribute]</code>.
+The default <code>$method$__delattr__</code> uses it to delete the attribute.</p>
+</li>
+<li>
+<p><code>__getType</code>: returns the type of the object.
+Used to implement <code>type(object)</code>.</p>
+</li>
+<li>
+<p><code>__getGenericType</code>: returns the generic type of the object (ex: <code>list[int]</code>).
+Used for typeflow analysis.</p>
+</li>
+<li>
+<p><code>$method$&lt;method-name&gt;</code>: the builtin methods on every object in Python.
+The <code>$method$&lt;method-name&gt;</code> naming is to allow custom classes to override them (custom classes prefix method names with <code>$method$</code> to not clash with Java method names).</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_pythonbytecodetojavabytecodetranslator"><a class="anchor" href="#_pythonbytecodetojavabytecodetranslator"></a>PythonBytecodeToJavaBytecodeTranslator</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The entrypoint for function translation, and the glue code for the many subsystems of the translator.
+It is responsible for setting up the <code>JavaPythonClassWriter</code>, <code>MethodVisitor</code> and configuring the class' fields.
+The fields it configures are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>co_consts</code>: Static; a <code>List&lt;PythonLikeObject&gt;</code> that stores constants used in the bytecode.</p>
+</li>
+<li>
+<p><code>co_names</code>: Static; a <code>List&lt;PythonString&gt;</code> that stores names used in the bytecode.</p>
+</li>
+<li>
+<p><code>co_varnames</code>: Static; a <code>List&lt;PythonString&gt;</code> that stores variable names used in the bytecode.</p>
+</li>
+<li>
+<p><code>__globals__</code>: Static; a <code>Map&lt;String, PythonLikeObject&gt;</code> used to read and store globals.</p>
+</li>
+<li>
+<p><code>__spec_getter__</code>: Static; a <code>BiFunction&lt;PythonLikeTuple, PythonLikeDict, ArgumentSpec&lt;PythonLikeObject&gt;&gt;</code> that maps default arguments (which are per function) to an <code>ArgumentSpec</code> that can be used to set parameters.</p>
+</li>
+<li>
+<p><code>__defaults__</code>: Instance; a <code>PythonLikeTuple</code> that stores default positional arguments.</p>
+</li>
+<li>
+<p><code>__kwdefaults__</code>: Instance; a <code>PythonLikeDict</code> that stores default keyword arguments.</p>
+</li>
+<li>
+<p><code>__annotations__</code>: Instance; a <code>PythonLikeDict</code> that stores type annotations on the function.</p>
+</li>
+<li>
+<p><code>__closure__</code>: Instance; a <code>PythonLikeTuple</code> that stores the function&#8217;s closure (i.e. the free variable cells).</p>
+</li>
+<li>
+<p><code>__qualname__</code>: Instance; a <code>PythonString</code> that stores the qualified name of the function.</p>
+</li>
+<li>
+<p><code>__spec__</code>: Instance; an <code>ArgumentSpec</code> that can be used to receive parameter (and correctly handle default arguments).</p>
+</li>
+<li>
+<p><code>__interpreter__</code>: Instance; the <code>PythonInterpreter</code> this function runs in (used to perform imports and lookup unknown globals).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If a Python function cannot be translated for any reason (ex: native code), the following fields are also added:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>__code__</code>: Static; an opaque pointer to the function&#8217;s CPython code object (used in the construct to make the wrapped CPython function).</p>
+</li>
+<li>
+<p><code>__function__</code>: Instance; a <code>PythonObjectWrapper</code> that wraps the CPython function (used to call the CPython function).</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script src="../../../_/js/site.js"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script src="../../../_/js/vendor/lunr.js"></script>
+<script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
+<script async src="../../../search-index.js"></script>
+
+<!-- Adobe Analytics for Red Hat - DPAL (DTM Property Auto-Loader) - part 2/2 -->
+<script type="text/javascript">
+    if (("undefined" !== typeof _satellite) && ("function" === typeof _satellite.pageBottom)) {
+        _satellite.pageBottom();
+    }
+</script>  </body>
+</html>

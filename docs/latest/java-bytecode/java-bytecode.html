@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Java Bytecode :: Documentation</title>
+    <link rel="canonical" href="https://www.optapy.org/docs/latest/java-bytecode/java-bytecode.html">
+    <meta name="generator" content="Antora 3.1.4">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+<link rel="stylesheet" href="../../../_/css/search.css">
+<link rel="stylesheet" href="../../../_/css/menu.css"><!-- Adobe Analytics for Red Hat - DPAL (DTM Property Auto-Loader) - part 1/2 -->
+<script id="dpal" src="https://www.redhat.com/dtm.js" type="text/javascript"></script>
+<!-- Google Analytics for kie team: Global site tag (gtag.js) -->
+<script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <div class="navbar-item">
+        <a href="https://www.optapy.org">
+          <img src="../../../_/img/optaPyLogoDarkBackground200px.png" alt="OptaPy logo"/>
+        </a>
+        <a class="navbar-item" href="https://www.optapy.org">
+          Documentation
+        </a>
+      </div>
+      <div class="navbar-item search hide-for-print">
+        <div id="search-field" class="field">
+          <input id="search-input" type="text" placeholder="Search the docs">
+        </div>
+      </div>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://stackoverflow.com/questions/tagged/optapy">Get Help</a>
+        <div class="navbar-item">
+          <a class="navbar-item small-item" href="https://github.com/optapy/optapy" title="Follow OptaPy on GitHub"><img src="https://img.shields.io/github/stars/optapy/optapy?style=flat&logo=github" alt="GitHub" /></a>
+          <a class="navbar-item small-item" href="https://twitter.com/OptaPlanner" target="_blank" title="Follow OptaPlanner on Twitter"><img alt="T" src="../../../_/img/twitterLogo.png"></a>
+          <a class="navbar-item small-item" href="https://www.linkedin.com/showcase/optaplanner" target="_blank" title="Follow OptaPlanner on LinkedIn"><img alt="L" src="../../../_/img/linkedInLogo.png"></a>
+          <a class="navbar-item small-item" href="https://www.facebook.com/OptaPlanner" target="_blank" title="Follow OptaPlanner on Facebook"><img alt="F" src="../../../_/img/facebookLogo.png"></a>
+          <a class="navbar-item small-item" href="https://www.youtube.com/channel/UCcpkOKpujFlM67D2h0RdaeQ" target="_blank" title="OptaPlanner YouTube channel"><img alt="YT" src="../../../_/img/youtubeLogo.png" style="height: 16px"></a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="docs" data-version="latest">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">OptaPy User Guide 9.37.0b0</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">User Guide</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../planner-introduction/planner-introduction.html">OptaPy Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../quickstart/quickstart.html">Quickstart</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../planner-configuration/planner-configuration.html">OptaPy configuration</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../score-calculation/score-calculation.html">Score calculation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../constraint-streams/constraint-streams.html">Constraint streams score calculation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../shadow-variable/shadow-variable.html">Shadow variable</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../optimization-algorithms/optimization-algorithms.html">Optimization algorithms</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../move-and-neighborhood-selection/move-and-neighborhood-selection.html">Move and neighborhood selection</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../exhaustive-search/exhaustive-search.html">Exhaustive search</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../construction-heuristics/construction-heuristics.html">Construction heuristics</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../local-search/local-search.html">Local search</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../evolutionary-algorithms/evolutionary-algorithms.html">Evolutionary algorithms</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../partitioned-search/partitioned-search.html">Partitioned search</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../repeated-planning/repeated-planning.html">Repeated planning</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../design-patterns/design-patterns.html">Design patterns</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Developer Guide</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../jpyinterpreter-introduction/jpyinterpreter-introduction.html">JPyInterpreter Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../stack-machines/stack-machines.html">Stack Machines Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../python-function-structure/python-function-structure.html">Python Function Structure</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../opcodes/opcodes.html">CPython Opcode Instructions</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="java-bytecode.html">Java Bytecode</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../jpyinterpreter-architecture/jpyinterpreter-architecture.html">JPyInterpreter Architecture</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">OptaPy User Guide 9.37.0b0</span>
+    <span class="version">latest</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">OptaPy User Guide 9.37.0b0</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">latest</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../planner-introduction/planner-introduction.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">OptaPy User Guide 9.37.0b0</a></li>
+    <li>Developer Guide</li>
+    <li><a href="java-bytecode.html">Java Bytecode</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/optapy/optapy/edit/main/optapy-docs/src/modules/ROOT/pages/java-bytecode/java-bytecode.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Java Bytecode</h1>
+<div class="sect1">
+<h2 id="_java_virtual_machine_basic_properties"><a class="anchor" href="#_java_virtual_machine_basic_properties"></a>Java Virtual Machine Basic Properties</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Java Virtual Machine is a stack based virtual machine.
+It has the following properties:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Parameters and local variables are stored in slots, with parameters being first.
+This also includes the <code>this</code> parameter, which is always in the first slot for instance methods.
+Compilers can also introduce synthetic local variables that do not correspond to any variable in the source.</p>
+</li>
+<li>
+<p>On exception, the current stack is cleared and the thrown exception is pushed to the stack.</p>
+</li>
+<li>
+<p>Each instruction must have a consistent prior stack size.
+This means if an instruction is the target of multiple instructions, each instruction that have it as a target must have the same post stack size.
+For instance, this is invalid:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">LDC 1
+ILOAD 1
+if_icmpeq [if-equal]
+ILOAD 2
+[if-equal]
+RETURN</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Because RETURN have an inconsistent prior stack size: if the <code>if_icmpeq</code> branch is taken, the expected stack size is 0; otherwise, the expected stack size is 1 (because <code>ILOAD 2</code> push an <code>int</code> to the stack).
+The bytecode below is valid:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">LDC 1
+ILOAD 1
+if_icmpeq [if-equal]
+ILOAD 2
+POP
+[if-equal]
+RETURN</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>since the expected stack size prior to RETURN is 0 for both branches of <code>if_icmpeq</code>.</p>
+</div>
+</li>
+<li>
+<p>The stack is typed, and will cause verification errors if we were to try to call a method with invalid types on the stack.
+For instance, this is invalid:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">ILOAD 1
+INVOKESTATIC [MyClass.method(float) -&gt; float]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>since we are calling a method that expects a <code>float</code> with an <code>int</code>.
+This is also invalid:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">ALOAD 1 [Object]
+INVOKEVIRTUAL [MyClass.method() -&gt; void]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Since we are trying to call a <code>MyClass</code> method on <code>Object</code> (which may or may not be a <code>MyClass</code> instance).
+To fix it, we need to cast it first:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">ALOAD 1 [Object]
+CHECKCAST [MyClass]
+INVOKEVIRTUAL [MyClass.method() -&gt; void]</code></pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_java_virtual_machine_instruction_listing"><a class="anchor" href="#_java_virtual_machine_instruction_listing"></a>Java Virtual Machine instruction listing</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A full explanation of the Java Virtual Machine&#8217;s instruction set can be viewed at the <a href="https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-6.html">Oracle JVM Documentation</a> and a summary can be read on the <a href="https://en.wikipedia.org/wiki/List_of_Java_bytecode_instructions">List of Java bytecode instruction wikipedia article</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_generating_java_bytecode_instructions"><a class="anchor" href="#_generating_java_bytecode_instructions"></a>Generating Java bytecode instructions</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Java bytecode instructions are generated with the <a href="https://asm.ow2.io/">ASM library</a>.
+Functions are created by creating a <code>JavaPythonClassWriter</code> (which is a <code>ClassWriter</code> that overrides <code>getCommonSuperClass</code> to prevent <code>TypeNotPresent</code> errors) instance,
+getting the MethodVisitor for its <a href="https://docs.oracle.com/javase/specs/jls/se8/html/jls-9.html#jls-9.8">functional interface method</a>,
+adapting the method visitor with <code>MethodVisitorAdapters.adapt</code> (which sorts try blocks for us and gives us better error messages),
+and then generating the Java bytecode using that method visitor.
+It looks like this in the code:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">ClassWriter classWriter = new JavaPythonClassWriter(ClassWriter.COMPUTE_MAXS | ClassWriter.COMPUTE_FRAMES);
+classWriter.visit(Opcodes.V11, Modifier.PUBLIC, internalClassName, null, Type.getInternalName(Object.class),
+        new String[] { methodDescriptor.getDeclaringClassInternalName() });
+
+// ... Create fields and constructor ...
+
+MethodVisitor methodVisitor = classWriter.visitMethod(Modifier.PUBLIC,
+        methodDescriptor.getMethodName(),
+        methodDescriptor.getMethodDescriptor(),
+        null,
+        null);
+
+MethodVisitorAdapters.adapt(methodVisitor, methodDescriptor);
+
+// ... Visit parameters ...
+
+methodVisitor.visitCode();
+
+// ... Create bytecode ...
+
+methodVisitor.visitMaxs(0, 0);
+methodVisitor.visitEnd();</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To generate a particular opcode instruction, identify what kind of instruction it is:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Instructions that either conditionally or unconditionally jump to a label are created with <code>visitJumpInsn</code>, which take the label to either conditionally or unconditionally jump to.</p>
+</li>
+<li>
+<p>Instructions that load parameters or local variables are created with <code>visitVarInsn</code>, which take an <code>int</code> to identify which slot to load the parameter/local variable from.
+We can use the <code>LocalVariableHelper</code> on <code>StackMetadata</code> to obtain the slot number of parameters and local variables.</p>
+</li>
+<li>
+<p>Instructions that operate on the stack are created with <code>visitInsn</code> (for instance, popping a value or adding the top two <code>int</code> on the stack). No parameter (beside the opcode to generate) is needed for these opcodes.</p>
+</li>
+<li>
+<p>Instructions that call methods are created with <code>visitMethodInsn</code>, which takes.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The internal name of the declaring class.
+This can be retrieved with <code>Type.getInternalName</code>.</p>
+</li>
+<li>
+<p>The method name.</p>
+</li>
+<li>
+<p>The method descriptor string that describe the parameter and return types of the method.
+This can be received with <code>Type.getMethodDescriptor(Type returnType, Type&#8230;&#8203; parameterTypes)</code> (the <code>Type</code> object of a class can be received with <code>Type.getType</code>).</p>
+</li>
+<li>
+<p>A boolean that is true if the method is defined on an interface, false otherwise.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Instructions that read or set fields are created with <code>visitFieldInsn</code>, which takes</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The internal name of the class this field belongs to. This can be retrieved with <code>Type.getInternalName</code>.</p>
+</li>
+<li>
+<p>The field&#8217;s name.</p>
+</li>
+<li>
+<p>The field&#8217;s type descriptor string. This can be received with <code>Type.getDescriptor</code>.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Instructions that operate on types (i.e. <code>CHECKCAST</code>, <code>INSTANCEOF</code> and <code>NEW</code>) are generated with <code>visitTypeInsn</code>. It takes the internal name of the class to cast/instanceof/new as an argument (this can be retrieved with <code>Type.getInternalName</code>).</p>
+</li>
+<li>
+<p>The instruction that load constants onto the stack can be generated with <code>visitLDC</code>; it takes the constant to load (which <strong>must</strong> be a primitive type, Type object, or a String) as its only argument.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script src="../../../_/js/site.js"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script src="../../../_/js/vendor/lunr.js"></script>
+<script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
+<script async src="../../../search-index.js"></script>
+
+<!-- Adobe Analytics for Red Hat - DPAL (DTM Property Auto-Loader) - part 2/2 -->
+<script type="text/javascript">
+    if (("undefined" !== typeof _satellite) && ("function" === typeof _satellite.pageBottom)) {
+        _satellite.pageBottom();
+    }
+</script>  </body>
+</html>

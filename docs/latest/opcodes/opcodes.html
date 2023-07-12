@@ -1,0 +1,5093 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>CPython Opcode Instructions :: Documentation</title>
+    <link rel="canonical" href="https://www.optapy.org/docs/latest/opcodes/opcodes.html">
+    <meta name="generator" content="Antora 3.1.4">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+<link rel="stylesheet" href="../../../_/css/search.css">
+<link rel="stylesheet" href="../../../_/css/menu.css"><!-- Adobe Analytics for Red Hat - DPAL (DTM Property Auto-Loader) - part 1/2 -->
+<script id="dpal" src="https://www.redhat.com/dtm.js" type="text/javascript"></script>
+<!-- Google Analytics for kie team: Global site tag (gtag.js) -->
+<script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <div class="navbar-item">
+        <a href="https://www.optapy.org">
+          <img src="../../../_/img/optaPyLogoDarkBackground200px.png" alt="OptaPy logo"/>
+        </a>
+        <a class="navbar-item" href="https://www.optapy.org">
+          Documentation
+        </a>
+      </div>
+      <div class="navbar-item search hide-for-print">
+        <div id="search-field" class="field">
+          <input id="search-input" type="text" placeholder="Search the docs">
+        </div>
+      </div>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://stackoverflow.com/questions/tagged/optapy">Get Help</a>
+        <div class="navbar-item">
+          <a class="navbar-item small-item" href="https://github.com/optapy/optapy" title="Follow OptaPy on GitHub"><img src="https://img.shields.io/github/stars/optapy/optapy?style=flat&logo=github" alt="GitHub" /></a>
+          <a class="navbar-item small-item" href="https://twitter.com/OptaPlanner" target="_blank" title="Follow OptaPlanner on Twitter"><img alt="T" src="../../../_/img/twitterLogo.png"></a>
+          <a class="navbar-item small-item" href="https://www.linkedin.com/showcase/optaplanner" target="_blank" title="Follow OptaPlanner on LinkedIn"><img alt="L" src="../../../_/img/linkedInLogo.png"></a>
+          <a class="navbar-item small-item" href="https://www.facebook.com/OptaPlanner" target="_blank" title="Follow OptaPlanner on Facebook"><img alt="F" src="../../../_/img/facebookLogo.png"></a>
+          <a class="navbar-item small-item" href="https://www.youtube.com/channel/UCcpkOKpujFlM67D2h0RdaeQ" target="_blank" title="OptaPlanner YouTube channel"><img alt="YT" src="../../../_/img/youtubeLogo.png" style="height: 16px"></a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="docs" data-version="latest">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">OptaPy User Guide 9.37.0b0</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">User Guide</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../planner-introduction/planner-introduction.html">OptaPy Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../quickstart/quickstart.html">Quickstart</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../planner-configuration/planner-configuration.html">OptaPy configuration</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../score-calculation/score-calculation.html">Score calculation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../constraint-streams/constraint-streams.html">Constraint streams score calculation</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../shadow-variable/shadow-variable.html">Shadow variable</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../optimization-algorithms/optimization-algorithms.html">Optimization algorithms</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../move-and-neighborhood-selection/move-and-neighborhood-selection.html">Move and neighborhood selection</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../exhaustive-search/exhaustive-search.html">Exhaustive search</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../construction-heuristics/construction-heuristics.html">Construction heuristics</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../local-search/local-search.html">Local search</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../evolutionary-algorithms/evolutionary-algorithms.html">Evolutionary algorithms</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../partitioned-search/partitioned-search.html">Partitioned search</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../repeated-planning/repeated-planning.html">Repeated planning</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../design-patterns/design-patterns.html">Design patterns</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Developer Guide</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../jpyinterpreter-introduction/jpyinterpreter-introduction.html">JPyInterpreter Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../stack-machines/stack-machines.html">Stack Machines Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../python-function-structure/python-function-structure.html">Python Function Structure</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="opcodes.html">CPython Opcode Instructions</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../java-bytecode/java-bytecode.html">Java Bytecode</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../jpyinterpreter-architecture/jpyinterpreter-architecture.html">JPyInterpreter Architecture</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">OptaPy User Guide 9.37.0b0</span>
+    <span class="version">latest</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">OptaPy User Guide 9.37.0b0</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">latest</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../planner-introduction/planner-introduction.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">OptaPy User Guide 9.37.0b0</a></li>
+    <li>Developer Guide</li>
+    <li><a href="opcodes.html">CPython Opcode Instructions</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/optapy/optapy/edit/main/optapy-docs/src/modules/ROOT/pages/opcodes/opcodes.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">CPython Opcode Instructions</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>CPython compiles function into bytecode.
+The opcodes for this bytecode are listed here and can also be found in <code>OpcodeIdentifier</code>.
+CPython bytecode structure in not stable, and opcode behaviour may change between releases.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_general_format"><a class="anchor" href="#_general_format"></a>General Format</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Each opcode will be listed in the following format:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Opcode Name
+
+Python Versions
+
+Stack Prior: ... [expected stack state]
+Stack After: ... [new stack state]
+
+Description of Opcode
+
+Example sources that generate the opcode</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For instance, the <code>POP_TOP</code> opcode, which pop a single item off the top of the stack, would look like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">POP_TOP
+
+Python Versions: ALL
+
+Stack Prior: ... item
+Stack After: ...
+
+Pops a single item off the stack.
+Used to discard return value of functions and to manipulate the stack.
+
+Example Sources:
+my_fun() # POP_TOP is generated after the function call
+         # since the result of my_fun is unused.</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_instruction_addressing"><a class="anchor" href="#_instruction_addressing"></a>Instruction Addressing</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Prior to 3.10, instructions are addressed by byte offsets.
+So the first instruction would have address 0, the second instruction would have address 2, and the third instruction would have address 4.
+After 3.10, instructions are addressed by instruction offsets.
+So the first instruction would have address 0, the second instruction would have address 1, and the third instruction would have address 2.</p>
+</div>
+<div class="paragraph">
+<p>Absolute jumps go to the instruction with the address given by the argument.
+So an absolute jump with argument 2 will go to the instruction at address 2 regardless of the jump&#8217;s address.</p>
+</div>
+<div class="paragraph">
+<p>Relative jumps go to the instruction that are argument addresses away from it.
+So a relative jump with argument 2 will go to the instruction at address 3 if the jump is at address 1, or 4 if the jump is at address 2.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_cell_variable_index"><a class="anchor" href="#_cell_variable_index"></a>Cell Variable Index</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In Python 3.10 and below, the argument for <code>LOAD_CLOSURE</code>, <code>LOAD_CLASSDEREF</code>, <code>LOAD_DEREF</code>, <code>STORE_DEREF</code> and <code>DELETE_DEREF</code> correspond to the index of the variable name in the combined list <code>co_cellvars + co_freevars</code>.
+For instance, if <code>co_cellvars = ['a', 'b']</code> and <code>co_freevars = ['c', 'd']</code>, the argument to read/modify/delete the variable corresponding to each name would be:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>'a': 0</p>
+</li>
+<li>
+<p>'b': 1</p>
+</li>
+<li>
+<p>'c': 2</p>
+</li>
+<li>
+<p>'d': 3</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>In Python 3.11, the indices for cell variables that do not correspond to parameters are offset by <code>co_varnames</code>. If a cell variable corresponds to a parameter, it uses the parameter index in <code>co_varnames</code> as its cell index. For instance, if <code>co_varnames = ['a', 'x', 'y']</code>, <code>co_cellvars = ['a', 'b']</code> and <code>co_freevars = ['c', 'd']</code>, the argument to read/modify/delete the variable corresponding to each name would be:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>'a': 0</p>
+</li>
+<li>
+<p>'b': 3</p>
+</li>
+<li>
+<p>'c': 4</p>
+</li>
+<li>
+<p>'d': 5</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_opcode_listing"><a class="anchor" href="#_opcode_listing"></a>Opcode Listing</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_nop"><a class="anchor" href="#_nop"></a>NOP</h3>
+<div class="paragraph">
+<p>Python Versions: ALL</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ...
+Stack After: ...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Does absolutely nothing.
+Exists purely to simplify bytecode generation.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">pass  # `pass` represent a NOP in Python</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_resume"><a class="anchor" href="#_resume"></a>RESUME</h3>
+<div class="paragraph">
+<p>Python Versions: 3.11+</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ...
+Stack After: ...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A NOP opcode that CPython uses to perform internal tracing, debugging and optimization checks.
+Generally put into places where the CPython interpreter enters a function (the start of every function and after yield statements).</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">def function():
+    # A RESUME opcode is placed at the start of every
+    # function.
+    return None</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">yield 10 # A RESUME opcode is placed after
+         # each YIELD_VALUE opcode</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_cache"><a class="anchor" href="#_cache"></a>CACHE</h3>
+<div class="paragraph">
+<p>Python Versions: 3.11+</p>
+</div>
+<div class="paragraph">
+<p>A NOP opcode that CPython uses to record runtime conditions for the <a href="https://peps.python.org/pep-0659/">specializing adaptive interpreter</a>.
+For instance, if CPython detects a BINARY_OP opcode is usually performed on two <code>int</code>,
+the CPython interpreter writes that information into the CACHE opcodes that precede the BINARY_OP to specialize the BINARY_OP into <code>INT_BINARY_ADD</code>.
+JPyIntepreter does specialization at compile time using information from type annotation and typeflow analysis.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># Several CACHE instruction precede the
+# BINARY_OP
+x + y</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_pop_top"><a class="anchor" href="#_pop_top"></a>POP_TOP</h3>
+<div class="paragraph">
+<p>Python Versions: ALL</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... item
+Stack After: ...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Pops a single item off the stack.
+Used to discard return value of functions and to manipulate the stack.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">my_fun() # POP_TOP is generated after the function call
+         # since the result of my_fun is unused.</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_rot_two"><a class="anchor" href="#_rot_two"></a>ROT_TWO</h3>
+<div class="paragraph">
+<p>Python Versions: &lt;= 3.10</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... second, first
+Stack After: ... first, second</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Swaps the top two elements of the stack.
+Used for stack manipulation.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># Swap in Python 3.10 and below can be implemented as
+# LOAD[y], LOAD[x], ROT_TWO, STORE[x], STORE[y]
+x, y = y, x</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_rot_three"><a class="anchor" href="#_rot_three"></a>ROT_THREE</h3>
+<div class="paragraph">
+<p>Python Versions: &lt;= 3.10</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... third, second, first
+Stack After: ... first, third, second</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Move the top of stack down by two, raising the two items immediately below it up by one.
+Used for stack manipulation.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># FLIP_3 in Python 3.10 and below can be implemented as
+# LOAD[z], LOAD[y], LOAD[x], (stack is z, y, x)
+# ROT_THREE, (stack is x, z, y)
+# ROT_TWO, (stack is x, y, z)
+# STORE[x], STORE[y], STORE[z]
+x, y, z = z, y, x</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_rot_four"><a class="anchor" href="#_rot_four"></a>ROT_FOUR</h3>
+<div class="paragraph">
+<p>Python Versions: &gt;= 3.8 and &lt;= 3.10</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... fourth, third, second, first
+Stack After: ... first, fourth, third, second</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Move the top of stack down by three, raising the three items immediately below it up by one.
+Used for stack manipulation.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># FLIP_3 in Python 3.10 and below can be implemented as
+# LOAD[w], LOAD[z], LOAD[y], LOAD[x], (stack is z, y, x, w)
+# ROT_FOUR, (stack is w, z, y, x)
+# ROT_THREE, (stack is w, x, z, y)
+# ROT_TWO (stack is w, x, y, z)
+# STORE[w], STORE[x], STORE[y], STORE[z]
+w, x, y, z = z, y, x, w</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_dup_top"><a class="anchor" href="#_dup_top"></a>DUP_TOP</h3>
+<div class="paragraph">
+<p>Python Versions: &gt;= 3.2, &lt;= 3.10</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... top
+Stack After: ... top, top</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Duplicates the top of stack.
+Used to preserve a stack value that is used in multiple operations.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># Python 3.10 and below
+a == b == c</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_dup_top_two"><a class="anchor" href="#_dup_top_two"></a>DUP_TOP_TWO</h3>
+<div class="paragraph">
+<p>Python Versions: &gt;= 3.2, &lt;= 3.10</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... a, b
+Stack After: ... a, b, a, b</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Duplicates the top two elements of the stack.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">a[b] += a[c]</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_copyi"><a class="anchor" href="#_copyi"></a>COPY(i)</h3>
+<div class="paragraph">
+<p>Python Versions: &gt;= 3.11</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... item_i, ..., item_2, item_1
+Stack After: ... item_i, ..., item_2, item_1, item_i</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Copies the item at the given 1-based index in the stack to the top of stack.
+The item is not removed from its original position.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># Python 3.11 and above
+a == b == c</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_swapi"><a class="anchor" href="#_swapi"></a>SWAP(i)</h3>
+<div class="paragraph">
+<p>Python Versions: &gt;= 3.11</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... item_i, ..., item_2, item_1
+Stack After: ... item_1, ..., item_2, item_i</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Swaps the item at the given 1-based index in the stack with the top of stack.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># Python 3.11 and above
+a == b == c</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_unary_positive"><a class="anchor" href="#_unary_positive"></a>UNARY_POSITIVE</h3>
+<div class="paragraph">
+<p>Python Versions: ALL</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... operand
+Stack After: ... result</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Implements <code>+x</code>.
+Pops the operand off the stack, call its <code>__pos__</code> method, and push the result.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">+x</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_unary_negative"><a class="anchor" href="#_unary_negative"></a>UNARY_NEGATIVE</h3>
+<div class="paragraph">
+<p>Python Versions: ALL</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... operand
+Stack After: ... result</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Implements <code>-x</code>.
+Pops the operand off the stack, call its <code>__neg__</code> method, and push the result.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">-x</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_unary_invert"><a class="anchor" href="#_unary_invert"></a>UNARY_INVERT</h3>
+<div class="paragraph">
+<p>Python Versions: ALL</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... operand
+Stack After: ... result</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Implements <code>~x</code>.
+Pops the operand off the stack, call its <code>__invert__</code> method, and push the result.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">~x</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_get_iter"><a class="anchor" href="#_get_iter"></a>GET_ITER</h3>
+<div class="paragraph">
+<p>Python Versions: ALL</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... iterable
+Stack After: ... iterator</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Pops the iterable off the stack, call its  <code>__iter__</code> method, and push the result. Used to implement for loops.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># The for loop performs GET_ITER on iterable to get the iterator,
+# which is then used by FOR_ITER to loops through iterable items.
+for item in iterable:
+    ...</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_get_yield_from_iter"><a class="anchor" href="#_get_yield_from_iter"></a>GET_YIELD_FROM_ITER</h3>
+<div class="paragraph">
+<p>Python Versions: &gt;= 3.5</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... iterable
+Stack After: ... iterator</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If the iterable is a generator iterator or a coroutine, leave it on the stack.
+Otherwise, call its <code>__iter__</code> method.
+Used in <code>yield from</code> expressions.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># GET_YIELD_FROM_ITER is used to get the
+# iterator for [1, 2, 3].
+yield from [1, 2, 3]</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_binary_opop"><a class="anchor" href="#_binary_opop"></a>BINARY_OP(op)</h3>
+<div class="paragraph">
+<p>Python Versions: &gt;= 3.11</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... left_operand, right_operand
+Stack After: ... result</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Perform the binary operator indicated by the opcode&#8217;s argument on the top two items on the stack (popping them), and push the result to the top of stack.
+An binary op can either be inplace or not in place.
+Inplace opcodes try the binary op&#8217;s inplace method first,
+then fall back to the standard binary op handling.
+The argument to binary operator mapping can be found in <a href="https://github.com/python/cpython/blob/0faa0ba240e815614e5a2900e48007acac41b214/Python/ceval.c#L299">CPython source code</a>.
+In general, first are the non-inplace opcodes in alphabetical order, followed by the inplace opcodes in alphabetical order.</p>
+</div>
+<div class="paragraph">
+<p>The left operand is always the first element below the top of stack, and the right operand is always the top of stack. The binary operation is performed as followed:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Get the method for the binary operation from the left operand&#8217;s type.</p>
+</li>
+<li>
+<p>If the method is present:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Call the resolved method with the left and right operands.</p>
+</li>
+<li>
+<p>If the result is not <code>NotImplemented</code>, then it the result of this <code>BINARY_OP</code> and go to the next bytecode instruction.</p>
+</li>
+<li>
+<p>If the result is <code>NotImplemented</code>, treat it as if the left operand&#8217;s type did not have the method.</p>
+</li>
+<li>
+<p>If the left operand a builtin type and the method raises a <code>TypeError</code>, treat it as if the left operand&#8217;s type did not have the method.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>If the method is not present:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Get the method for the reflected version of the binary operation from the right operand&#8217;s type.</p>
+</li>
+<li>
+<p>If the reflected method is present:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Call the reflected resolved method with the right and left operands.</p>
+</li>
+<li>
+<p>If the result is not <code>NotImplemented</code>, then it the result of this <code>BINARY_OP</code> and go to the next bytecode instruction.</p>
+</li>
+<li>
+<p>If the result is <code>NotImplemented</code>, treat it as if the right operand&#8217;s type did not have the reflected method.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>If the reflected method is not present, raise a <code>TypeError</code> with the message <code>f"unsupported operand type(s) for {symbol(BINARY_OP)}: '{type(left_operand)}' and '{type(right_operand)}'"</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>In Python, it would look like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">def binary_op(BINARY_OP, left_operand, right_operand):
+    UNSUPPORTED_OP_MSG = f"unsupported operand type(s) for {symbol(BINARY_OP)}: '{type(left_operand)}' and '{type(right_operand)}'"
+    def reflected_binary_op():
+        right_method = getattr(type(right_operand), reflected(BINARY_OP), None)
+        if right_method is not None:
+            reflected_out = right_method(right_operand, left_operand)
+            if reflected_out is NotImplemented:
+                raise TypeError(UNSUPPORTED_OP_MSG)
+            else:
+                return reflected_out
+
+    if is_in_place(BINARY_OP):
+        inplace_method = getattr(type(left_operand), BINARY_OP, None)
+        if inplace_method is not None:
+            out = inplace_method(left_operand, right_operand)
+            if out is not NotImplemented:
+                return out
+        BINARY_OP = get_standard_binary_op(BINARY_OP)
+    left_method = getattr(type(left_operand), BINARY_OP, None)
+    if left_method is not None:
+        try:
+            out = left_method(left_operand, right_operand)
+            if out is not NotImplemented:
+                return out
+        except TypeError:
+            if type(left_operand) in BUILTIN_TYPES:
+                return reflected_binary_op()
+            raise
+    return reflected_binary_op()</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">x + 1</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">x -= y</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_binary_power"><a class="anchor" href="#_binary_power"></a>BINARY_POWER</h3>
+<div class="paragraph">
+<p>Python Versions: &lt;= 3.10</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... base, exponent
+Stack After: ... result</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="#BINARY_OPERATOR">Binary operator</a> corresponding to <code>__pow__</code> and <code>__rpow__</code>. Implements <code>**</code>.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">base ** expotent</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_binary_multiply"><a class="anchor" href="#_binary_multiply"></a>BINARY_MULTIPLY</h3>
+<div class="paragraph">
+<p>Python Versions: &lt;= 3.10</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... left_factor, right_factor
+Stack After: ... product</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="#BINARY_OPERATOR">Binary operator</a> corresponding to <code>__mul__</code> and <code>__rmul__</code>. Implements <code>*</code>.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">left_factor * right_factor</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_binary_matrix_multiply"><a class="anchor" href="#_binary_matrix_multiply"></a>BINARY_MATRIX_MULTIPLY</h3>
+<div class="paragraph">
+<p>Python Versions: &gt;= 3.5 and &lt;= 3.10</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... left_factor, right_factor
+Stack After: ... product</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="#BINARY_OPERATOR">Binary operator</a> corresponding to <code>__matmul__</code> and <code>__rmatmul__</code>. Implements <code>@</code>.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">left_factor @ right_factor</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_binary_floor_divide"><a class="anchor" href="#_binary_floor_divide"></a>BINARY_FLOOR_DIVIDE</h3>
+<div class="paragraph">
+<p>Python Versions: &lt;= 3.10</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... dividend, divisor
+Stack After: ... quotient</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="#BINARY_OPERATOR">Binary operator</a> corresponding to <code>__floordiv__</code> and <code>__rfloordiv__</code>. Implements <code>//</code>.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">dividend // divisor</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_binary_true_divide"><a class="anchor" href="#_binary_true_divide"></a>BINARY_TRUE_DIVIDE</h3>
+<div class="paragraph">
+<p>Python Versions: &lt;= 3.10</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... dividend, divisor
+Stack After: ... quotient</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="#BINARY_OPERATOR">Binary operator</a> corresponding to <code>__truediv__</code> and <code>__rtruediv__</code>. Implements <code>/</code>.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">dividend / divisor</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_binary_modulo"><a class="anchor" href="#_binary_modulo"></a>BINARY_MODULO</h3>
+<div class="paragraph">
+<p>Python Versions: &lt;= 3.10</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... dividend, divisor
+Stack After: ... modulus</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="#BINARY_OPERATOR">Binary operator</a> corresponding to <code>__mod__</code> and <code>__rmod__</code>. Implements <code>%</code>.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">dividend % divisor</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_binary_add"><a class="anchor" href="#_binary_add"></a>BINARY_ADD</h3>
+<div class="paragraph">
+<p>Python Versions: &lt;= 3.10</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... augend, addend
+Stack After: ... sum</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="#BINARY_OPERATOR">Binary operator</a> corresponding to <code>__add__</code> and <code>__radd__</code>. Implements <code>+</code>.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">augend + addend</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_binary_subtract"><a class="anchor" href="#_binary_subtract"></a>BINARY_SUBTRACT</h3>
+<div class="paragraph">
+<p>Python Versions: &lt;= 3.10</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... minuend, subtrahend
+Stack After: ... difference</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="#BINARY_OPERATOR">Binary operator</a> corresponding to <code>__sub__</code> and <code>__rsub__</code>. Implements <code>-</code>.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">minuend - subtrahend</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_binary_lshift"><a class="anchor" href="#_binary_lshift"></a>BINARY_LSHIFT</h3>
+<div class="paragraph">
+<p>Python Versions: &lt;= 3.10</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... to_shift, shift
+Stack After: ... result</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="#BINARY_OPERATOR">Binary operator</a> corresponding to <code>__lshift__</code> and <code>__rlshift__</code>. Implements <code>&lt;&lt;</code>.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">to_shift &lt;&lt; shift</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_binary_rshift"><a class="anchor" href="#_binary_rshift"></a>BINARY_RSHIFT</h3>
+<div class="paragraph">
+<p>Python Versions: &lt;= 3.10</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... to_shift, shift
+Stack After: ... result</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="#BINARY_OPERATOR">Binary operator</a> corresponding to <code>__rshift__</code> and <code>__rrshift__</code>. Implements <code>&gt;&gt;</code>.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">to_shift &gt;&gt; shift</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_binary_and"><a class="anchor" href="#_binary_and"></a>BINARY_AND</h3>
+<div class="paragraph">
+<p>Python Versions: &lt;= 3.10</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... left_conjunct, right_conjunct
+Stack After: ... conjunction</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="#BINARY_OPERATOR">Binary operator</a> corresponding to <code>__and__</code> and <code>__rand__</code>. Implements <code>&amp;</code>.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">left_conjunct &amp; right_conjunct</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_binary_or"><a class="anchor" href="#_binary_or"></a>BINARY_OR</h3>
+<div class="paragraph">
+<p>Python Versions: &lt;= 3.10</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... left_disjunct, right_disjunct
+Stack After: ... disjunction</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="#BINARY_OPERATOR">Binary operator</a> corresponding to <code>__or__</code> and <code>__ror__</code>. Implements <code>|</code>.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">left_disjunct | right_disjunct</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_binary_xor"><a class="anchor" href="#_binary_xor"></a>BINARY_XOR</h3>
+<div class="paragraph">
+<p>Python Versions: &lt;= 3.10</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... left_disjunct, right_disjunct
+Stack After: ... disjunction</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="#BINARY_OPERATOR">Binary operator</a> corresponding to <code>__xor__</code> and <code>__rxor__</code>. Implements <code>^</code>.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">left_disjunct ^ right_disjunct</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_inplace_power"><a class="anchor" href="#_inplace_power"></a>INPLACE_POWER</h3>
+<div class="paragraph">
+<p>Python Versions: &lt;= 3.10</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... base, exponent
+Stack After: ... result</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="#BINARY_OPERATOR">Inplace binary operator</a> corresponding to <code>__ipow__</code>, <code>__pow__</code> and <code>__rpow__</code>. Implements <code>**=</code>.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">base **= expotent</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_inplace_multiply"><a class="anchor" href="#_inplace_multiply"></a>INPLACE_MULTIPLY</h3>
+<div class="paragraph">
+<p>Python Versions: &lt;= 3.10</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... left_factor, right_factor
+Stack After: ... product</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="#BINARY_OPERATOR">Inplace binary operator</a> corresponding to <code>__imul__</code>, <code>__mul__</code> and <code>__rmul__</code>. Implements <code>*</code>.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">left_factor *= right_factor</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_inplace_matrix_multiply"><a class="anchor" href="#_inplace_matrix_multiply"></a>INPLACE_MATRIX_MULTIPLY</h3>
+<div class="paragraph">
+<p>Python Versions: &gt;= 3.5 and &lt;= 3.10</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... left_factor, right_factor
+Stack After: ... product</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="#BINARY_OPERATOR">Inplace binary operator</a> corresponding to <code>__imatmul__</code>, <code>__matmul__</code> and <code>__rmatmul__</code>. Implements <code>@=</code>.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">left_factor @= right_factor</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_inplace_floor_divide"><a class="anchor" href="#_inplace_floor_divide"></a>INPLACE_FLOOR_DIVIDE</h3>
+<div class="paragraph">
+<p>Python Versions: &lt;= 3.10</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... dividend, divisor
+Stack After: ... quotient</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="#BINARY_OPERATOR">Inplace binary operator</a> corresponding to <code>__ifloordiv__</code>, <code>__floordiv__</code> and <code>__rfloordiv__</code>. Implements <code>//=</code>.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">dividend //= divisor</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_inplace_true_divide"><a class="anchor" href="#_inplace_true_divide"></a>INPLACE_TRUE_DIVIDE</h3>
+<div class="paragraph">
+<p>Python Versions: &lt;= 3.10</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... dividend, divisor
+Stack After: ... quotient</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="#BINARY_OPERATOR">Inplace binary operator</a> corresponding to <code>__itruediv__</code>, <code>__truediv__</code> and <code>__rtruediv__</code>. Implements <code>/=</code>.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">dividend /= divisor</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_inplace_modulo"><a class="anchor" href="#_inplace_modulo"></a>INPLACE_MODULO</h3>
+<div class="paragraph">
+<p>Python Versions: &lt;= 3.10</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... dividend, divisor
+Stack After: ... modulus</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="#BINARY_OPERATOR">Inplace binary operator</a> corresponding to <code>__imod__</code>, <code>__mod__</code> and <code>__rmod__</code>. Implements <code>%=</code>.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">dividend %= divisor</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_inplace_add"><a class="anchor" href="#_inplace_add"></a>INPLACE_ADD</h3>
+<div class="paragraph">
+<p>Python Versions: &lt;= 3.10</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... augend, addend
+Stack After: ... sum</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="#BINARY_OPERATOR">Inplace binary operator</a> corresponding to <code>__iadd__</code>, <code>__add__</code> and <code>__radd__</code>. Implements <code>+=</code>.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">augend += addend</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_inplace_subtract"><a class="anchor" href="#_inplace_subtract"></a>INPLACE_SUBTRACT</h3>
+<div class="paragraph">
+<p>Python Versions: &lt;= 3.10</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... minuend, subtrahend
+Stack After: ... difference</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="#BINARY_OPERATOR">Inplace binary operator</a> corresponding to <code>__isub__</code>, <code>__sub__</code> and <code>__rsub__</code>. Implements <code>-=</code>.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">minuend -= subtrahend</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_inplace_lshift"><a class="anchor" href="#_inplace_lshift"></a>INPLACE_LSHIFT</h3>
+<div class="paragraph">
+<p>Python Versions: &lt;= 3.10</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... to_shift, shift
+Stack After: ... result</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="#BINARY_OPERATOR">Inplace binary operator</a> corresponding to <code>__ilshift__</code>, <code>__lshift__</code> and <code>__rlshift__</code>. Implements <code>&lt;&lt;=</code>.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">to_shift &lt;&lt;= shift</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_inplace_rshift"><a class="anchor" href="#_inplace_rshift"></a>INPLACE_RSHIFT</h3>
+<div class="paragraph">
+<p>Python Versions: &lt;= 3.10</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... to_shift, shift
+Stack After: ... result</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="#BINARY_OPERATOR">Inplace binary operator</a> corresponding to <code>__irshift__</code> , <code>__rshift__</code> and <code>__rrshift__</code>. Implements <code>&gt;&gt;=</code>.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">to_shift &gt;&gt;= shift</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_inplace_and"><a class="anchor" href="#_inplace_and"></a>INPLACE_AND</h3>
+<div class="paragraph">
+<p>Python Versions: &lt;= 3.10</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... left_conjunct, right_conjunct
+Stack After: ... conjunction</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="#BINARY_OPERATOR">Inplace binary operator</a> corresponding to <code>__iand__</code> , <code>__and__</code> and <code>__rand__</code>. Implements <code>&amp;=</code>.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">left_conjunct &amp;= right_conjunct</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_inplace_or"><a class="anchor" href="#_inplace_or"></a>INPLACE_OR</h3>
+<div class="paragraph">
+<p>Python Versions: &lt;= 3.10</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... left_disjunct, right_disjunct
+Stack After: ... disjunction</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="#BINARY_OPERATOR">Inplace binary operator</a> corresponding to <code>__ior__</code>, <code>__or__</code> and <code>__ror__</code>. Implements <code>|=</code>.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">left_disjunct |= right_disjunct</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_inplace_xor"><a class="anchor" href="#_inplace_xor"></a>INPLACE_XOR</h3>
+<div class="paragraph">
+<p>Python Versions: &lt;= 3.10</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... left_disjunct, right_disjunct
+Stack After: ... disjunction</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="#BINARY_OPERATOR">Inplace binary operator</a> corresponding to <code>__ixor__</code>, <code>__xor__</code> and <code>__rxor__</code>. Implements <code>^=</code>.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">left_disjunct ^= right_disjunct</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_binary_subscr"><a class="anchor" href="#_binary_subscr"></a>BINARY_SUBSCR</h3>
+<div class="paragraph">
+<p>Python Versions: ALL</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... collection, key
+Stack After: ... item</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Implements <code>collection[key]</code>. Acts like a <a href="#BINARY_OPERATOR">binary operator</a>, but does not have a reflective method. Pop the two top items off the stack, calls the <code>__getitem__</code> method on <code>type(collection)</code> with the arguments <code>collection</code> and <code>key</code>, and push the method result to the top of the stack.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">collection[key]</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_store_subscr"><a class="anchor" href="#_store_subscr"></a>STORE_SUBSCR</h3>
+<div class="paragraph">
+<p>Python Versions: ALL</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... value, collection, key
+Stack After: ...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Implements <code>collection[key] = value</code>. Pop the three top items off the stack, calls the <code>__setitem__</code> method on <code>type(collection)</code> with the arguments <code>collection</code>, <code>key</code> and <code>value</code>. Does not push the result onto the stack.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">collection[key] = value</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_delete_subscr"><a class="anchor" href="#_delete_subscr"></a>DELETE_SUBSCR</h3>
+<div class="paragraph">
+<p>Python Versions: ALL</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... collection, key
+Stack After: ...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Implements <code>del collection[key]</code>. Pop the two top items off the stack, calls the <code>__delitem__</code> method on <code>type(collection)</code> with the arguments <code>collection</code> and <code>key</code>. Does not push the result onto the stack.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">del collection[key]</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_get_awaitablewhere"><a class="anchor" href="#_get_awaitablewhere"></a>GET_AWAITABLE(where)</h3>
+<div class="paragraph">
+<p>Python Versions: &gt;= 3.5</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... awaitable
+Stack After: ... awaitable_iterator</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If awaitable is a coroutine or a generator coroutine, leave it as is on the stack. Otherwise, replace <code>awaitable</code> with the result of calling its <code>__await__</code> method.</p>
+</div>
+<div class="paragraph">
+<p>Before Python 3.11, this opcode did not have an argument.</p>
+</div>
+<div class="paragraph">
+<p>After Python 3.11, this opcode has an argument, which indicates where the instruction occurs if non-zero:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>1</code> if after a call to <code>__aenter__</code></p>
+</li>
+<li>
+<p><code>2</code> if after a call to <code>__aexit__</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">await awaitable</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_get_aiter"><a class="anchor" href="#_get_aiter"></a>GET_AITER</h3>
+<div class="paragraph">
+<p>Python Versions: &gt;= 3.5</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... async_iterable
+Stack After: ... async_iterator</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Pops the async iterable off the stack, call its  <code>__aiter__</code> method, and push the result. Used to implement async for loops.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># The for loop performs GET_AITER on async_iterable to get the async iterator.
+# GET_ANEXT is then called on the async iterator.
+# The object returned by GET_ANEXT is sent None,
+# and the object returned from the send operation is the next item in the async for loop.
+async for item in iterable:
+    print(item)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The bytecode in 3.11 looks like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">      6 LOAD_FAST                0 (iterable)
+      8 GET_AITER
+================= begin try block =====================
+&gt;&gt;   10 GET_ANEXT &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;+
+     12 LOAD_CONST               0 (None)             ^
+&gt;&gt;   14 SEND                     3 (to 22) ------+&gt;&gt;+ ^
+     16 YIELD_VALUE                              ^  v ^
+     18 RESUME                   3               ^  v ^
+     20 JUMP_BACKWARD_NO_INTERRUPT     4 (to 14)-+  v ^
+================== end try block ===================v=^&gt;v
+&gt;&gt;   22 STORE_FAST               1 (item) &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;+ ^ v
+     24 LOAD_GLOBAL              1 (NULL + print)     ^ v
+     36 LOAD_FAST                1 (item)             ^ v
+     38 PRECALL                  1                    ^ v
+     42 CALL                     1                    ^ v
+     52 POP_TOP                                       ^ v
+     54 JUMP_BACKWARD           23 (to 10)&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;+ v
+================== begin finally ======================&lt;+
+&gt;&gt;   56 END_ASYNC_FOR
+================== end finally ========================</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_get_anext"><a class="anchor" href="#_get_anext"></a>GET_ANEXT</h3>
+<div class="paragraph">
+<p>Python Versions: &gt;= 3.5</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... awaitable_iterator
+Stack After: ... awaitable_item</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Pops <code>awaitable_iterator</code> off the stack.
+Calls <code>__anext__</code> on <code>awaitable_iterator</code>.
+If the result is a coroutine or a generator coroutine, push it as is on the stack.
+Otherwise, call the result&#8217;s <code>__await__</code> method and push that to the stack.
+Used to implement async for loops.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="paragraph">
+<p>See <a href="#_get_aiter">GET_AITER</a> for an example.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_end_async_for"><a class="anchor" href="#_end_async_for"></a>END_ASYNC_FOR</h3>
+<div class="paragraph">
+<p>Python Versions: &gt;= 3.5, &lt;= 3.10</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... async_iterable, tb1, ex1, ex_type1, tb2, ex2, ex_type2
+Stack After: ...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Python Versions: &gt;= 3.11</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... async_iterable, exception
+Stack After: ...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Terminates an async for loop.</p>
+</div>
+<div class="paragraph">
+<p>Behavior prior to 3.11:</p>
+</div>
+<div class="paragraph">
+<p>If <code>ex_type2</code> is <code>StopAsyncIteration</code>, pop 7 values from the stack, restoring exception state from <code>tb1</code>, <code>ex1</code> and <code>ex_type1</code>.
+Otherwise, re-raise <code>ex2</code>.</p>
+</div>
+<div class="paragraph">
+<p>Behavior after 3.11:</p>
+</div>
+<div class="paragraph">
+<p>If <code>exception</code> is an instance of <code>StopAsyncIteration</code>, pop both <code>async_iterable</code> and <code>exception</code> off the stack.
+Otherwise, re-raise <code>exception</code>.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="paragraph">
+<p>See <a href="#_get_aiter">GET_AITER</a> for an example.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_before_async_with"><a class="anchor" href="#_before_async_with"></a>BEFORE_ASYNC_WITH</h3>
+<div class="paragraph">
+<p>Python Versions: &gt;= 3.5</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... async_context_manager
+Stack After: ... async_exit_function, async_enter_result</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Pops <code>async_context_manager</code> off the stack and resolve its <code>__aexit__</code> and <code>__aenter__</code> methods.
+The <code>__aexit__</code> function is pushed to the stack,
+followed by the object return by calling <code>__aenter__</code>.
+Used to implement asynchronous context managers</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">async with async_context_manager as async_context:
+    pass</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_setup_async_with"><a class="anchor" href="#_setup_async_with"></a>SETUP_ASYNC_WITH</h3>
+<div class="paragraph">
+<p>Python Versions: &gt;= 3.5, &lt;= 3.10</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ...
+Stack After: ...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Create the <code>try&#8230;&#8203;finally</code> block used for asynchronous context managers.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">async with async_context_manager as async_context:
+    pass</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_print_expr"><a class="anchor" href="#_print_expr"></a>PRINT_EXPR</h3>
+<div class="paragraph">
+<p>Python Versions: ALL</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... to_print
+Stack After: ...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Pops off the top of the stack, calls its <code>__repr__</code> method, and prints the result.
+Used by the CPython interactive interpreter to print an entered expression.
+It is never emitted as an opcode in a function.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="paragraph">
+<p>It cannot be emitted in a function, and thus has no example sources.
+It is emitted as the final opcode when the CPython interactive interpreter compiles an expression outside a block.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_set_addi"><a class="anchor" href="#_set_addi"></a>SET_ADD(i)</h3>
+<div class="paragraph">
+<p>Python Versions: ALL</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... s_i, ..., s_1, s_0
+Stack After: ... s_i, ..., s_1</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Pops off the top of the stack and call <code>s_i.add(s_0)</code>.
+<code>s_i</code> remains on the stack so it can be reused.
+Used to implement set comprehensions.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">{point for point in point_list}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_list_appendi"><a class="anchor" href="#_list_appendi"></a>LIST_APPEND(i)</h3>
+<div class="paragraph">
+<p>Python Versions: ALL</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... s_i, ..., s_1, s_0
+Stack After: ... s_i, ..., s_1</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Pops off the top of the stack and call <code>s_i.append(s_0)</code>.
+<code>s_i</code> remains on the stack so it can be reused.
+Used to implement list comprehensions.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">[point for point in point_list]</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_map_addi"><a class="anchor" href="#_map_addi"></a>MAP_ADD(i)</h3>
+<div class="paragraph">
+<p>Python Versions: ALL</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... s_i, ..., s_1, s_0, value
+Stack After: ... s_i, ..., s_1</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Pops off the top two items on the stack and call <code>s_i.__setitem__(s_0, value)</code>.
+<code>s_i</code> remains on the stack so it can be reused.
+Used to implement dict comprehensions.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">{key: value for key, value in item_list}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_return_value"><a class="anchor" href="#_return_value"></a>RETURN_VALUE</h3>
+<div class="paragraph">
+<p>Python Versions: ALL</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... return_value
+Stack After: N/A</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Returns the item at the top of the stack.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">def function():
+    pass # A `return None` is placed at the end of the function</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">return  # This is actually `return None` in disguise</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">return value</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_return_generator"><a class="anchor" href="#_return_generator"></a>RETURN_GENERATOR</h3>
+<div class="paragraph">
+<p>Python Versions: &gt;= 3.11</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ...
+Stack After: ...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Creates a new generator from the current frame.
+Used to implement generators.</p>
+</div>
+<div class="paragraph">
+<p>Generators basically act as two separate functions:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>One outer function that just set locals and return a generator object that wraps the inner function.</p>
+</li>
+<li>
+<p>One inner function that yield values.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>In this way, it is similar to returning a new anonymous class in a Java function, where we need to pass the function locals to the anonymous class.</p>
+</div>
+<div class="paragraph">
+<p>However, unlike Java, the outer function and the inner function share the same bytecode. So a generator will start with the <code>RETURN_GENERATOR</code> opcode (which returns the generator object), followed by the bytecode for the generator.</p>
+</div>
+<div class="paragraph">
+<p>JPyInterpreter treats this opcode as a no-op, since we use separate classes for the outer function and the inner functions.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">def function():
+    # A RETURN_GENERATOR will be placed at the start
+    # of the generator
+    yield</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_gen_startkind"><a class="anchor" href="#_gen_startkind"></a>GEN_START(kind)</h3>
+<div class="paragraph">
+<p>Python Versions: == 3.10</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... top
+Stack After: ...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Pops off the top of stack.
+This is the first opcode for generators in 3.10.
+The stack is not empty, since calling a generator is the same as sending the generator <code>None</code>, which push <code>None</code> to the top of the stack.
+The <code>kind</code> argument indicates what kind of generator it is:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>0 is a normal generator.</p>
+</li>
+<li>
+<p>1 is a coroutine.</p>
+</li>
+<li>
+<p>2 is an async generator.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">def function():
+    # A GEN_START(0) will be placed at the start
+    # of the generator
+    yield</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_sendtarget_delta"><a class="anchor" href="#_sendtarget_delta"></a>SEND(target_delta)</h3>
+<div class="paragraph">
+<p>Python Versions: &gt;= 3.11</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior:                            ... subgenerator, sent_value
+Stack if subgenerator is not exhausted: ... subgenerator, yielded_value
+Stack if subgenerator is exhausted:     ... subgenerator</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Pops off the top of stack, and sends it to the sub-generator of this generator.
+If the sub-generator is not exhausted, the yielded value is pushed to the top of the stack.
+Otherwise, jump forward by <code>target_delta</code>, leaving <code>subgenerator</code> on the stack.
+Used to implement <code>yield from</code> and <code>await</code> statements.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># yield from subgenerator is implemented as the following loop
+# (with None initially at the top of the stack)
+#
+# SEND (sends the top of stack to the subgenerator)
+# YIELD_VALUE (returns the yielded value to the caller)
+# JUMP_BACKWARDS (to SEND)
+#
+# Before the loop, GET_YIELD_FROM_ITER is used to get the generator
+# that will act as the subgenerator
+yield from subgenerator</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># await is a yield from in disguise,
+# and is implemented by the same loop
+#
+# Before the loop, GET_AWAITABLE is used to get the awaitable
+# that will act as the subgenerator
+await awaitable</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_yield_value"><a class="anchor" href="#_yield_value"></a>YIELD_VALUE</h3>
+<div class="paragraph">
+<p>Python Versions: ALL</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... yielded_value
+Stack After: ... sent_value</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Pops off the top of the stack and yields it to the calling function.
+The function is then paused, and is resumed by either a <code>.send(sent_value)</code> or <code>.throw(raised_exception)</code> call.
+If <code>.send(sent_value)</code> is used, that value is pushed to the top of the stack.
+Otherwise, the exception passed to <code>.throw(raised_exception)</code> is raised at this opcode position.
+Calling <code>next</code> on a generator acts as <code>generator.send(None)</code>.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># the sent value is ignored here
+yield 10</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># the sent value is stored in sent_value here
+sent_value = yield 10</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_yield_from"><a class="anchor" href="#_yield_from"></a>YIELD_FROM</h3>
+<div class="paragraph">
+<p>Python Versions: &gt;= 3.3, &lt;= 3.10</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... subgenerator, sent_value
+Stack After: ... final_yielded_value</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Pops off the top of the stack, and set this generator subgenerator to the element immediately below it.
+Control is then passed to the subgenerator.
+If the subgenerator is not a generator but an iterable, it is treated as the following pseudo-generator:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">def iterable_generator(iterable):
+    for item in iterable:
+        sent_value = yield item
+        if sent_value is not None:
+            raise AttributeError(f"'{type(iter(iterable))}' object has no attribute 'send'")</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When the subgenerator is not exhausted, <code>send</code> and <code>throw</code> calls are proxied to it.
+When the subgenerator is exhausted, its final yielded value is pushed to the top of the stack and this generator resumes.</p>
+</div>
+<div class="paragraph">
+<p>In Python 3.11 and above, the YIELD_FROM opcode is replaced by a SEND + YIELD_VALUE while loop, as documented in the <a href="#_sendtarget_delta">SEND(target_delta)</a>.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">yield from subgenerator</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_setup_annotations"><a class="anchor" href="#_setup_annotations"></a>SETUP_ANNOTATIONS</h3>
+<div class="paragraph">
+<p>Python Versions: &gt;= 3.6</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ...
+Stack After: ...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Checks if the variable <code>__annotations__</code> is defined.
+If <code>__annotations__</code> is not defined, it is initialized to an empty <code>dict</code>.
+Otherwise, <code>__annotations__</code> keep it current value.
+It is emitted for a class and module bodies which contain static variable annotations.
+This opcode is not emitted for function bodies.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">class MyClass:
+    # SETUP_ANNOTATIONS is emitted here,
+    # for a later __annotations__['x'] = int
+    # call
+    x: int</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_import_star"><a class="anchor" href="#_import_star"></a>IMPORT_STAR</h3>
+<div class="paragraph">
+<p>Python Versions: ALL</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... modulevalue
+Stack After: ...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Loads all symbols not starting with '_' directly from the module located at the top of the stack to the local namespace.
+The module is popped after loading all names, whose values are copied to the module&#8217;s local variables.
+This opcode implements <code>from module import *</code>.
+It is illegal to use <code>from module import *</code> in a function.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">from module import *</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_pop_block"><a class="anchor" href="#_pop_block"></a>POP_BLOCK</h3>
+<div class="paragraph">
+<p>Python Versions: &lt;= 3.10</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ...
+Stack After: ...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Pops the block that store exception handler information off the stack.
+Since the JVM store the exception table separate from the bytecode, this is a no-op for JPyInterpreter.
+In CPython 3.11, the CPython interpreter also stores the exception table separate from the bytecode, removing the need for this opcode.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">try:
+    something()
+    # A POP_BLOCK opcode is placed
+    # at the end of a try block.
+except:
+    pass</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_pop_except"><a class="anchor" href="#_pop_except"></a>POP_EXCEPT</h3>
+<div class="paragraph">
+<p>Python Versions: ALL</p>
+</div>
+<div class="paragraph">
+<p>Python 3.10 and below</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... traceback, exception, exception_type
+Stack After: ...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Python 3.11 and above</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... exception
+Stack After: ...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Pop off exception data off the stack, which is used to restore the exception state.
+Before Python 3.11, this pop off three values (traceback, exception and type(exception)).
+After Python 3.11, this pop off one value (exception).
+This is placed at the beginning of every except block</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">try:
+    something()
+except:
+    # A POP_EXCEPT opcode is placed
+    # at the beginning of an except block.
+    pass</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_push_exc_info"><a class="anchor" href="#_push_exc_info"></a>PUSH_EXC_INFO</h3>
+<div class="paragraph">
+<p>Python Versions: &gt;= 3.11</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... top
+Stack After: ... exception, top</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Inserts the currently active exception behind the item currently at the top of stack.
+Used to allow the current exception to be stored if an except block uses it.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">try:
+    pass
+
+# A PUSH_EXC_INFO is emitted at the start of the
+# try block exception handler, which goes through
+# a series of conditional jumps to determine which
+# except block to enter.
+# The except block then decide if they should store
+# the current exception, or pop it off the stack.
+except ValueError as e:
+    pass
+except Exception:
+    pass</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_check_exc_match"><a class="anchor" href="#_check_exc_match"></a>CHECK_EXC_MATCH</h3>
+<div class="paragraph">
+<p>Python Versions: &gt;= 3.11</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... exception, exception_type
+Stack After: ... exception, test_result</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Test if <code>exception</code> is an instance of <code>exception_type</code>.
+If so, it pushes <code>True</code> to the top of stack; otherwise, it pushes <code>False</code>.
+<code>exception_type</code> is popped off the stack; <code>exception</code> remains on the stack.
+Used to implement <code>except</code> blocks that catch particular types of exceptions.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">try:
+    pass
+except ValueError:  # CHECK_EXC_MATCH is used here with
+                    # exception and ValueError
+                    # on the stack.
+    pass</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_reraiseset_f_lasti"><a class="anchor" href="#_reraiseset_f_lasti"></a>RERAISE(set_f_lasti)</h3>
+<div class="paragraph">
+<p>Python Versions: &gt;= 3.9</p>
+</div>
+<div class="paragraph">
+<p>If <code>set_f_lasti</code> is not set</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... exception_or_type
+Stack After: N/A</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If <code>set_f_lasti</code> is set</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... index, exception_or_type
+Stack After: N/A</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The item at the top of the stack is either an exception or type.
+If it is an exception, throw it.
+If it is a type, construct and throw a new instance of that type.
+Used to implement a bare <code>raise</code> in an except block.</p>
+</div>
+<div class="paragraph">
+<p>Note: CPython uses the <code>index</code> below the exception/type to set the last index if the bytecode argument not 0.
+JPyInterpreter can ignore the argument, since the JVM keep track of frames for us.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">try:
+    pass
+except:
+    raise  # this emits RERAISE</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_with_except_start"><a class="anchor" href="#_with_except_start"></a>WITH_EXCEPT_START</h3>
+<div class="paragraph">
+<p>Python Versions: &gt;= 3.9</p>
+</div>
+<div class="paragraph">
+<p>Before 3.11</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... exit_function, instruction, stack_size, label, traceback, exception, exception_type
+Stack After: N/A</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>After 3.11</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... exit_function, traceback, exception, exception_type
+Stack After: N/A</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Calls <code>exit_function</code> with arguments <code>exception_type, exception, traceback</code>, and push the returned value to the top of the stack.
+The returned value should be a boolean.
+If the returned value is Truthy, the context manager handled the exception and execution continue.
+If the returned value is Falsy, the exception is propagated.
+If no exception occurred, exception_type, exception, traceback are all None.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">with context:
+    pass</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_load_assertion_error"><a class="anchor" href="#_load_assertion_error"></a>LOAD_ASSERTION_ERROR</h3>
+<div class="paragraph">
+<p>Python Versions: &gt;= 3.9</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ...
+Stack After: ... AssertionError</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Pushes the type <code>AssertionError</code> onto the stack.
+Used in <code>assert</code> statements.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">assert False</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_load_build_class"><a class="anchor" href="#_load_build_class"></a>LOAD_BUILD_CLASS</h3>
+<div class="paragraph">
+<p>Python Versions: ALL</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ...
+Stack After: ... __build_class__</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Pushes the function <code>builtins.__build_class__</code> onto the stack.
+Used to construct classes.
+The function signature for <code>__build_class__</code> is:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">def __build_class__(class_body: function,
+                    class_name: str,
+                    *bases: List[Type],
+                    metaclass: Type,
+                    **metaclass_parameters: Dict[str, Any]) \
+                    -&gt; Type</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">class C:
+    pass
+
+# this translates roughly to:
+# __build_class__(&lt;func&gt;, 'C')</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">class C(A, B):
+    pass
+
+# this translates roughly to:
+# __build_class__(&lt;func&gt;, 'C', A, B)</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">class C(A, metaclass=M, metaclass_arg=1):
+    pass
+
+# this translates roughly to:
+# __build_class__(&lt;func&gt;, 'C', A, metaclass=M, metaclass_arg=1)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_setup_withexcept_delta"><a class="anchor" href="#_setup_withexcept_delta"></a>SETUP_WITH(except_delta)</h3>
+<div class="paragraph">
+<p>Python Versions: &lt;= 3.10</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... context_manager
+Stack After: ... exit_function, start_function_result
+Stack On Exception: ... instruction, stack_size, label, traceback, exception, exception_type</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Pops off the top of the stack, and push its <code>__exit__</code> function and the result of calling its <code>__enter__</code> function to the top of the stack.
+<code>except_delta</code> points to the exception handler for the which block.
+If an exception occurs, the follow items will be pushed to the stack:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The bytecode instruction index that was executing when the exception happened.</p>
+</li>
+<li>
+<p>The size of the stack before the with block.</p>
+</li>
+<li>
+<p>The exception handler label.</p>
+</li>
+<li>
+<p>The traceback for the exception.</p>
+</li>
+<li>
+<p>The actual exception.</p>
+</li>
+<li>
+<p>The type of the exception.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">with context_manager:
+    pass</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_store_namenamei"><a class="anchor" href="#_store_namenamei"></a>STORE_NAME(namei)</h3>
+<div class="paragraph">
+<p>Python Versions: ALL</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... value
+Stack After: ...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Sets either the global or local variable with the name <code>co_names[namei]</code> to the item currently at the top of stack.
+The top of stack is then popped.
+This opcode is only emitted for module bodies and classes.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">class C:
+    x = 10 # this emits a STORE_NAME('x') opcode
+           # with 10 on the top of the stack</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_delete_namenamei"><a class="anchor" href="#_delete_namenamei"></a>DELETE_NAME(namei)</h3>
+<div class="paragraph">
+<p>Python Versions: ALL</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ...
+Stack After: ...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Deletes either the global or local variable with the name <code>co_names[namei]</code>.
+This opcode is only emitted for module bodies and classes.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">class C:
+    x = 10
+    del x # this emits a DELETE_NAME('x') opcode</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_unpack_sequencecount"><a class="anchor" href="#_unpack_sequencecount"></a>UNPACK_SEQUENCE(count)</h3>
+<div class="paragraph">
+<p>Python Versions: ALL</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... iterable
+Stack After: ... item_{count - 1}, ..., item_1, item_0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Top of stack is an iterable.
+In reverse order, push its items to the stack (making the new item at the top of stack the first item in the iterable).
+The iterable is then popped off the stack.
+If the iterable does not have exactly <code>count</code> items, a <code>ValueError</code> is raised.
+The items are received using an iterator loop:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">iterator = iter(iterable)
+items = []
+while True:
+    try:
+        items.append(next(iterator))
+    except StopIteration:
+        break</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># This is compiled as:
+# UNPACK_SEQUENCE(2)
+# STORE_FAST('x') (1)
+# STORE_FAST('y') (2)
+x, y = (1, 2)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_unpack_exhigh_byte_end_index_low_byte_start_index"><a class="anchor" href="#_unpack_exhigh_byte_end_index_low_byte_start_index"></a>UNPACK_EX((high byte) end_index | (low byte) start_index)</h3>
+<div class="paragraph">
+<p>Python Versions: ALL</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... iterable
+Stack After: ... after_0, after_1, ..., after_{end_index - 1}, extra, before_{start_index - 1}, ..., before_1, before_0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Top of stack is an iterable.
+Collect its item into a list.
+Push each item in the slice [-end_index:] to the stack in forward order (empty if end_index == 0).
+Push a list containing the slice [start_index:end_index] to the stack as a single item.
+Push each item in the slice [:start_index] in reverse order (empty if start_index == 0).
+The iterable is then popped off the stack.
+If the iterable does not have at least <code>start_index + end_index</code> items, a <code>ValueError</code> is raised.
+The items are received using an iterator loop:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">iterator = iter(iterable)
+items = []
+while True:
+    try:
+        items.append(next(iterator))
+    except StopIteration:
+        break
+
+before = items[:start_index]
+after = items[-end_index:]
+extra = items[start_index:end_index]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># This is compiled as:
+# UNPACK_EX((2 &lt;&lt; 8) | 1) (= 513)
+# STORE_FAST('b_0') (1)
+# STORE_FAST('extra') ([2, 3])
+# STORE_FAST('a_0') (4)
+# STORE_FAST('a_1') (5)
+b_0, *extra, a_0, a_1 = (1, 2, 3, 4, 5)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_store_attrnamei"><a class="anchor" href="#_store_attrnamei"></a>STORE_ATTR(namei)</h3>
+<div class="paragraph">
+<p>Python Versions: ALL</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... value, object
+Stack After: ...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Sets the attribute with the name <code>co_names[namei]</code> on the object at the top of the stack to the value immediately below it.
+Both the object and the value are popped.
+The value is set by calling the <code>__setattr__(self, name: str, value: Any)</code> method on the type of object with <code>object</code>, <code>co_names[namei]</code> and <code>value</code> as the arguments.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># equivalent to
+# type(my_object).__setattr__(my_object, 'attribute', value)
+my_object.attribute = value</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_delete_attrnamei"><a class="anchor" href="#_delete_attrnamei"></a>DELETE_ATTR(namei)</h3>
+<div class="paragraph">
+<p>Python Versions: ALL</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... object
+Stack After: ...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Deletes the attribute with the name <code>co_names[namei]</code> on the object at the top of the stack.
+The object is then popped off the stack.
+The value is deleted by calling the <code>__delattr__(self, name: str)</code> method on the type of object with <code>object</code> and <code>co_names[namei]</code> as the arguments.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># equivalent to
+# type(my_object).__delattr__(my_object, 'attribute')
+del my_object.attribute</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_store_globalnamei"><a class="anchor" href="#_store_globalnamei"></a>STORE_GLOBAL(namei)</h3>
+<div class="paragraph">
+<p>Python Versions: ALL</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... value
+Stack After: ...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Sets the global variable with the name <code>co_names[namei]</code>  to the value currently at the top of the stack.
+The value is then popped from the stack.
+Each module has a unique global namespace used to store global variables.
+Functions in the same module use the same namespace.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># required, otherwise it be a STORE_FAST
+global variable
+variable = 5</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_delete_globalnamei"><a class="anchor" href="#_delete_globalnamei"></a>DELETE_GLOBAL(namei)</h3>
+<div class="paragraph">
+<p>Python Versions: ALL</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ...
+Stack After: ...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Deletes the global variable with the name <code>co_names[namei]</code>.
+Each module has a unique global namespace used to store global variables.
+Functions in the same module use the same namespace.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># required, otherwise it be a DELETE_FAST
+global variable
+del variable</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_load_constconsti"><a class="anchor" href="#_load_constconsti"></a>LOAD_CONST(consti)</h3>
+<div class="paragraph">
+<p>Python Versions: ALL</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ...
+Stack After: ... constant</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Loads the constant <code>co_constants[consti]</code>.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">'A string constant'</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">1  # an int constant</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">(1, 2, 3)  # a tuple constant</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_load_namenamei"><a class="anchor" href="#_load_namenamei"></a>LOAD_NAME(namei)</h3>
+<div class="paragraph">
+<p>Python Versions: ALL</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ...
+Stack After: ... value</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Pushes either the global or local variable with the name <code>co_names[namei]</code> to the top of stack.
+This opcode is only emitted for module bodies and classes.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">class C:
+    x # this emits a LOAD_NAME('x') opcode</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_build_tuplecount"><a class="anchor" href="#_build_tuplecount"></a>BUILD_TUPLE(count)</h3>
+<div class="paragraph">
+<p>Python Versions: ALL</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... item_0, item_1, ..., item_{count - 1}
+Stack After: ... item_tuple</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Construct a tuple from the top <code>count</code> items on the stack.
+The items are placed in the reverse order that they are encountered from the top of stack (making the top of stack the last element).
+The top <code>count</code> items are then popped from the stack, and the newly constructed tuple is pushed to the stack.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">x = 1
+y = 2
+z = (x, y)  # This creates a BUILD_TUPLE opcode:
+# LOAD_FAST('x')
+# LOAD_FAST('y')
+# BUILD_TUPLE(2)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_build_listcount"><a class="anchor" href="#_build_listcount"></a>BUILD_LIST(count)</h3>
+<div class="paragraph">
+<p>Python Versions: ALL</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... item_0, item_1, ..., item_{count - 1}
+Stack After: ... item_tuple</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Construct a list from the top <code>count</code> items on the stack.
+The items are placed in the reverse order that they are encountered from the top of stack (making the top of stack the last element).
+The top <code>count</code> items are then popped from the stack, and the newly constructed list is pushed to the stack.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">x = 1
+y = 2
+z = [x, y]  # This creates a BUILD_LIST opcode:
+# LOAD_FAST('x')
+# LOAD_FAST('y')
+# BUILD_LIST(2)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_build_setcount"><a class="anchor" href="#_build_setcount"></a>BUILD_SET(count)</h3>
+<div class="paragraph">
+<p>Python Versions: ALL</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... item_0, item_1, ..., item_{count - 1}
+Stack After: ... item_tuple</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Construct a set from the top <code>count</code> items on the stack.
+The items are placed in the reverse order that they are encountered from the top of stack (making the top of stack the last element).
+The top <code>count</code> items are then popped from the stack, and the newly constructed set is pushed to the stack.
+The items lower in the stack are prioritized over items higher in stack (i.e. if <code>item_0 == item_1</code>, then <code>item_0</code> be added to the set, not <code>item_1</code>).</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">x = 1
+y = 2
+z = {x, y}  # This creates a BUILD_SET opcode:
+# LOAD_FAST('x')
+# LOAD_FAST('y')
+# BUILD_SET(2)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_build_mapcount"><a class="anchor" href="#_build_mapcount"></a>BUILD_MAP(count)</h3>
+<div class="paragraph">
+<p>Python Versions: ALL</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... , key_0, value_0, key_1, value_1, ..., key_{count - 1}, value_{count - 1}
+Stack After: ... item_map</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Construct a dict from the top <code>2 * count</code> items on the stack.
+The items are put in the reverse order that they are encountered from the top of stack (making the top two items on the stack the last key-value pair).
+The top <code>2 * count</code> items are then popped from the stack, and the newly constructed dict is pushed to the stack.
+The items higher in the stack are prioritized over items higher in stack (i.e. if <code>key_0 == key_1</code>, then <code>key_1 = value_1</code> be put in the dict, not <code>key_0 = value_0</code>).</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">key_0 = 1
+value_0 = 2
+key_1 = 3
+value_1 = 4
+z = {
+    key_0: value_0,
+    key_1: value_1
+}
+# This creates a BUILD_MAP opcode:
+# LOAD_FAST('key_0')
+# LOAD_FAST('value_0')
+# LOAD_FAST('key_1')
+# LOAD_FAST('value_1')
+# BUILD_MAP(2)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_build_const_key_mapcount"><a class="anchor" href="#_build_const_key_mapcount"></a>BUILD_CONST_KEY_MAP(count)</h3>
+<div class="paragraph">
+<p>Python Versions: &gt;= 3.6</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... , value_0, value_1, ..., value_{count - 1}, key_tuple
+Stack After: ... item_map</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Construct a dict from the top <code>count + 1</code> items on the stack.
+The item at the top of the stack is a tuple of constants of length count, which stores the dict&#8217;s keys.
+There are <code>count</code> items below it representing each key&#8217;s corresponding value.
+The key-value pairs are put in the reverse order that they are encountered from the top of stack (making <code>key_tuple[-1], value_{count - 1}</code> the last key-value pair to be added to the dict).
+The top <code>count + 1</code> items are then popped from the stack, and the newly constructed dict is pushed to the stack.
+The items higher in the stack are prioritized over items higher in stack (i.e. if <code>tuple[0] == tuple[1]</code>, then <code>tuple[1] = value_1</code> be put in the dict, not <code>tuple[0] = value_0</code>).</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">value_0 = 1
+value_1 = 2
+z = {
+    'a': value_0,
+    'b': value_1
+}
+# This creates a BUILD_CONST_KEY_MAP opcode:
+# LOAD_FAST('value_0')
+# LOAD_FAST('value_1')
+# LOAD_CONSTANT (('a', 'b'))
+# BUILD_CONST_KEY_MAP(2)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_build_stringcount"><a class="anchor" href="#_build_stringcount"></a>BUILD_STRING(count)</h3>
+<div class="paragraph">
+<p>Python Versions: &gt;= 3.6</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... string_0, string_1, ..., string_{count - 1}
+Stack After: ... result</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Concatenate the top <code>count</code> items on the stack into a single string.
+Each of the top <code>count</code> items on the stack must be a string.
+The strings are concatenated from the lowest item up
+(i.e. <code>string_0 + string_1 + &#8230;&#8203; + string_{count - 1}</code>).
+Used to implement f-strings.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">a = 'before'
+b = 'after'
+f'{a} {b}'
+# Bytecode:
+# LOAD_FAST(a)
+# FORMAT_VALUE(str)
+# LOAD_CONST(' ')
+# LOAD_FAST(b)
+# FORMAT_VALUE(str)
+# BUILD_STRING(3)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_list_to_tuple"><a class="anchor" href="#_list_to_tuple"></a>LIST_TO_TUPLE</h3>
+<div class="paragraph">
+<p>Python Versions: &gt;= 3.9</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... list
+Stack After: ... tuple</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The top of the stack is a list.
+Pop off the top of the stack, and replace it with a tuple with the same values in the same order.
+Used to unpack a list into a tuple.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">(*[1, 2, 3],)
+#
+# BUILD_LIST(0) # Construct an empty list
+#                 to store the final result
+#
+# BUILD_LIST(0) # Construct an empty list
+#               # to store the immediate [1, 2, 3]
+#               # since lists cannot be constants
+#
+# LOAD_CONST((1, 2, 3)) # Load the constant (1, 2, 3)
+#
+# LIST_EXTEND(1) # Convert the constant (1, 2, 3)
+#                  to [1, 2, 3]
+#
+# LIST_EXTEND(1) # Unpacks [1, 2, 3] into the
+#                # final result
+#
+# LIST_TO_TUPLE # Convert the final result into a tuple</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_list_extendi"><a class="anchor" href="#_list_extendi"></a>LIST_EXTEND(i)</h3>
+<div class="paragraph">
+<p>Python Versions: &gt;= 3.9</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... s_i, ..., s_1, s_0
+Stack After: ... s_i, ..., s_1</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The top of the stack is an iterable and <code>s_i</code> is a list.
+Pop off the top of the stack, and add its contents to <code>s_i</code>.
+<code>s_i</code> remains on the stack so it can be reused.
+Used to implement list unpacking.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="paragraph">
+<p>See <a href="#_list_to_tuple">LIST_TO_TUPLE</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_set_updatei"><a class="anchor" href="#_set_updatei"></a>SET_UPDATE(i)</h3>
+<div class="paragraph">
+<p>Python Versions: &gt;= 3.9</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... s_i, ..., s_1, s_0
+Stack After: ... s_i, ..., s_1</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The top of the stack is an iterable and <code>s_i</code> is a set.
+Pop off the top of the stack, and add its contents to <code>s_i</code>.
+The added content will not replace items already in the <code>set</code>.
+<code>s_i</code> remains on the stack so it can be reused.
+Used to implement set unpacking.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">{*(1, 2, 3)}
+# BUILD_SET(0)  # Create an empty set to
+#               # store the result
+#
+# LOAD_CONST((1, 2, 3))  # Load the constant (1, 2, 3)
+#
+# SET_UPDATE(1)  # Unpacks (1, 2, 3) into the result</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_dict_updatei"><a class="anchor" href="#_dict_updatei"></a>DICT_UPDATE(i)</h3>
+<div class="paragraph">
+<p>Python Versions: &gt;= 3.9</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... s_i, ..., s_1, s_0
+Stack After: ... s_i, ..., s_1</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The top of the stack is an mapping and <code>s_i</code> is a dict.
+Pop off the top of the stack, and add its contents to <code>s_i</code>.
+The added content will replace the value assigned to keys already in the <code>dict</code>.
+<code>s_i</code> remains on the stack so it can be reused.
+Used to implement dict unpacking.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">{
+    'a': 1,
+    **b
+}
+# LOAD_CONSTANT('a')
+# LOAD_CONSTANT(1)
+#
+# BUILD_MAP(1)  # Create a dict with items
+#               # ('a', 1)
+#
+# LOAD_FAST(n)  # Load b
+#
+# DICT_UPDATE(1)  # Unpacks b into the result dict</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_dict_mergei"><a class="anchor" href="#_dict_mergei"></a>DICT_MERGE(i)</h3>
+<div class="paragraph">
+<p>Python Versions: &gt;= 3.9</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... s_i, ..., s_1, s_0
+Stack After: ... s_i, ..., s_1</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The top of the stack is an mapping and <code>s_i</code> is a dict.
+Pop off the top of the stack, and add its contents to <code>s_i</code>.
+If the mapping at the top of the stack share any keys with <code>s_i</code>, a <code>TypeError</code> is raised.
+<code>s_i</code> remains on the stack so it can be reused.
+Used to implement dict unpacking in function calls.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">my_function(a=1, **b)
+# LOAD_CONSTANT('a')
+# LOAD_CONSTANT(1)
+#
+# BUILD_MAP(1)  # Create a dict with items
+#               # ('a', 1)
+#
+# LOAD_FAST(n)  # Load b
+#
+# DICT_MERGE(1)  # Unpacks b into the result dict,
+                 # raise an exception if b has a value
+                 # for the key 'a'</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_load_attrnamei"><a class="anchor" href="#_load_attrnamei"></a>LOAD_ATTR(namei)</h3>
+<div class="paragraph">
+<p>Python Versions: ALL</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... object
+Stack After: ... attribute</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Loads the attribute with the name <code>co_names[namei]</code> on the object at the top of the stack; the top of stack is popped.
+The value is retrieved by calling the <code>__getattribute__(self, name: str)</code> method on the type of object with <code>object</code> and <code>co_names[namei]</code> as the arguments.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># equivalent to
+# type(my_object).__getattribute__(my_object, 'attribute')
+my_object.attribute</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_compare_opop"><a class="anchor" href="#_compare_opop"></a>COMPARE_OP(op)</h3>
+<div class="paragraph">
+<p>Python Versions: ALL</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... left_comparable, right_comparable
+Stack After: ... comparison_result</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A <a href="#_binary_opop">BINARY_OP(op)</a> that correspond to the comparison operation indicated by the <code>op</code> argument.
+The comparison operation that <code>op</code> refers to is <code>cmp_op[op]</code> (where <code>cmp_op</code> is <a href="https://github.com/python/cpython/blob/174c4bfd0fee4622657a604af7a2e7d20a3f0dbc/Lib/opcode.py#L24">defined here</a>). In particular:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>0 corresponds to <code>__lt__</code> (normal) and <code>__gt__</code> (reflected)</p>
+</li>
+<li>
+<p>1 corresponds to <code>__le__</code> (normal) and <code>__ge__</code> (reflected)</p>
+</li>
+<li>
+<p>2 corresponds to <code>__eq__</code> (normal) and <code>__eq__</code> (reflected)</p>
+</li>
+<li>
+<p>3 corresponds to <code>__ne__</code> (normal) and <code>__ne__</code> (reflected)</p>
+</li>
+<li>
+<p>4 corresponds to <code>__gt__</code> (normal) and <code>__lt__</code> (reflected)</p>
+</li>
+<li>
+<p>5 corresponds to <code>__ge__</code> (normal) and <code>__le__</code> (reflected)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The top two items on the top of the stack are popped, the comparison operation is performed, and the result (not necessary a boolean) is pushed to the top of the stack.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">left_comparable &lt; right_comparable</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">left_comparable == right_comparable</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_is_opinvert"><a class="anchor" href="#_is_opinvert"></a>IS_OP(invert)</h3>
+<div class="paragraph">
+<p>Python Versions: ALL</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... left, right
+Stack After: ... is_same</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Pop off the top two items on the stack.
+Push <code>True</code> if the two items refer to the same reference, <code>False</code> otherwise.
+If <code>invert == 1</code>, then the result is negated.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">left = []
+right = []
+left is right  # False</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">left = []
+right = left
+left is right  # True</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">left is not right</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_contains_opinvert"><a class="anchor" href="#_contains_opinvert"></a>CONTAINS_OP(invert)</h3>
+<div class="paragraph">
+<p>Python Versions: ALL</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... query, container
+Stack After: ... is_contained</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Pop the two top items off the stack.
+The top item is the <code>container</code>, and the item immediately below it is the <code>query</code>.
+If <code>container</code> has a <code>__contain__(self, object)</code> method, it is called, and its result is converted to a boolean value (i.e. <code>None</code> is converted to <code>True</code>).
+Otherwise, an iterator is obtained by calling the <code>__iter__</code> method on <code>container</code>.
+If the iterator returns an object equal to <code>query</code>, <code>True</code> is pushed to the stack.
+If the iterator get exhausted before that, <code>False</code> is pushed to the stack.
+If the iterator is infinite and does not contain <code>query</code>, an infinite loop occurs.
+If <code>invert == 1</code>, then the result is negated.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">1 in (1, 2, 3)</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">1 not in (1, 2, 3)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_import_namenamei"><a class="anchor" href="#_import_namenamei"></a>IMPORT_NAME(namei)</h3>
+<div class="paragraph">
+<p>Python Versions: ALL</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... level, from_list
+Stack After: ... module</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Calls the <a href="https://docs.python.org/3/library/functions.html#import__">_import_</a> builtin function with the arguments <code>co_names[namei]</code>, <code>globals()</code>, <code>locals()</code>, <code>from_list</code> and <code>level</code>.
+The top two elements of the stack are popped, and the imported module is pushed.
+<code>from_list</code> can either be <code>None</code> or a list of strings containing names to import from the module.
+<code>level</code> indicates if the import is absolute or relative.
+If <code>level</code> is <code>0</code>, then it is an absolute import (the default).
+Otherwise, <code>level</code> indicates how many parents directories need to be navigated to perform the relative import (for instance, <code>1</code> is same directory as the current module, <code>2</code> is parent directory of the current module, <code>3</code> is the parent of the parent directory).
+The namespace is not modified; that is done by a subsequent <a href="#STORE_FAST[namei]">[STORE_FAST[namei]]</a> instruction(s).</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">import module</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">from module import a, b, c</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_import_fromnamei"><a class="anchor" href="#_import_fromnamei"></a>IMPORT_FROM(namei)</h3>
+<div class="paragraph">
+<p>Python Versions: ALL</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... module
+Stack After: ... module, attribute</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Loads the attribute with the name <code>co_names[namei]</code> from the module that is on the top of the stack.
+The top of stack is not popped, and the loaded attribute is pushed to the top of the stack.
+The namespace is not modified; that is done by a subsequent <a href="#STORE_FAST[namei]">[STORE_FAST[namei]]</a> instruction(s).</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">from module import a, b, c</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_jump_forwardtarget_delta"><a class="anchor" href="#_jump_forwardtarget_delta"></a>JUMP_FORWARD(target_delta)</h3>
+<div class="paragraph">
+<p>Python Versions: ALL</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ...
+Stack After: ...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Performs a forced relative jump forward by <code>target_delta</code> addresses (see <a href="#_instruction_addressing">Instruction Addressing</a> for details).
+Used to implement skipping unentered blocks in <code>if&#8230;&#8203;elif&#8230;&#8203;else</code> blocks and skipping exception handlers in <code>try&#8230;&#8203;except&#8230;&#8203;finally</code> blocks.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">if cond:
+    x = 1
+    # a JUMP_FORWARD is put here
+    # to skip the else
+else:
+    x = 2
+return x * 2</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_jump_backwardtarget_delta"><a class="anchor" href="#_jump_backwardtarget_delta"></a>JUMP_BACKWARD(target_delta)</h3>
+<div class="paragraph">
+<p>Python Versions: &gt;= 3.11</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ...
+Stack After: ...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Performs a forced relative jump backwards by <code>target_delta</code> addresses (see <a href="#_instruction_addressing">Instruction Addressing</a> for details).
+CPython checks for interrupts during this instruction.
+Used to implement <code>for</code> and <code>while True</code> loops.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">for item in iterable:
+    pass
+    # a JUMP_BACKWARD is put here
+    # to jump back to the start of
+    # the FOR_ITER instruction
+    # (which ends the loop if the
+    #  iterator is exhausted)</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">while True:
+    pass
+    # a JUMP_BACKWARD is put here
+    # to jump back to the start of
+    # the while block</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_jump_backward_no_interrupttarget_delta"><a class="anchor" href="#_jump_backward_no_interrupttarget_delta"></a>JUMP_BACKWARD_NO_INTERRUPT(target_delta)</h3>
+<div class="paragraph">
+<p>Python Versions: &gt;= 3.11</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ...
+Stack After: ...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Performs a forced relative jump backwards by <code>target_delta</code> addresses (see <a href="#_instruction_addressing">Instruction Addressing</a> for details).
+CPython does not checks for interrupts during this instruction.
+Used to implement <code>yield from</code> statements.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">yield from generator
+# A JUMP_BACKWARD_NO_INTERRUPT is used to
+# jump back to the SEND opcode (which will
+# break out of the loop when the generator
+# is exhausted).</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_pop_jump_if_truetarget"><a class="anchor" href="#_pop_jump_if_truetarget"></a>POP_JUMP_IF_TRUE(target)</h3>
+<div class="paragraph">
+<p>Python Versions: &lt;= 3.10</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... condition
+Stack After: ...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If <code>condition</code> is truthy, jump to <code>target</code>, which represents an absolute address (see <a href="#_instruction_addressing">Instruction Addressing</a> for details).
+Used to implement going to the next block when there a negated condition in an <code>if&#8230;&#8203;elif&#8230;&#8203;else</code> chain or start of a <code>while</code> loop.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">if not cond:  # A POP_JUMP_IF_TRUE
+              # is put here to jump
+              # to else if cond is truthy
+    print('case 1')
+else:
+    print('case 2')</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">while not cond:  # A POP_JUMP_IF_TRUE
+                 # is put here to skip
+                 # the loop if cond is
+                 # truthy
+    pass</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_pop_jump_forward_if_truetarget_delta"><a class="anchor" href="#_pop_jump_forward_if_truetarget_delta"></a>POP_JUMP_FORWARD_IF_TRUE(target_delta)</h3>
+<div class="paragraph">
+<p>Python Versions: &gt;= 3.11</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... condition
+Stack After: ...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If <code>condition</code> is truthy, jump forward by <code>target_delta</code>, which represents a relative addresses (see <a href="#_instruction_addressing">Instruction Addressing</a> for details).
+Used to implement going to the next block when there a negated condition in an <code>if&#8230;&#8203;elif&#8230;&#8203;else</code> chain.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">if not cond:  # A POP_JUMP_FORWARD_IF_TRUE
+              # is put here to jump to else
+              # if cond is truthy
+    print('case 1')
+else:
+    print('case 2')</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">while not cond:  # A POP_JUMP_FORWARD_IF_TRUE
+                 # is put here to skip
+                 # the loop if cond is
+                 # truthy
+    pass</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_pop_jump_backward_if_truetarget_delta"><a class="anchor" href="#_pop_jump_backward_if_truetarget_delta"></a>POP_JUMP_BACKWARD_IF_TRUE(target_delta)</h3>
+<div class="paragraph">
+<p>Python Versions: &gt;= 3.11</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... condition
+Stack After: ...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If <code>condition</code> is truthy, jump backward by <code>target_delta</code>, which represents a relative addresses (see <a href="#_instruction_addressing">Instruction Addressing</a> for details).
+Used to implement looping in a <code>while</code> loop.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">while cond:
+    pass
+    # A POP_JUMP_BACKWARD_IF_TRUE is put here
+    # with a test on cond</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_pop_jump_if_falsetarget"><a class="anchor" href="#_pop_jump_if_falsetarget"></a>POP_JUMP_IF_FALSE(target)</h3>
+<div class="paragraph">
+<p>Python Versions: &lt;= 3.10</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... condition
+Stack After: ...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If <code>condition</code> is falsely, jump to <code>target</code>, which represents an absolute addresses (see <a href="#_instruction_addressing">Instruction Addressing</a> for details).
+Used to implement going to the next block when there a positive condition in an <code>if&#8230;&#8203;elif&#8230;&#8203;else</code> chain.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">if cond:  # A POP_JUMP_IF_FALSE is
+          # put here to jump to else
+          # else if cond is falsely
+    print('case 1')
+else:
+    print('case 2')</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">while cond:  # A POP_JUMP_IF_FALSE
+             # is put here to skip
+             # the loop if cond is
+             # falsely
+    pass</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_pop_jump_forward_if_falsetarget_delta"><a class="anchor" href="#_pop_jump_forward_if_falsetarget_delta"></a>POP_JUMP_FORWARD_IF_FALSE(target_delta)</h3>
+<div class="paragraph">
+<p>Python Versions: &gt;= 3.11</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... condition
+Stack After: ...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If <code>condition</code> is falsely, jump forward by <code>target_delta</code>, which represents a relative addresses (see <a href="#_instruction_addressing">Instruction Addressing</a> for details).
+Used to implement going to the next block when there a positive condition in an <code>if&#8230;&#8203;elif&#8230;&#8203;else</code> chain.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">if cond:  # A POP_JUMP_IF_FALSE is
+          # put here to jump to else
+          # else if cond is falsely
+    print('case 1')
+else:
+    print('case 2')</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">while cond:  # A POP_JUMP_IF_FALSE
+             # is put here to skip
+             # the loop if cond is
+              # falsely
+    pass</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_pop_jump_backward_if_falsetarget_delta"><a class="anchor" href="#_pop_jump_backward_if_falsetarget_delta"></a>POP_JUMP_BACKWARD_IF_FALSE(target_delta)</h3>
+<div class="paragraph">
+<p>Python Versions: &gt;= 3.11</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... condition
+Stack After: ...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If <code>condition</code> is falsely, jump backward by <code>target_delta</code>, which represents a relative addresses (see <a href="#_instruction_addressing">Instruction Addressing</a> for details).
+Used to implement looping in a negated <code>while</code> loop.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">while not cond:
+    pass
+    # A POP_JUMP_BACKWARD_IF_FALSE is put here
+    # with a test on cond</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_pop_jump_forward_if_not_nonetarget_delta"><a class="anchor" href="#_pop_jump_forward_if_not_nonetarget_delta"></a>POP_JUMP_FORWARD_IF_NOT_NONE(target_delta)</h3>
+<div class="paragraph">
+<p>Python Versions: &gt;= 3.11</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... item
+Stack After: ...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If <code>item</code> is not None, jump forward by <code>target_delta</code>, which represents a relative addresses (see <a href="#_instruction_addressing">Instruction Addressing</a> for details).
+Used to implement going to the next block when there a <code>is None</code> condition in an <code>if&#8230;&#8203;elif&#8230;&#8203;else</code> chain.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">if item is None:  # POP_JUMP_FORWARD_IF_NOT_NONE
+                  # is put here to jump to else
+                  # if item is not None
+    print('case 1')
+else:
+    print('case 2')</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># POP_JUMP_FORWARD_IF_NOT_NONE
+# is put here to skip
+# the loop if cond is
+# truthy
+while item is None:
+
+    pass</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_pop_jump_backward_if_not_nonetarget_delta"><a class="anchor" href="#_pop_jump_backward_if_not_nonetarget_delta"></a>POP_JUMP_BACKWARD_IF_NOT_NONE(target_delta)</h3>
+<div class="paragraph">
+<p>Python Versions: &gt;= 3.11</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... item
+Stack After: ...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If <code>condition</code> is falsely, jump backward by <code>target_delta</code>, which represents a relative addresses (see <a href="#_instruction_addressing">Instruction Addressing</a> for details).
+Used to implement looping in a <code>while item is not None</code> loop.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">while item is not None:
+    pass
+    # A POP_JUMP_BACKWARD_IF_NOT_NONE
+    # is put here with a test on item</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_pop_jump_forward_if_nonetarget_delta"><a class="anchor" href="#_pop_jump_forward_if_nonetarget_delta"></a>POP_JUMP_FORWARD_IF_NONE(target_delta)</h3>
+<div class="paragraph">
+<p>Python Versions: &gt;= 3.11</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... item
+Stack After: ...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If <code>item</code> is None, jump forward by <code>target_delta</code>, which represents a relative addresses (see <a href="#_instruction_addressing">Instruction Addressing</a> for details).
+Used to implement going to the next block when there a <code>is not None</code> condition in an <code>if&#8230;&#8203;elif&#8230;&#8203;else</code> chain.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">if item is not None:  # POP_JUMP_FORWARD_IF_NONE
+                  # is put here to jump to else
+                  # if item is not None
+    print('case 1')
+else:
+    print('case 2')</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># POP_JUMP_FORWARD_IF_NONE
+# is put here to skip
+# the loop if cond is
+# truthy
+while item is not None:
+
+    pass</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_pop_jump_backward_if_nonetarget_delta"><a class="anchor" href="#_pop_jump_backward_if_nonetarget_delta"></a>POP_JUMP_BACKWARD_IF_NONE(target_delta)</h3>
+<div class="paragraph">
+<p>Python Versions: &gt;= 3.11</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... item
+Stack After: ...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If <code>condition</code> is falsely, jump backward by <code>target_delta</code>, which represents a relative addresses (see <a href="#_instruction_addressing">Instruction Addressing</a> for details).
+Used to implement looping in a <code>while item is None</code> loop.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">while item is None:
+    pass
+    # A POP_JUMP_BACKWARD_IF_NONE
+    # is put here with a test on item</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_jump_if_not_exc_matchtarget"><a class="anchor" href="#_jump_if_not_exc_matchtarget"></a>JUMP_IF_NOT_EXC_MATCH(target)</h3>
+<div class="paragraph">
+<p>Python Versions: &gt;= 3.9, &lt;= 3.10</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... exception_type, test_type
+Stack After: ...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If <code>exception_type</code> is not a subclass of <code>test_type</code>, jump to <code>target</code>, which represents an absolute address (see <a href="#_instruction_addressing">Instruction Addressing</a> for details).
+Used to determine which except block to enter.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">try:
+    pass
+except ValueError as e:
+    # JUMP_IF_NOT_EXC_MATCH is used here
+    # with type(e), ValueError on the stack
+    pass</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_jump_if_true_or_poptarget"><a class="anchor" href="#_jump_if_true_or_poptarget"></a>JUMP_IF_TRUE_OR_POP(target)</h3>
+<div class="paragraph">
+<p>Python Versions: ALL</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior:            ... item
+Stack After if truthy:  ... item
+Stack After if falsely: ...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If <code>item</code> is truthy, jump to <code>target</code> and keep <code>item</code> on the stack.
+Otherwise, pop <code>item</code> from the stack.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+In Python 3.10 and below, <code>target</code> is an absolute address. In Python 3.11 and above, <code>target</code> is a relative address (see <a href="#_instruction_addressing">Instruction Addressing</a> for details).
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Used to implement <code>or</code>.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># if a is truthy, b is not evaluated at all
+# since JUMP_IF_TRUE_OR_POP jumps past it
+# as such, after this statement,
+# the stack is either:
+# a, if a is truthy
+# b, if a is falsely
+a or b</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_jump_if_false_or_poptarget"><a class="anchor" href="#_jump_if_false_or_poptarget"></a>JUMP_IF_FALSE_OR_POP(target)</h3>
+<div class="paragraph">
+<p>Python Versions: ALL</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior:            ... item
+Stack After if truthy:  ... item
+Stack After if falsely: ...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If <code>item</code> is falsely, jump to <code>target</code> and keep <code>item</code> on the stack.
+Otherwise, pop <code>item</code> from the stack.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+In Python 3.10 and below, <code>target</code> is an absolute address. In Python 3.11 and above, <code>target</code> is a relative address (see <a href="#_instruction_addressing">Instruction Addressing</a> for details).
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Used to implement <code>and</code>.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># if a is falsely, b is not evaluated at all
+# since JUMP_IF_FALSE_OR_POP jumps past it
+# as such, after this statement,
+# the stack is either:
+# a, if a is falsely
+# b, if a is truthy
+a and b</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_jump_absolutetarget"><a class="anchor" href="#_jump_absolutetarget"></a>JUMP_ABSOLUTE(target)</h3>
+<div class="paragraph">
+<p>Python Versions: ALL</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ...
+Stack After: ...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Jump to <code>target</code>, which represents an absolute address (see <a href="#_instruction_addressing">Instruction Addressing</a> for details).
+Used to implement looping in <code>for</code> and <code>while</code> loops.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">for item in iterable:
+    pass
+    # a JUMP_ABSOLUTE to FOR_ITER is placed here</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">while True:
+    pass
+    # a JUMP_ABSOLUTE to place here</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_for_itertarget_delta"><a class="anchor" href="#_for_itertarget_delta"></a>FOR_ITER(target_delta)</h3>
+<div class="paragraph">
+<p>Python Versions: ALL</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior:                  ... iterator
+Stack After if not exhausted: ... iterator item
+Stack After if exhausted:     ...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If the iterator at the top of the stack is exhausted, jump forward by <code>target_delta</code>, which represents a relative addresses (see <a href="#_instruction_addressing">Instruction Addressing</a> for details) and pop iterator off the stack.
+Otherwise, keep iterator on the stack, and push its next item (obtained by calling <code>iterator.__next__()</code>) to the top of the stack.</p>
+</div>
+<div class="paragraph">
+<p>In Python code, it looks like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">while True:
+    try:
+        item = next(iterator)
+    except StopIteration:
+        break
+    # ... The for block</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Used to implement <code>for</code> loops.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">for item in iterable:
+    pass</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_load_globalnamei"><a class="anchor" href="#_load_globalnamei"></a>LOAD_GLOBAL(namei)</h3>
+<div class="paragraph">
+<p>Python Versions: ALL</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ...
+Stack After (1): ... global
+Stack After (2): ... NULL, global</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Prior 3.11:</p>
+</div>
+<div class="paragraph">
+<p>Push the global variable with the name <code>co_names[namei]</code> to the top of the stack.</p>
+</div>
+<div class="paragraph">
+<p>After 3.11:</p>
+</div>
+<div class="paragraph">
+<p>Push the global variable with the name <code>co_names[namei &gt;&gt; 1]</code> to the top of the stack. If <code>namei &amp; 1</code> is set, push <code>NULL</code> before the global variable.</p>
+</div>
+<div class="paragraph">
+<p>Used to read global variables.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">global variable
+# NULL will not be pushed here after 3.11
+variable</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">global function
+# NULL will be pushed here after 3.11
+function(1,2,3)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_setup_finallytarget_delta"><a class="anchor" href="#_setup_finallytarget_delta"></a>SETUP_FINALLY(target_delta)</h3>
+<div class="paragraph">
+<p>Python Versions: &lt;= 3.10</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior:        ...
+Stack After:        ...
+Stack On Exception: ... instruction, stack_size, label, traceback, exception, exception_type</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Creates a try block whose handler is at the given <code>target_delta</code> relative address (see <a href="#_instruction_addressing">Instruction Addressing</a> for details).
+The try block starts at this instruction, and ends at the start of its handler.
+When an exception occurs, the stack prior to the <code>SETUP_FINALLY</code> is restored, and the following is pushed to the stack:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The instruction index that created the block (i.e. this <code>SETUP_FINALLY</code> address)</p>
+</li>
+<li>
+<p>The stack depth at the time the block was created</p>
+</li>
+<li>
+<p>The exception handler start address</p>
+</li>
+<li>
+<p>The traceback for the exception</p>
+</li>
+<li>
+<p>The exception itself</p>
+</li>
+<li>
+<p>The type of the exception</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Used to implement try blocks.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">try:
+    # A SETUP_FINALLY is emitted here, which
+    # points to the except block
+    pass
+except:
+    pass</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_load_fastvar_num"><a class="anchor" href="#_load_fastvar_num"></a>LOAD_FAST(var_num)</h3>
+<div class="paragraph">
+<p>Python Versions: ALL</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ...
+Stack After: ... local</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Push the local variable with the name <code>co_varnames[var_num]</code> to the top of the stack.
+Used to read local variables.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">variable</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_store_fastvar_num"><a class="anchor" href="#_store_fastvar_num"></a>STORE_FAST(var_num)</h3>
+<div class="paragraph">
+<p>Python Versions: ALL</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... value
+Stack After: ...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Pops off the top item on the stack and sets the local variable with the name <code>co_varnames[var_num]</code> to it.
+Used to set local variables.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">variable = value</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_delete_fastvar_num"><a class="anchor" href="#_delete_fastvar_num"></a>DELETE_FAST(var_num)</h3>
+<div class="paragraph">
+<p>Python Versions: ALL</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ...
+Stack After: ...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Deletes the local variable with the name <code>co_varnames[var_num]</code>.
+Used to implement <code>del variable</code>.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">del variable</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_make_celli"><a class="anchor" href="#_make_celli"></a>MAKE_CELL(i)</h3>
+<div class="paragraph">
+<p>Python Versions: &gt;= 3.11</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ...
+Stack After: ...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Creates a new cell in slot <code>i</code>. If that slot is not empty then that value is stored into the new cell.
+Used to initialize cell variables.
+This is a NOP for JPyInterpreter, which initializes cell variables at function definition.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">def outer_function():
+    # MAKE_CELL will be emitted here for a,
+    # since it is used in inner_function
+    a = 10
+    def inner_function():
+        nonlocal a
+        print(a)</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">def outer_function(a):
+    # MAKE_CELL will be emitted here for a,
+    # since it is used in inner_function
+    def inner_function():
+        nonlocal a
+        print(a)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_copy_free_varsn"><a class="anchor" href="#_copy_free_varsn"></a>COPY_FREE_VARS(n)</h3>
+<div class="paragraph">
+<p>Python Versions: &gt;= 3.11</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ...
+Stack After: ...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Copies the <code>n</code> free variables from the closure into the frame.
+Removes the need for special code on the caller’s side when calling closures.
+This is a NOP for JPyInterpreter, which initializes free variables at function definition.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">def outer_function():
+    a = 10
+    def inner_function():
+        # COPY_FREE_VARS(1) is emitted here
+        nonlocal a
+        print(a)</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">def outer_function(a):
+    def inner_function():
+        # COPY_FREE_VARS(1) is emitted here
+        nonlocal a
+        print(a)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_load_closurei"><a class="anchor" href="#_load_closurei"></a>LOAD_CLOSURE(i)</h3>
+<div class="paragraph">
+<p>Python Versions: ALL</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ...
+Stack After: ... cell</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Loads the cell (not its value) in slot <code>i</code> as described by <a href="#_cell_variable_index">Cell Variable Index</a>.
+A cell corresponds to either a shared or free variable.
+Used to pass shared variables from an outer function to an inner function (where they be free variables).</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">def outer():
+    x = 10
+    # LOAD_CLOSURE(x) is generated here
+    # so x's cell can be put into a tuple
+    # that is passed to inner's MAKE_FUNCTION
+    # (allowing inner to access it).
+    def inner():
+        nonlocal x
+        return x</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_load_derefi"><a class="anchor" href="#_load_derefi"></a>LOAD_DEREF(i)</h3>
+<div class="paragraph">
+<p>Python Versions: ALL</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ...
+Stack After: ... cell_value</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Loads the value contained in the cell at slot <code>i</code> as described by <a href="#_cell_variable_index">Cell Variable Index</a>.
+A cell corresponds to either a shared or free variable.
+Used to read shared and free variables.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">def outer():
+    x = 10
+    print(x)  # LOAD_DEREF(x) is used here
+              # since x is used in inner
+    def inner():
+        nonlocal x
+        # ...</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">def outer():
+    x = 10
+    def inner():
+        nonlocal x
+        print(x) # LOAD_DEREF(x) is used here
+                 # since x is a free variable</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_load_classderefi"><a class="anchor" href="#_load_classderefi"></a>LOAD_CLASSDEREF(i)</h3>
+<div class="paragraph">
+<p>Python Versions: ALL</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ...
+Stack After: ... cell_value</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If locals has a variable corresponding to the name of slot <code>i</code>, push its value.
+Otherwise, push the value contained in the cell at slot <code>i</code> as described by <a href="#_cell_variable_index">Cell Variable Index</a>.
+A cell corresponds to either a shared or free variable.
+Used to read shared and free variables in class bodies.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">def outer():
+    x = 10
+    class InnerClass:
+        my_value = x # LOAD_CLASSDEREF(x) is
+                     # used here since x is a
+                     # free variable in a class
+                     # body.</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_store_derefi"><a class="anchor" href="#_store_derefi"></a>STORE_DEREF(i)</h3>
+<div class="paragraph">
+<p>Python Versions: ALL</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... cell_value
+Stack After: ...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Pop off the top of the stack and sets the value contained in the cell at slot <code>i</code> as described by <a href="#_cell_variable_index">Cell Variable Index</a> to the popped value.
+A cell corresponds to either a shared or free variable.
+Used to set shared and free variables.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">def outer():
+    x = 10  # STORE_DEREF(x) is used here
+            # since x is used in inner
+    print(x)
+    def inner():
+        nonlocal x
+        # ...</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">def outer():
+    x = 10
+    def inner():
+        nonlocal x
+        x = 20   # STORE_DEREF(x) is used here
+                 # since x is a free variable
+    inner()
+    print(x) # 20</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_delete_derefi"><a class="anchor" href="#_delete_derefi"></a>DELETE_DEREF(i)</h3>
+<div class="paragraph">
+<p>Python Versions: ALL</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ...
+Stack After: ...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Deletes the value contained in the cell at slot <code>i</code> as described by <a href="#_cell_variable_index">Cell Variable Index</a>.
+The actual cell is NOT deleted, but has no associated
+value.
+A cell corresponds to either a shared or free variable.
+Used to delete shared and free variables.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">def outer():
+    x = 10
+    del x  # DELETE_DEREF(x) is used here
+           # since x is used in inner
+    def inner():
+        nonlocal x
+        # ...</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">def outer():
+    x = 10
+    def inner():
+        nonlocal x
+        del x    # DELETE_DEREF(x) is used here
+                 # since x is a free variable</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_raise_varargsargc"><a class="anchor" href="#_raise_varargsargc"></a>RAISE_VARARGS(argc)</h3>
+<div class="paragraph">
+<p>Python Versions: ALL</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior (argc = 0): ...
+Stack Prior (argc = 1): ... exception
+Stack Prior (argc = 2): ... exception cause
+Stack After: N/A</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Does one of three things depends on <code>argc</code>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>If <code>argc = 0</code>, reraise the last raised exception. Used to implement a bare <code>raise</code> in an except block.</p>
+</li>
+<li>
+<p>If <code>argc = 1</code>, the top of stack is either an exception or an exception type.
+If it is an exception instance, raise it; otherwise, create a new instance of the exception type.
+Used to implement <code>raise Exception</code> and <code>raise Exception()</code></p>
+</li>
+<li>
+<p>If <code>argc = 2</code>, the top of stack is an exception and the item immediately below it is an exception or an exception type.
+If <code>exception</code> is an exception instance, set its <code>__cause__</code> to <code>cause</code> and raise it. Otherwise, construct a new instance of <code>exception</code>, set its <code>__cause__</code> to <code>cause</code> and raise it.
+Used to implement <code>raise Exception from cause</code> and <code>raise Exception() from cause</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">try:
+    # ...
+except:
+    raise  # argc = 0</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">raise Exception  # argc = 1</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">raise Exception()  # argc = 1</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">raise Exception from cause  # argc = 2</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">raise Exception() from cause  # argc = 2</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_kw_namesconsti"><a class="anchor" href="#_kw_namesconsti"></a>KW_NAMES(consti)</h3>
+<div class="paragraph">
+<p>Python Versions: &gt;= 3.11</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ...
+Stack After: ...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Sets the keyword names for the next <a href="#_callargc">CALL(argc)</a> opcode to the tuple of strings stored in <code>co_consts[consti]</code>.
+Used to implement calling a function with keyword arguments</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># Assume co_const[3] = ('a', 'b'),
+# then KW_NAMES(3) would be emitted here
+my_function(a=1, b=2)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_precallargc"><a class="anchor" href="#_precallargc"></a>PRECALL(argc)</h3>
+<div class="paragraph">
+<p>Python Versions: &gt;= 3.11</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ...
+Stack After: ...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A NOP.
+CPython uses it to allow the specialization of function calls. <code>argc</code> is the number of arguments as described in <a href="#_callargc">CALL(argc)</a>.
+Used when calling a function.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># A PRECALL(3) is put here
+my_function(1, 2, a=3)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_push_null"><a class="anchor" href="#_push_null"></a>PUSH_NULL</h3>
+<div class="paragraph">
+<p>Python Versions: &gt;= 3.11</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ...
+Stack After: ... NULL</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Pushes <code>NULL</code> to the top of the stack.
+Used in the call sequence to match the NULL pushed by <a href="#_load_methodnamei">LOAD_METHOD(namei)</a> for non-method calls.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># 3
+# A PUSH_NULL is used here
+my_function(1, 2, a=3)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_callargc"><a class="anchor" href="#_callargc"></a>CALL(argc)</h3>
+<div class="paragraph">
+<p>Python Versions: &gt;= 3.11</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior (1): ... NULL, callable, arg_1, arg_2, ..., arg_{argc}
+Stack Prior (2): ... method, object, arg_1, arg_2, ..., arg_{argc}
+Stack After:     ... return_value</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Calls a function from the top <code>argc + 2</code> items on the stack.
+The first <code>argc</code> items on the stack are the arguments to the function.
+For the arguments, the keyword names internal variable length is checked, and the top <code>len(keyword names)</code> items are keyword arguments, and the bottom <code>argc - len(keyword names)</code> items are positional arguments.
+The two items below the arguments are either:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>An unbound method object and an object</p>
+</li>
+<li>
+<p>NULL and an arbitrary callable</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If it is NULL and an arbitrary callable, the given positional and keyword arguments are used.
+If it is an unbound method object and an object, object is inserted as the first item in the positional argument list.
+All the arguments and the two items below the arguments are popped, and the result of the function call is pushed to the top of the stack.
+The keyword names are reset to an empty list after this call.
+Used to implement function calls that do not unpack an iterable or mapping.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># This is a CALL in NULL, CALLABLE form
+my_function(1, 2, a=3)</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># This is a CALL in METHOD, OBJECT form
+my_object.my_function(1, 2, a=3)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_call_functionargc"><a class="anchor" href="#_call_functionargc"></a>CALL_FUNCTION(argc)</h3>
+<div class="paragraph">
+<p>Python Versions: &lt;= 3.10</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... callable, arg_1, arg_2, ..., arg_{argc}
+Stack After: ... return_value</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Calls a function from the top <code>argc + 1</code> items on the stack.
+The first <code>argc</code> items on the stack are the positional arguments to the function (there are no keyword arguments).
+The item below the arguments is the callable to call.
+All the arguments and the item below them are popped, and the result of the function call is pushed to the top of the stack.
+Used to implement function calls without keyword arguments.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># This is CALL_FUNCTION(3)
+function(1, 2, 3)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_call_function_kwargc"><a class="anchor" href="#_call_function_kwargc"></a>CALL_FUNCTION_KW(argc)</h3>
+<div class="paragraph">
+<p>Python Versions: &lt;= 3.10</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... callable, arg_1, arg_2, ..., arg_{argc}, kw_names
+Stack After: ... return_value</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Calls a function from the top <code>argc + 2</code> items on the stack.
+The item on the top of the stack is a tuple containing the names of keyword arguments.
+The <code>argc</code> items below that are the arguments to the function.
+For the arguments, the tuple at the top of the stack length is checked, and the top <code>len(keyword names)</code> items are keyword arguments, and the bottom <code>argc - len(keyword names)</code> items are positional arguments.
+The item below the arguments is the callable to call.
+The keyword argument name tuple, arguments and the callable are popped and the result of the function call is pushed to the top of the stack.
+Used to implement function calls with keyword arguments.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># This is CALL_FUNCTION_KW(3) with
+# the tuple ('arg_1',) at the top of the stack
+function(1, 2, arg_1=3)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_call_function_exflags"><a class="anchor" href="#_call_function_exflags"></a>CALL_FUNCTION_EX(flags)</h3>
+<div class="paragraph">
+<p>Python Versions: ALL</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior (1): ... function, iterable
+Stack Prior (2): ... function, iterable, mapping
+Stack Prior (3): ... NULL, function, iterable
+Stack Prior (4): ... NULL, function, iterable, mapping
+Stack After: ... return_value</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>There are two modes for this function, controlled by its flags:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>If <code>flags &amp; 1</code> is set, this is a function call with both positional and keyword arguments, and the stack contains <code>callable</code>, <code>iterable</code>, <code>mapping</code>.
+The items in the iterable and mapping are unpacked, and are used to make the function call.
+Used to implement <code>function(*iterable, **mapping)</code></p>
+</li>
+<li>
+<p>If <code>flags &amp; 1</code> is unset, this is a function call with only positional arguments, and the stack contains <code>callable</code>, <code>iterable</code>.
+The items in the iterable are unpacked and are used to make the function call.
+Used to implement <code>function(*iterable)</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If the Python version is at least 3.11, a <code>NULL</code> is put beneath callable.
+In all cases, the argument containers, callable (and possibly <code>NULL</code>) are popped and the returned value is pushed to the top of the stack.</p>
+</div>
+<div class="paragraph">
+<p>Used to implement function calls that unpack arguments.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># CALL_FUNCTION_EX(0)
+function(*iterable)</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># CALL_FUNCTION_EX(0)
+function(1, 2, 3, *iterable)</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># CALL_FUNCTION_EX(1)
+function(*iterable, **mapping)</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># CALL_FUNCTION_EX(1)
+function(**mapping)</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># CALL_FUNCTION_EX(1)
+function(1, arg=1, *iterable)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_load_methodnamei"><a class="anchor" href="#_load_methodnamei"></a>LOAD_METHOD(namei)</h3>
+<div class="paragraph">
+<p>Python Versions: ALL</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior:     ... object
+Stack After (1): ... unbound_method, object
+Stack After (2): ... function, NULL
+Stack After (3): ... NULL, function</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Load the method with the name <code>co_names[namei]</code> from the object at the top of the stack.
+If the method exists (and is an instance method, not a class method, static method or a callable), the unbounded method is put beneath the object at the top of the stack.
+Otherwise, the object at the top of the stack is popped, attribute lookup is performed, and the result of the lookup is pushed to the stack (with a NULL either before or after the lookup result depending on the Python version).
+Used to implement attribute lookups for function calls.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># This emits LOAD_METHOD
+my_object.function()
+
+# This DOES NOT emit LOAD_METHOD
+my_onject.function</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_call_methodargc"><a class="anchor" href="#_call_methodargc"></a>CALL_METHOD(argc)</h3>
+<div class="paragraph">
+<p>Python Versions: &lt;= 3.10</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior (1): ... method, object, arg_1, ..., arg_{argc}
+Stack Prior (2): ... callable, NULL, arg_1, ..., arg_{argc}
+Stack After:     ... return_value</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Calls a method with <code>argc</code> positional arguments (and no keyword arguments).
+The top <code>argc</code> items on the stack are the positional arguments.
+The item immediately below the argument is either an object (which will be used as the self parameter) or NULL.
+The item below that is either an unbound method or a callable to call.
+All the arguments, the object/NULL, and the method/callable are all popped, and the return value is pushed to the top of the stack.
+Used to implement method calls.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># This emits CALL_METHOD
+my_object.function()</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_make_functionflags"><a class="anchor" href="#_make_functionflags"></a>MAKE_FUNCTION(flags)</h3>
+<div class="paragraph">
+<p>Python Versions: ALL</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... [default_positional_args], [default_keyword_args], [annotation_directory_or_tuple], [cell_tuple], function_code, [function_name]
+Stack After: ... function</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Creates a function from the code object.
+Expected stack varies depending on <code>flags</code> and Python version.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>If the Python version is prior to 3.11, at the top of the stack is the qualified name of the function, with the code object for the function below it.
+Otherwise, at the top of the stack is the code object (and the qualified name of the function is received via the code object).</p>
+</li>
+<li>
+<p>If <code>flags &amp; 8</code> is set, the next item below is a tuple containing the closure for the created function.
+The closure is a tuple that consists of the cells the inner function shares with the outer function.</p>
+</li>
+<li>
+<p>If <code>flags &amp; 4</code> is set, the next item below are the annotations for the created function.
+Prior to 3.10, this is a <code>tuple</code> containing <code>(key, value)</code> pairs.
+After 3.10, this is a <code>dict</code>.</p>
+</li>
+<li>
+<p>If <code>flags &amp; 2</code> is set, the next item below are the default values for keyword-only arguments (as a <code>dict</code>).</p>
+</li>
+<li>
+<p>Finally, if <code>flags &amp; 1</code> is set, the next item below are the default values for allow-positional arguments (as a <code>tuple</code>).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>All these items are popped off the stack and are used to create a new function object, which is pushed to the top of the stack.
+Used to create inner functions.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">def outer():
+    fun_list = []
+    for i in range(10):
+        # MAKE_FUNCTION(1)
+        def inner(value=i):
+            return value
+        fun_list.append(inner)
+    fun_list[0]() # 0 because it
+                  # the default parameter
+                  # for fun_list[0]</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">def outer():
+    for i in range(10):
+        # MAKE_FUNCTION(8)
+        def inner():
+            return i
+        fun_list.append(inner)
+    fun_list[0]() # 9 because
+                  # it the current value of i</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">def outer():
+    # MAKE_FUNCTION(4)
+    # on the stack is either
+    # (('a', str),) or {'a': str}
+    # depending on Python version
+    def inner(a: str):
+        return a</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">def outer():
+    # MAKE_FUNCTION(2)
+    def inner(*, keyword_arg=1):
+        return keyword_arg</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_build_sliceargc"><a class="anchor" href="#_build_sliceargc"></a>BUILD_SLICE(argc)</h3>
+<div class="paragraph">
+<p>Python Versions: ALL</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior (argc=2): ... start, end
+Stack Prior (argc=3): ... start, end, step
+Stack After:          ... function</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>At the top of the stack is either two or three items depending on <code>argc</code>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>If <code>argc = 2</code>, at the top of the stack are two objects to use as the start and end index of a slice.</p>
+</li>
+<li>
+<p>If <code>argc = 3</code>, at the top of the stack are three objects to use as the start, end and step of a slice.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Any items on the stack that are not <code>int</code> or <code>None</code> are converted to <code>int</code> by calling their <code>__index__()</code> method.
+The arguments are popped, and the created slice is pushed to the top of the stack.
+Used to implement <a href="https://docs.python.org/3/library/functions.html#slice">slice indexing</a>.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># BUILD_SLICE(2)
+my_list[:]
+my_list[1:]
+my_list[:2]
+my_list[1:-1]
+
+# BUILD_SLICE(3)
+my_list[::]
+my_list[1::]
+my_list[:2:]
+my_list[::3]
+my_list[1:2:]
+my_list[:2:3]
+my_list[1:2:3]</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_extended_argext"><a class="anchor" href="#_extended_argext"></a>EXTENDED_ARG(ext)</h3>
+<div class="paragraph">
+<p>Python Versions: ALL</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ...
+Stack After: ...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A NOP.
+Used to extend an opcode argument range beyond one byte by prefixing up to three EXTENDED_ARG opcodes before it.</p>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># Dynamic list of length 260,
+# which is too large to fit into a byte (256)
+# So EXTENDED_ARG is used to extend
+# BUILD_LIST argument like so:
+# EXTENDED_ARG(0x01) BUILD_LIST(0x04)
+# = BUILD_LIST(0x0104 = 260)
+[
+ a[0x00], a[0x01], a[0x02], a[0x03],
+ a[0x04], a[0x05], a[0x06], a[0x07],
+ # ...
+ a[0xFC], a[0xFD], a[0xFE], a[0xFF],
+ a[0x100], a[0x101], a[0x102], a[0x103]
+]</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_format_valueflags"><a class="anchor" href="#_format_valueflags"></a>FORMAT_VALUE(flags)</h3>
+<div class="paragraph">
+<p>Python Versions: ALL</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Stack Prior: ... object, [format_spec]
+Stack After: ... formatted_string</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Formats an object with an optional format specifier string.
+Acts different depending on <code>flags</code>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>If <code>flags &amp; 4</code> is set, there is a format specifier on the top of the stack, with the object to format below it.
+Otherwise, the object to format is at the top of the stack (and <code>None</code> will be used as the format specifier).</p>
+</li>
+<li>
+<p>If <code>(flags &amp; 3) == 0</code>, the object is formatted as is.</p>
+</li>
+<li>
+<p>If <code>(flags &amp; 3) == 1</code>, the object is converted via <code>str()</code> before formatting.</p>
+</li>
+<li>
+<p>If <code>(flags &amp; 3) == 2</code>, the object is converted via <code>repr()</code> before formatting.</p>
+</li>
+<li>
+<p>If <code>(flags &amp; 3) == 3</code>, the object is converted via <code>ascii()</code> before formatting.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Example Sources:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">f'{my_object}'    # FORMAT_VALUE(0)
+f'{my_object!s}'  # FORMAT_VALUE(1)
+f'{my_object!r}'  # FORMAT_VALUE(2)
+f'{my_object!a}'  # FORMAT_VALUE(3)
+f'{my_object:my_spec}'  # FORMAT_VALUE(4)
+f'{my_object!s:my_spec}'  # FORMAT_VALUE(5)</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script src="../../../_/js/site.js"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script src="../../../_/js/vendor/lunr.js"></script>
+<script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
+<script async src="../../../search-index.js"></script>
+
+<!-- Adobe Analytics for Red Hat - DPAL (DTM Property Auto-Loader) - part 2/2 -->
+<script type="text/javascript">
+    if (("undefined" !== typeof _satellite) && ("function" === typeof _satellite.pageBottom)) {
+        _satellite.pageBottom();
+    }
+</script>  </body>
+</html>
